@@ -1,0 +1,29 @@
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.hidden-pc {
+  @include respond-to-pc() {
+    display: none;
+  }
+}
+
+.hidden-not-pc {
+  @include respond-to-not-pc() {
+    display: none;
+  }
+}
+
+.hidden-sp {
+  @include respond-to-sp() {
+    display: none;
+  }
+}

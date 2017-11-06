@@ -1,0 +1,98 @@
+.hardware-item {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid $color-lighter-gray;
+
+  @include respond-to-tablet() {
+    padding: 15px;
+  }
+
+  &:hover {
+    background-color: $color-almost-white;
+    cursor: pointer;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .hardware-img {
+    display: block;
+    width: 70px;
+    height: 60px;
+
+    @include respond-to-tablet() {
+      width: 130px;
+      height: 100px;
+    }
+  }
+  .hardware-body {
+    margin-left: 15px;
+    flex-grow: 1;
+  }
+  .hardware-name {
+    color: $color-gray;
+    font-weight: 500;
+    margin-bottom: 5px;
+    @include respond-to-sp() {
+      line-height: 1.1;
+    }
+
+    a {
+      color: inherit;
+      font-size: $font-size-xs;
+      @include respond-to-tablet() {
+        font-size: $font-size-base;
+      }
+      &:hover {
+        cursor: pointer;
+        text-decoration: none;
+      }
+    }
+  }
+  .hardware-provider {
+    color: $color-black;
+    &:before {
+      content: '[';
+    }
+    &:after {
+      content: '] ';
+    }
+  }
+  .hardware-price {
+    color: $color-red;
+    font-size: $font-size-xs;
+
+    @include respond-to-tablet() {
+      font-size: $font-size-sm;
+    }
+  }
+  .btn {
+    font-size: $font-size-sm;
+    @include respond-to-sp() {
+      font-size: $font-size-xs;
+      min-width: 40px;
+      padding: 6px 8px;
+    }
+  }
+}
+
+.search-hardwares {
+  margin-bottom: 40px;
+  display: flex;
+  height: 40px;
+  .input {
+    flex-grow: 1;
+    border-right: 0;
+    border-radius: 4px 0 0 4px;
+  }
+  .btn {
+    width: 80px;
+    border-left: 0;
+    border-radius: 0 4px 4px 0;
+    @include respond-to-sp() {
+      width: 60px;
+      font-size: $font-size-sm;
+    }
+  }
+}

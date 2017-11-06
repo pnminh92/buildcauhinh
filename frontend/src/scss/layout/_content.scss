@@ -1,0 +1,50 @@
+.container {
+  @include clearfix();
+  position: relative;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  @include respond-to-pc() {
+    width: 990px;
+  }
+}
+
+.contents {
+  margin-top: 40px;
+  @include respond-to-sp() {
+    margin-top: 20px;
+  }
+}
+
+.main-content {
+  flex-grow: 4;
+  flex-shrink: 1;
+  margin-right: 30px;
+  @include respond-to-sp() {
+    margin-right: 0;
+    order: 2;
+  }
+}
+
+.sidebar {
+  flex-grow: 1;
+  flex-shrink: 1;
+  @include respond-to-sp() {
+    margin-bottom: 20px;
+    order: 1;
+  }
+}
+
+.flexbox {
+  display: flex;
+  &.flexbox-sidebar {
+    @include respond-to-tablet() {
+      flex-direction: column;
+    }
+  }
+  &.flexbox-main {
+    @include respond-to-sp() {
+      flex-direction: column;
+    }
+  }
+}

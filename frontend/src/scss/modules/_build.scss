@@ -1,0 +1,137 @@
+.build-list {
+  li {
+    padding: 10px 0;
+    border-bottom: 1px solid $color-lighter-gray;
+    &:before {
+      content: '> ';
+      color: $color-blue;
+    }
+    &:first-child {
+      padding-top: 0;
+    }
+    &:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    a {
+      font-size: 14px;
+    }
+  }
+}
+
+.build-item {
+  padding: 15px 0;
+  border-bottom: 1px solid $color-lighter-gray;
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .build-title {
+    font-weight: 600;
+  }
+
+}
+
+.build-status {
+  margin-top: 10px;
+}
+
+.build-label {
+  display: inline-block;
+  padding: 5px;
+  background-color: $color-lighter-gray;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1;
+  margin-right: 5px;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.build-options {
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  @include respond-to-tablet() {
+    margin-bottom: 20px;
+    flex-basis: 100%;
+  }
+
+  li {
+    label {
+      margin-left: 8px;
+      @include respond-to-sp() {
+        font-size: $font-size-sm;
+      }
+    }
+    + li {
+      margin-top: 10px;
+    }
+  }
+}
+
+.build-detail {
+  .title {
+    margin-bottom: 0;
+  }
+  .media {
+    margin-bottom: 10px;
+  }
+  .build-spec {
+    margin-bottom: 20px;
+  }
+}
+
+.view-more {
+  margin-top: 10px;
+  text-align: right;
+  a {
+    font-size: $font-size-xs;
+    width: auto;
+    padding: 5px 10px;
+    &:after {
+      content: '...';
+    }
+  }
+}
+
+.builder {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  cursor: pointer;
+  line-height: 1;
+  svg {
+    color: $color-white;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    background-color: $color-green;
+    border-radius: 6px;
+    transition: background-color .2s ease-in-out;
+    &:hover {
+      background-color: lighten($color-green, 5%);
+    }
+  }
+  .builder-num {
+    top: -10px;
+    left: -10px;
+    position: absolute;
+    text-align: center;
+    display: inline-block;
+    background-color: $color-red;
+    font-size: $font-size-sm;
+    line-height: 20px;
+    color: $color-white;
+    width: 20px;
+    height: 21px;
+    border-radius: 50%;
+  }
+}

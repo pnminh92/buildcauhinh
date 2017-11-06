@@ -1,0 +1,153 @@
+{% extends 'layout/_main.html' %}
+
+{% block content %}
+<main class="contents">
+  <div class="container">
+    <div class="flexbox flexbox-main">
+      <section class="main-content">
+        <div class="build-detail">
+          <h1 class="title">Case 20tr intel mới ráp chiến game</h1>
+          <div class="media media-center">
+            <div class="media-left">
+              <img src="/img/avatar.png" class="build-user-avatar">
+            </div>
+            <div class="media-body">
+              <a class="media-username" href="#">wofiminh</a><time class="media-date"> viết ngày 02/11/2017</time>
+            </div>
+          </div>
+          <div class="build-spec table-responsive">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <th>Bộ phận</th>
+                  <th>Tên</th>
+                </tr>
+                <tr>
+                  <td>CPU</td>
+                  <td>Intel G4600</td>
+                </tr>
+                <tr>
+                  <td>Mainboard</td>
+                  <td>MSI H110</td>
+                </tr>
+                <tr>
+                  <td>RAM</td>
+                  <td>Gskill DDR4 8GB 2400mhz</td>
+                </tr>
+                <tr>
+                  <td>VGA</td>
+                  <td>MSI Nvidia GTX1060 Ti</td>
+                </tr>
+                <tr>
+                  <td>PSU</td>
+                  <td>Seasonic 620W</td>
+                </tr>
+                <tr>
+                  <td>HDD</td>
+                  <td>Western Digital Blue 1TB</td>
+                </tr>
+                <tr>
+                  <td>SSD</td>
+                  <td>Samsung 850 120GB</td>
+                </tr>
+                <tr>
+                  <td>Case</td>
+                  <td>SAMA Esport</td>
+                </tr>
+                <tr>
+                  <td>Monitor</td>
+                  <td>Dell Ultrasharp U2417H</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="build-status">
+            <span class="build-label">Dưới 7tr</span>
+            <span class="build-label">Intel</span>
+          </div>
+        </div>
+
+        <div class="comment">
+          <h2 class="title">Bình luận</h2>
+
+          <div class="comment-form media">
+            <div class="media-left">
+              <img src="/img/avatar.png" alt="Ảnh đại diện của wofiminh">
+            </div>
+            <div class="media-body">
+              <form class="form" method="POST" action="/builds/:id/comments">
+                <div class="form-group">
+                  <textarea class="textarea" placeholder="Ý kiến của bạn..."></textarea>
+                </div>
+                <div class="comment-submit">
+                  <input type="submit" class="btn" value="Gửi">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="comment-list">
+            <div class="media">
+              <div class="media-left">
+                <img src="/img/avatar.png" alt="Ảnh đại diện của wofiminh">
+              </div>
+              <div class="media-body">
+                <a href="#" class="media-username">wofiminh</a><time class="media-date"> 1 tháng trước</time>
+                <p class="comment-content">Cấu hình build fail vl, kiểu này nghẻn cổ chai chết mẹ Cấu hình build fail vl,
+                  kiểu này nghẻn cổ chai chết mẹ Cấu hình build fail vl, kiểu này nghẻn cổ chai chết mẹ</p>
+              </div>
+            </div>
+            <div class="media">
+              <div class="media-left">
+                <img src="/img/avatar.png" alt="Ảnh đại diện của wofiminh">
+              </div>
+              <div class="media-body">
+                <a href="#" class="media-username">wofiminh</a><time class="media-date"> 1 tháng trước</time>
+                <p class="comment-content">Cấu hình build fail vl, kiểu này nghẻn cổ chai chết mẹ</p>
+              </div>
+            </div>
+            <div class="media">
+              <div class="media-left">
+                <img src="/img/avatar.png" alt="Ảnh đại diện của wofiminh">
+              </div>
+              <div class="media-body">
+                <a href="#" class="media-username">wofiminh</a><time class="media-date"> 1 tháng trước</time>
+                <p class="comment-content">Cấu hình build fail vl, kiểu này nghẻn cổ chai chết mẹ</p>
+              </div>
+            </div>
+            <div class="media">
+              <div class="media-left">
+                <img src="/img/avatar.png" alt="Ảnh đại diện của wofiminh">
+              </div>
+              <div class="media-body">
+                <a href="#" class="media-username">wofiminh</a><time class="media-date"> 1 tháng trước</time>
+                <p class="comment-content">Cấu hình build fail vl, kiểu này nghẻn cổ chai chết mẹ</p>
+              </div>
+            </div>
+            <div class="media">
+              <div class="media-left">
+                <img src="/img/avatar.png" alt="Ảnh đại diện của wofiminh">
+              </div>
+              <div class="media-body">
+                <a href="#" class="media-username">wofiminh</a><time class="media-date"> 1 tháng trước</time>
+                <p class="comment-content">Cấu hình build fail vl, kiểu này nghẻn cổ chai chết mẹ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar hidden-sp">
+        <h2 class="title">Cấu hình mới ráp</h2>
+        <ul class="build-list">
+          <li><a href="#">Cấu hình intel 7tr</a></li>
+          <li><a href="#">Cấu hình amd 10tr</a></li>
+          <li><a href="#">Dàn máy 10tr chơi game</a></li>
+          <li><a href="#">Dàn máy 20tr làm đồ hoạ</a></li>
+          <li><a href="#">Hàng khủng 30tr max options</a></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</main>
+{% endblock %}

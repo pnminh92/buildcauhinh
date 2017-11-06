@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  max_connections: 5
+  username: minh
+  password: gamegame
+
+development:
+  <<: *default
+  database: timgialinhkien_development
+
+test:
+  <<: *default
+  database: timgialinhkien_test
+
+production:
+  <<: *default
+  database: timgialinhkien_production
+  username: <%= ENV['SINATRA_USERNAME_PASSWORD'] %>
+  password: <%= ENV['SINATRA_DATABASE_PASSWORD'] %>

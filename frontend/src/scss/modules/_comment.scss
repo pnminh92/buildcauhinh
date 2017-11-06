@@ -1,0 +1,28 @@
+.comment {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid $color-lighter-gray;
+}
+
+.comment-form {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed $color-lighter-gray;
+  .comment-submit {
+    text-align: right;
+    margin-top: 10px;
+    .btn {
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+.comment-list {
+  margin-top: 5px;
+  .media + .media {
+    margin-top: 15px;
+  }
+  .comment-content {
+    font-size: 14px;
+  }
+}

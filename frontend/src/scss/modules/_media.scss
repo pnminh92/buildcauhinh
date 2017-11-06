@@ -1,0 +1,28 @@
+.media {
+  display: flex;
+
+  &.media-center {
+    align-items: center;
+  }
+
+  .media-left {
+    margin-right: 10px;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    img {
+      width: 40px;
+    }
+  }
+
+  .media-body {
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 0;
+  }
+
+  .media-username,
+  .media-date {
+    font-size: 12px;
+  }
+}

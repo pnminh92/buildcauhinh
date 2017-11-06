@@ -1,0 +1,47 @@
+.footer {
+  margin-top: 30px;
+  background-color: $color-lightest-gray;
+  padding: 30px 0;
+  text-align: right;
+  @include respond-to-sp() {
+    text-align: left;
+  }
+
+  ul {
+    font-size: 0;
+    margin-bottom: 5px;
+    @include respond-to-sp() {
+      padding-bottom: 10px;
+      border-bottom: 1px solid $color-lighter-gray;
+    }
+
+    li {
+      line-height: 1;
+      font-size: $font-size-sm;
+      display: inline-block;
+      padding: 0 10px;
+      border-right: 1px solid $color-gray;
+
+      @include respond-to-sp() {
+        display: block;
+        border-right: 0;
+        padding: 0;
+
+        + li {
+          margin-top: 10px;
+        }
+      }
+
+      &:last-child {
+        border-right: 0;
+        padding-right: 0;
+      }
+    }
+    a {
+      color: $color-gray;
+    }
+  }
+  p {
+    font-size: $font-size-sm;
+  }
+}

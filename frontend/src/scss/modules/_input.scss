@@ -1,0 +1,75 @@
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+input[type=file] {
+  cursor: pointer;
+}
+
+.form {
+  .form-group {
+    display: flex;
+    align-items: center;
+    + .form-group {
+      margin-top: 20px;
+    }
+
+    .btn {
+      font-size: $font-size-sm;
+      min-width: 50px;
+    }
+
+    &.form-right {
+      justify-content: flex-end;
+    }
+  }
+
+  .form-label {
+    display: block;
+    flex-basis: 25%;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    line-height: 1;
+    img {
+      width: 64px;
+    }
+  }
+
+  .form-input {
+    flex-basis: 75%;
+    width: 0;
+  }
+}
+
+.form-wrapper {
+  width: 400px;
+  margin: 0 auto;
+
+  @include respond-to-sp() {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .title {
+    @include respond-to-sp() {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.textarea,
+.input {
+  appearance: none;
+  background-color: $color-lightest-gray;
+  font-size: $font-size-sm;
+  padding: 8px 14px;
+  border: 1px solid $color-lighter-gray;
+  border-radius: 4px;
+  transition: background-color .2s ease-in-out;
+  &:focus,
+  &:hover {
+    background-color: lighten($color-lightest-gray, 5%);
+    outline: none;
+  }
+}

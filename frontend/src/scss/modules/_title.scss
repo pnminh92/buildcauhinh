@@ -1,0 +1,18 @@
+.title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  @include respond-to-sp() {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+}
+
+.sub-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  @include respond-to-sp() {
+    font-size: 18px;
+  }
+}
