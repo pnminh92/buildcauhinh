@@ -3,22 +3,34 @@ source 'https://rubygems.org'
 require 'logger'
 require 'json'
 
+# Core
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'puma'
 gem 'sidekiq'
 gem 'rake'
 
+# Internationalize
+gem 'i18n'
+
+# File attachment
+gem 'shrine'
+
+# postgresql and sequel ORM
 gem 'pg'
 gem 'sequel'
 gem 'sequel_secure_password'
 gem 'sequel_pg', require: 'sequel'
+
+# Mailer
+gem 'mail'
 
 gem 'http'
 gem 'nokogiri'
 
 group :development do
   gem 'shotgun'
+  gem 'letter_opener'
 
   gem 'sequel-annotate'
 end

@@ -1,0 +1,86 @@
+vi:
+  attributes:
+    user:
+      username: 'Tên đăng nhập'
+      password: 'Mật khẩu'
+      email: 'Email'
+      about: 'Giới thiệu'
+  errors:
+    exact_length: "không đúng %{exact} kí tự"
+    format: "không hợp lệ"
+    includes: "không nằm trong #{includes}"
+    integer: "không phải là số"
+    length_range: "dài hoặc ngắn hơn khoảng cho phép"
+    max_length: "dài hơn %{max} kí tự"
+    min_length: "ngắn hơn %{min} kí tự"
+    not_null: "trống"
+    numeric: "không phải là số"
+    operator: "không %{operator} %{rhs}"
+    type:
+      array: "không phải là %{array}"
+      single: "không phải là %{single}"
+    presence: "trống"
+    unique: "đã tồn tại"
+    joiner: " và "
+  views:
+    send_btn: 'Gửi'
+    change_pwd_btn: 'Đổi mật khẩu'
+    sign_in_btn: 'Đăng nhập'
+    sign_up_btn: 'Đăng kí'
+    sign_out_btn: 'Đăng xuất'
+    edit_btn: 'Sửa'
+    delete_btn: 'Xoá'
+    settings: 'Cài đặt'
+    profile: 'Thông tin cá nhân'
+    change_pwd: 'Thay đổi mật khẩu'
+    reset_pwd: 'Khôi phục mật khẩu'
+    forgot_pwd: 'Quên mật khẩu'
+    sign_in: 'Đăng nhập tài khoản'
+    sign_up: 'Đăng kí tài khoản'
+    username: 'Tên đăng nhập'
+    password: 'Mật khẩu'
+    email: 'Email'
+    current_password: 'Mật khẩu hiện tại'
+    new_password: 'Mật khẩu mới'
+    change_pwd_label: 'Đổi mật khẩu'
+    home: 'Trang chủ'
+    about: 'Giới thiệu'
+    tos: 'Điều khoản sử dụng'
+    contact: 'Liên hệ'
+    copyright: 'Copyright © 2017 timgialinhkien.com'
+    builds: 'Tham khảo cấu hình'
+    build: 'Cấu hình'
+    built_at: ' ráp ngày '
+    filter_title: 'Lọc'
+    filter_cpu: 'CPU'
+    cpu_intel: 'Intel'
+    cpu_amd: 'AMD'
+    cpu_none: 'Gì cũng được'
+    filter_price: 'Giá'
+    under_7: 'Dưới 7tr'
+    between_7_12: '7tr - 12tr'
+    between_13_20: '13tr - 20tr'
+    above_20: 'Trên 20tr'
+    new_builds: 'Cấu hình mới ráp'
+    profile_page: 'Trang cá nhân'
+    recent_search: 'Tìm kiếm gần đây'
+    plh_search_hardware: 'Nhập tên linh kiện'
+    search_btn: 'Tìm'
+    build_btn: 'Ráp'
+    close_btn: 'Đóng'
+    view_more_btn: 'Xem thêm'
+    site_main_title: 'Tìm giá linh kiện đơn giản nhanh chóng'
+    comment: 'Bình luận'
+    comment_content: 'Ý kiến của bạn...'
+    mai_hoang: 'Mai Hoàng'
+    ha_noi_computer: 'Hà Nội Computer'
+    ha_noi_new: 'Hà Nội New'
+    tan_doanh: 'Tân Doanh'
+    phong_vu: 'Phong Vũ'
+    nam_an: 'Nam An'
+  controllers:
+    users:
+      sign_in_error: 'Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại!'
+      forgot_pwd_error: 'Email không tồn tại'
+      change_pwd_error: 'Mật khẩu hiện tại không đúng'
+      reset_pwd_error: 'Token không hợp lệ'

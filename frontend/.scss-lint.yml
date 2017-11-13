@@ -4,6 +4,7 @@ scss_files: "./src/scss/**/*.scss"
 
 exclude:
   - './node_modules/**'
+  - './src/scss/vendor/**'
 # List of gem names to load custom linters from (make sure they are already
 # installed)
 plugin_gems: []

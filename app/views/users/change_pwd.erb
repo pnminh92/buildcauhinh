@@ -1,0 +1,30 @@
+<main class="contents">
+  <div class="container">
+    <div class="flexbox flexbox-main">
+      <div class="main-content">
+        <h1 class="title"><%= I18n.t('views.change_pwd') %></h1>
+        <form class="form" action="/settings/change_pwd" method="post">
+          <div class="form-group">
+            <label class="form-label" for=""><%= I18n.t('views.current_password') %></label>
+            <input name="current_password" class="input form-input" type="password">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for=""><%= I18n.t('views.new_password') %></label>
+            <input name="new_password" class="input form-input" type="password">
+          </div>
+          <div class="form-group">
+            <label class="form-label"></label>
+            <input class="btn" type="submit" value="<%= I18n.t('views.change_pwd_btn') %>">
+          </div>
+        </form>
+      </div>
+
+      <aside class="sidebar">
+        <ul class="list">
+          <li><a href="/settings"><%= I18n.t('views.settings') %></a></li>
+          <li><a class="active" href="/settings/change_pwd"><%= I18n.t('views.change_pwd_label') %></a></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</main>

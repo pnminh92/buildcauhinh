@@ -1,10 +1,10 @@
 Sequel.migration do
   change do
     create_table(:builds_hardwares) do
-      primary_key :id
-      Integer :build_id, null: false
-      Integer :hardware_id, null: false
-      index [:build_id, :hardware_id], unique: true
+      foreign_key :build_id, :builds, null: false
+      foreign_key :hardware_id, :hardwares, null: false
+      primary_key [:build_id, :hardware_id]
+      index [:build_id, :hardware_id]
       DateTime :created_at
       DateTime :updated_at
     end

@@ -6,9 +6,9 @@ Sequel.migration do
 
     create_table(:builds) do
       primary_key :id
-      Integer :user_id, null: false, index: true
-      String :slug, fixed: true, null: false, index: { unique: true }
-      String :title, fixed: true, null: false
+      foreign_key :user_id, :users, null: false
+      String :slug, size: 255, null: false, index: { unique: true }
+      String :title, size: 255, null: false
       price_type :price_type, null: false
       cpu_type :cpu_type, null: false
       TrueClass :price_showed, null: false, default: true

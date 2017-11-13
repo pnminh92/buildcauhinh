@@ -1,0 +1,16 @@
+hardware_providers:
+  - ha_noi_computer
+  - ha_noi_new
+  - mai_hoang
+  - nam_an
+  - phong_vu
+  - tan_doanh
+price_type:
+  - under_7
+  - between_7_12
+  - between_13_20
+  - above_20
+cpu_type:
+  - intel
+  - amd
+

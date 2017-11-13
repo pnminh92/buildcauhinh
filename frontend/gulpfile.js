@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const autoprefixer = require('gulp-autoprefixer');
+const copy = require('gulp-copy');
 const gulpif = require('gulp-if');
 const nunjucks = require('gulp-nunjucks');
 const sass = require('gulp-sass');
@@ -16,47 +17,49 @@ const source = require('vinyl-source-stream');
 const watchify = require('watchify');
 
 const config = {
-  src: './src',
-  public: './public'
+  srcPath: './src',
+  destPath: './public',
+  appPath: '../public'
 };
 
-gulp.task('html', () => {
-  gulp.src([`${config.src}/html/**/*.html`, `!${config.src}/html/shared/*`, `!${config.src}/html/layout/*`])
+gulp.task('html', function () {
+  gulp.src([`${config.srcPath}/html/**/*.html`, `!${config.srcPath}/html/shared/*`, `!${config.srcPath}/html/layout/*`])
       .pipe(nunjucks.compile().on('error', function (err) {
         gutil.log(`[${err.plugin}] There is an error from ${err.fileName}`);
       }))
-      .pipe(gulp.dest(config.public));
+      .pipe(gulp.dest(config.destPath));
 });
 
-gulp.task('reload-html', ['html'], () => {
+gulp.task('reload-html', ['html'], function () {
   browserSync.reload();
 });
 
-gulp.task('css', () => {
-  gulp.src(`${config.src}/scss/**/*.scss`)
+gulp.task('css', function () {
+  gulp.src(`${config.srcPath}/scss/**/*.scss`)
       .pipe(scssLint({config: './.scss-lint.yml'}))
       .pipe(gulpif(gutil.env.development, sourcemaps.init({ loadMaps: true })))
       .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
       .pipe(autoprefixer({ browsers: ['last 2 versions', 'ie > 9'], cascade: false }))
       .pipe(gulpif(gutil.env.development, sourcemaps.write('.')))
-      .pipe(gulp.dest(`${config.public}/css`))
+      .pipe(gulp.dest(`${config.destPath}/css`))
+      .pipe(copy(`${config.appPath}/css`, { prefix: 2 }))
       .pipe(browserSync.stream());
 });
 
-gulp.task('bundle', () => {
-  const bundler = browserify(`${config.src}/js/main.js`, { debug: true }).transform(babelify, { sourceMaps: false });
+gulp.task('bundle', function () {
+  const bundler = browserify(`${config.srcPath}/js/main.js`, { debug: true }).transform(babelify, { sourceMaps: false });
   return rebundle(bundler);
 });
 
 function watchBundler() {
-  const bundler = watchify(browserify(`${config.src}/js/main.js`, { debug: true }).transform(babelify, { sourceMaps: false }));
+  const bundler = watchify(browserify(`${config.srcPath}/js/main.js`, { debug: true }).transform(babelify, { sourceMaps: false }));
   rebundle(bundler);
-  bundler.on('update', () => {
+  bundler.on('update', function () {
     rebundle(bundler);
   });
   bundler.on('log', gutil.log);
   // This is a trick for listening event after generated bundle
-  bundler.on('time', () => {
+  bundler.on('time', function () {
     browserSync.reload();
   });
 }
@@ -68,11 +71,12 @@ function rebundle(bundler) {
     .pipe(gulpif(gutil.env.development, sourcemaps.init({ loadMaps: true })))
     .pipe(uglify({ compress: true, mangle: true }))
     .pipe(gulpif(gutil.env.development, sourcemaps.write('.')))
-    .pipe(gulp.dest(`${config.public}/js`));
+    .pipe(gulp.dest(`${config.destPath}/js`))
+    .pipe(copy(`${config.appPath}/js`, { prefix: 2 }));
 }
 
-gulp.task('standard', () => {
-  gulp.src(`${config.src}/js/**/*.js`)
+gulp.task('standard', function () {
+  gulp.src(`${config.srcPath}/js/**/*.js`)
       .pipe(standard())
       .pipe(standard.reporter('default', {
         quiet: true,
@@ -83,10 +87,16 @@ gulp.task('standard', () => {
 
 gulp.task('js', ['standard', 'bundle']);
 
-gulp.task('serve', () => {
-  browserSync.init({ server: config.public });
-  gulp.watch(`${config.src}/html/**/*.html`, ['reload-html']);
-  gulp.watch(`${config.src}/scss/**/*.scss`, ['css']);
+gulp.task('serve', function () {
+  browserSync.init({ server: config.destPath });
+  gulp.watch(`${config.srcPath}/html/**/*.html`, ['reload-html']);
+  gulp.watch(`${config.srcPath}/scss/**/*.scss`, ['css']);
+  watchBundler();
+});
+
+
+gulp.task('serve-mini', function () {
+  gulp.watch(`${config.srcPath}/scss/**/*.scss`, ['css']);
   watchBundler();
 });
 

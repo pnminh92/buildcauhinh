@@ -6,11 +6,11 @@ Sequel.migration do
     create_table(:hardwares) do
       primary_key :id
       provider_type :provider, null: false
-      String :code, fixed: true, null: false, index: { unique: true }
-      String :name, fixed: true, null: false
-      String :url, fixed: true, null: false
-      String :image, fixed: true, null: false
-      Integer :price, null: false
+      String :code, size: 255, null: false, index: { unique: true }
+      String :name, size: 255, null: false
+      String :url, size: 255, null: false
+      String :image, size: 255, null: false
+      Integer :price, size: 255, null: false
       DateTime :created_at
       DateTime :updated_at
     end

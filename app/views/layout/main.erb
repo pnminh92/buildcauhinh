@@ -40,7 +40,10 @@
   <body>
     <%= erb :'shared/header' %>
     <%= yield %>
-    <%= erb :'shared/footer', {} %>
+    <%= erb :'shared/footer' %>
+    <%= erb :'shared/builder' %>
+
+    <%= yield_content :js_templates if current_user %>
     <script src="/js/main.js"></script>
   </body>
 </html>

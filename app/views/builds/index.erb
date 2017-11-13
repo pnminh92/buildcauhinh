@@ -1,0 +1,40 @@
+<main class="contents">
+  <div class="container">
+    <div class="flexbox flexbox-main">
+      <section class="main-content">
+        <h1 class="title"><%= I18n.t('views.build') %></h1>
+
+        <div class="build-items">
+        <% @builds.each do |build| %>
+        <%= erb(:'builds/build', locals: { build: build }) %>
+        <% end %>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <h2 class="title"><%= I18n.t('views.filter_title') %></h2>
+
+        <div class="flexbox flexbox-sidebar">
+          <div class="build-options">
+            <h3 class="sub-title"><%= I18n.t('views.filter_price') %></h3>
+            <ul>
+              <% SETTINGS['price_type'].each do |price| %>
+              <li><input type="checkbox" id="price_type_<%= price %>"><label for="price_type_<%= price %>"><%= I18n.t("views.#{price}") %></label></li>
+              <% end %>
+            </ul>
+          </div>
+
+          <div class="build-options">
+            <h3 class="sub-title"><%= I18n.t('views.filter_cpu') %></h3>
+            <ul>
+              <% SETTINGS['cpu_type'].each do |type| %>
+              <li><input name="cpu_type" type="radio" id="cpu_<%= type %>"><label for="cpu_<%= type %>"><%= I18n.t("views.cpu_#{type}") %></label></li>
+              <% end %>
+              <li><input name="cpu_type" type="radio" id="cpu_none"><label for="cpu_none"><%= I18n.t('views.cpu_none') %></label></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>

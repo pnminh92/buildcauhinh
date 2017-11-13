@@ -1,0 +1,8 @@
+<aside class="sidebar hidden-sp">
+  <h2 class="title"><%= I18n.t('views.new_builds') %></h2>
+  <ul class="build-list">
+    <% new_builds.each do |build| %>
+    <li><a href="/builds/<%= build.slug %>"><%= build.title %></a></li>
+    <% end %>
+  </ul>
+</aside>

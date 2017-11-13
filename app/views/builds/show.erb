@@ -1,0 +1,139 @@
+<main class="contents">
+  <div class="container">
+    <div class="flexbox flexbox-main">
+      <section class="main-content">
+        <div class="build-detail">
+          <h1 class="title"><%= @build.title %></h1>
+          <div class="media media-center">
+            <div class="media-left">
+              <% if @build.user.avatar_url %>
+              <img src="<%= @build.user.avatar_url %>" alt="<%= @build.user.short_username %>">
+              <% else %>
+              <img src="/img/avatar.png" class="build-user-avatar" alt="wofiminh">
+              <% end %>
+            </div>
+            <div class="media-body">
+              <a class="media-username" href="/<%= @build.user.username %>"><%= @build.user.short_username %></a>
+              <span class="media-date"><%= I18n.t('views.built_at') %><%= @build.created_at %></time>
+            </div>
+          </div>
+          <div class="build-spec table-responsive">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <th>Bộ phận</th>
+                  <th>Tên</th>
+                </tr>
+                <tr>
+                  <td>CPU</td>
+                  <td>Intel G4600</td>
+                </tr>
+                <tr>
+                  <td>Mainboard</td>
+                  <td>MSI H110</td>
+                </tr>
+                <tr>
+                  <td>RAM</td>
+                  <td>Gskill DDR4 8GB 2400mhz</td>
+                </tr>
+                <tr>
+                  <td>VGA</td>
+                  <td>MSI Nvidia GTX1060 Ti</td>
+                </tr>
+                <tr>
+                  <td>PSU</td>
+                  <td>Seasonic 620W</td>
+                </tr>
+                <tr>
+                  <td>HDD</td>
+                  <td>Western Digital Blue 1TB</td>
+                </tr>
+                <tr>
+                  <td>SSD</td>
+                  <td>Samsung 850 120GB</td>
+                </tr>
+                <tr>
+                  <td>Case</td>
+                  <td>SAMA Esport</td>
+                </tr>
+                <tr>
+                  <td>Monitor</td>
+                  <td>Dell Ultrasharp U2417H</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="build-status">
+            <span class="build-label"><%= I18n.t("views.#{@build.price_type}") %></span>
+            <span class="build-label"><%= I18n.t("views.cpu_#{@build.cpu_type}") %></span>
+          </div>
+        </div>
+
+        <div class="comment">
+          <h2 class="title"><%= I18n.t('views.comment') %></h2>
+
+          <div class="comment-form media">
+            <div class="media-left">
+              <% if current_user&.avatar_url %>
+              <img src="<%= current_user.avatar_url %>" alt="<%= current_user.short_username %>">
+              <% else %>
+              <img src="/img/avatar.png" alt="wofiminh">
+              <% end %>
+            </div>
+            <div class="media-body">
+              <div class="form">
+                <div class="comment-content form-group">
+                  <textarea class="textarea" placeholder="<%= I18n.t('views.comment_content') %>"></textarea>
+                </div>
+                <div class="comment-submit">
+                  <button onclick="Timgialinhkien.createComment(<%= @build.id %>)" type="button" class="btn"><%= I18n.t('views.send_btn') %></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="comment-list">
+            <% @comments.each do |comment| %>
+            <%= erb(:'builds/comment', locals: { comment: comment }) %>
+            <% end %>
+          </div>
+        </div>
+      </section>
+
+      <%= erb(:'shared/sidebar', locals: { new_builds: @new_builds }) %>
+    </div>
+  </div>
+</main>
+
+<% content_for :js_templates do %>
+<script type="text/x-template" id="comment-item">
+<div class="media comment-item">
+  <div class="media-left">
+    {% if (user.avatar_url) { %}
+    <img src="{%- user.avatar_url %}" alt="{%- user.short_username %}">
+    {% } else { %}
+    <img src="/img/avatar.png" alt="Ảnh đại diện của wofiminh">
+    {% } %}
+  </div>
+  <div class="media-body">
+    <div class="comment-info">
+      <a href="/{%- user.username %}" class="media-username">{%- user.username %}</a>
+      <time class="media-date">{%- comment.created_at %}</time>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+    </div>
+    <p class="comment-content">{%- comment.content %}</p>
+  </div>
+</div>
+</script>
+
+<script type="text/x-template" id="edit-comment-form">
+<div class="edit-comment-form">
+  <textarea class="textarea">{%- content %}</textarea>
+  <div class="comment-btn">
+    <button onclick="Timgialinhkien.editComment(this, {%- comment.id %}, {%- comment.build_id %})" type="button" class="btn btn-sm"><%= I18n.t('views.edit_btn') %></button>
+    <button onclick="Timgialinhkien.closeCommentEditor(this)" type="button" class="btn btn-sm btn-gray"><%= I18n.t('views.close_btn') %></button>
+  </div>
+</div>
+</script>
+<% end %>

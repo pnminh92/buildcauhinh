@@ -3,7 +3,7 @@
 #  id         | integer                     | PRIMARY KEY DEFAULT nextval('comments_id_seq'::regclass)
 #  user_id    | integer                     | NOT NULL
 #  build_id   | integer                     | NOT NULL
-#  content    | character varying(500)      |
+#  content    | character varying(500)      | NOT NULL
 #  created_at | timestamp without time zone |
 #  updated_at | timestamp without time zone |
 # Indexes:

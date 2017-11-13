@@ -1,132 +1,67 @@
-<div role="main">
+<main>
   <section class="banner">
-    <div class="container">
-      <div class="banner-img" style="background-image: url(/img/motherboard.png)"></div>
-      <h1>Tìm giá linh kiện đơn giản nhanh chóng</h1>
-    </div>
+    <div class="banner-img" style="background-image: url(/img/motherboard.png)"></div>
+    <h1><%= I18n.t('views.site_main_title') %></h1>
   </section>
+
   <section class="contents">
     <div class="container">
-      <div class="search-hardwares">
-        <input type="text" class="input input-search" placeholder="Nhập tên linh kiện">
-        <button type="button" class="btn">Tìm</button>
+      <div class="hardware-search">
+        <div class="hardware-search-input">
+          <input type="text" class="input input-search" placeholder="<%= I18n.t('views.plh_search_hardware') %>">
+          <select class="hardware-provider-select">
+            <% SETTINGS['hardware_providers'].each do |provider| %>
+            <option value="<%= provider %>"><%= I18n.t("views.#{provider}") %></option>
+            <% end %>
+          </select>
+        </div>
+        <button type="button" class="btn" onclick="Timgialinhkien.search()"><%= I18n.t('views.search_btn') %></button>
       </div>
-      <div class="hardware-wrapper">
-        <div class="hardware-list">
-          <h2 class="title">Tìm kiếm gần đây</h2>
-          <div class="hardware-item">
-            <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-            <div class="hardware-body">
-              <h3 class="hardware-name"><a href="#"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</a></h3>
-              <p><span class="hardware-price">1.600.000 VND</span></p>
-            </div>
-            <div class="hardware-btn">
-              <button type="button" class="btn btn-gray">Chọn</button>
-            </div>
-          </div>
-          <div class="hardware-item">
-            <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-            <div class="hardware-body">
-              <h3 class="hardware-name"><a href="#"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</a></h3>
-              <p><span class="hardware-price">1.600.000 VND</span></p>
-            </div>
-            <div class="hardware-btn">
-              <button type="button" class="btn btn-gray">Chọn</button>
-            </div>
-          </div>
-          <div class="hardware-item">
-            <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-            <div class="hardware-body">
-              <h3 class="hardware-name"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</h3>
-              <p><span class="hardware-price">1.600.000 VND</span></p>
-            </div>
-            <div class="hardware-btn">
-              <button type="button" class="btn btn-gray">Chọn</button>
-            </div>
-          </div>
-          <div class="hardware-item">
-            <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-            <div class="hardware-body">
-              <h3 class="hardware-name"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</h3>
-              <p><span class="hardware-price">1.600.000 VND</span></p>
-            </div>
-            <div class="hardware-btn">
-              <button type="button" class="btn btn-gray">Chọn</button>
-            </div>
-          </div>
-          <div class="hardware-item">
-            <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-            <div class="hardware-body">
-              <h3 class="hardware-name"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</h3>
-              <p><span class="hardware-price">1.600.000 VND</span></p>
-            </div>
-            <div class="hardware-btn">
-              <button type="button" class="btn btn-gray">Chọn</button>
-            </div>
-          </div>
-          <div class="hardware-item">
-            <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-            <div class="hardware-body">
-              <h3 class="hardware-name"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</h3>
-              <p><span class="hardware-price">1.600.000 VND</span></p>
-            </div>
-            <div class="hardware-btn">
-              <button type="button" class="btn btn-gray">Chọn</button>
-            </div>
-          </div>
-          <div class="hardware-item">
-            <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-            <div class="hardware-body">
-              <h3 class="hardware-name"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</h3>
-              <p><span class="hardware-price">1.600.000 VND</span></p>
-            </div>
-            <div class="hardware-btn">
-              <button type="button" class="btn btn-gray">Chọn</button>
-            </div>
-          </div>
-          <div class="hardware-item">
-            <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-            <div class="hardware-body">
-              <h3 class="hardware-name"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</h3>
-              <p><span class="hardware-price">1.600.000 VND</span></p>
-            </div>
-            <div class="hardware-btn">
-              <button type="button" class="btn btn-gray">Chọn</button>
-            </div>
-          </div>
-          <div class="hardware-item">
-            <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-            <div class="hardware-body">
-              <h3 class="hardware-name"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</h3>
-              <p><span class="hardware-price">1.600.000 VND</span></p>
-            </div>
-            <div class="hardware-btn">
-              <button type="button" class="btn btn-gray">Chọn</button>
-            </div>
-          </div>
-          <div class="hardware-item">
-            <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-            <div class="hardware-body">
-              <h3 class="hardware-name"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</h3>
-              <p><span class="hardware-price">1.600.000 VND</span></p>
-            </div>
-            <div class="hardware-btn">
-              <button type="button" class="btn btn-gray">Chọn</button>
+
+      <div class="flexbox flexbox-main">
+        <div class="main-content">
+          <h2 class="title"><%= I18n.t('views.recent_search') %></h2>
+          <div class="hardware-list">
+            <div class="hardware-item">
+              <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
+              <div class="hardware-body">
+                <h3 class="hardware-name"><a href="#"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</a></h3>
+                <p><span class="hardware-price">1.600.000 VND</span></p>
+              </div>
+              <div class="hardware-btn">
+                <button type="button" class="btn btn-gray" onclick="BuildingList.addItem()"><%= I18n.t('views.build_btn') %></button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="builds">
-        <h2 class="title">Cấu hình mới dựng</h2>
-        <ul>
-          <li><a href="#">Cấu hình intel 7tr</a></li>
-          <li><a href="#">Cấu hình amd 10tr</a></li>
-          <li><a href="#">Dàn máy 10tr chơi game</a></li>
-          <li><a href="#">Dàn máy 20tr làm đồ hoạ</a></li>
-          <li><a href="#">Hàng khủng 30tr max options</a></li>
-        </ul>
+        <%= erb(:'shared/sidebar', locals: { new_builds: @new_builds }) %>
       </div>
     </div>
   </section>
-</div>
+</main>
+
+<% content_for :js_templates do %>
+<script type="text/x-template" id="result-search">
+  <h2 class="title">{%- hardwares.length %} <%= I18n.t('views.result_search') %></h2>
+  <div class="hardware-list">
+    {% hardwares.forEach(function (hardware) { %}
+    <div class="hardware-item">
+      <img class="hardware-img" src="{%- hardware.image %}" alt="{%- hardware.name %}">
+      <div class="hardware-body">
+        <h3 class="hardware-name">
+          <a href="{%- hardware.url %}">
+            <span class="hardware-provider">{%- hardware.provider_name %}</span>
+            {%- hardware.name %}
+          </a>
+        </h3>
+        <p><span class="hardware-price">{%- hardware.price %} VND</span></p>
+      </div>
+      <div class="hardware-btn">
+      <button type="button" class="btn btn-gray" onclick="BuildingList.addItem({%- hardware.uuid %})"><%= I18n.t('views.build_btn') %></button>
+      </div>
+    </div>
+    {% }) %}
+  </div>
+</script>
+<% end %>

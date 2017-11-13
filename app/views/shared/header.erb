@@ -1,15 +1,39 @@
-<header>
+<header class="header">
   <div class="container">
-    <nav class="nav">
-      <div class="nav-logo">
-        <a href="/"><img src="/img/logo.png" alt="Logo cua timgialinhkien"></a>
-      </div>
-      <div class="nav-control">
-        <div class="nav-control-item"><a href="#">Tham khảo cấu hình</a></div>
-        <div class="nav-control-item"><a href="#">Cấu hình đang dựng</a></div>
-        <div class="nav-control-item"><button type="button" class="btn btn-gray">Đăng nhập</button></div>
-        <div class="nav-control-item"><button type="button" class="btn">Đăng kí</button></div>
-      </div>
-    </nav>
+    <% if signed_in? %>
+      <nav class="nav">
+        <div class="nav-logo">
+          <a href="/"><img src="/img/logo.png" alt="timgialinhkien"></a>
+        </div>
+        <div class="nav-control">
+          <div class="nav-control-item"><a href="/builds"><%= I18n.t('views.builds') %></a></div>
+          <div class="menu"><img src="/img/avatar.png" alt="wofiminh"></div>
+        </div>
+      </nav>
+      <ul class="nav-dropdown">
+        <li><a href="/builds"><%= I18n.t('views.builds') %></a></li>
+        <li><a href="/<%= current_user.username %>"><%= I18n.t('views.profile_page') %></a></li>
+        <li><a href="/settings"><%= I18n.t('views.settings') %></a></li>
+        <li><a href="#" onclick="Timgialinhkien.signout()"><%= I18n.t('views.sign_out_btn') %></a></li>
+      </ul>
+    <% else %>
+      <nav class="nav">
+        <div class="nav-logo">
+          <a href="/"><img src="/img/logo.png" alt="timgialinhkien"></a>
+        </div>
+        <div class="nav-control">
+          <div class="nav-control-item"><a href="/builds"><%= I18n.t('views.builds') %></a></div>
+          <div class="nav-control-item"><a href="/sign_in" class="btn btn-gray"><%= I18n.t('views.sign_in_btn') %></a></div>
+          <div class="nav-control-item"><a href="/sign_up" class="btn"><%= I18n.t('views.sign_up_btn') %></a></div>
+          <div class="menu hidden-pc"><img src="/img/menu.svg" alt="menu"></div>
+        </div>
+      </nav>
+
+      <ul class="nav-dropdown">
+        <li><a href="/builds"><%= I18n.t('views.builds') %></a></li>
+        <li><a href="/sign_in"><%= I18n.t('views.sign_in_btn') %></a></li>
+        <li><a href="/sign_up"><%= I18n.t('views.sign_up_btn') %></a></li>
+      </ul>
+    <% end %>
   </div>
 </header>

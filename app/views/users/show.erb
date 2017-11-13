@@ -1,0 +1,29 @@
+<main class="contents">
+  <div class="container">
+    <div class="flexbox flexbox-main">
+      <section class="main-content">
+        <h2 class="title"><%= I18n.t('views.new_builds') %></h2>
+
+        <div class="build-items">
+        <% @builds.each do |build| %>
+        <%= erb(:'builds/build', locals: { build: build }) %>
+        <% end %>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <div class="user-profile">
+          <% if @user.avatar_url %>
+          <img class="user-avatar" src="<%= @user.avatar_url %>" alt="<%= @user.short_username %>">
+          <% else %>
+          <img class="user-avatar" src="/img/avatar.png" alt="<%= @user.short_username %>">
+          <% end %>
+          <h1 class="user-name sub-title"><%= @user.short_username %></h1>
+          <% if @user.about %>
+          <p class="user-about"><%= @user.about %></p>
+          <% end %>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>

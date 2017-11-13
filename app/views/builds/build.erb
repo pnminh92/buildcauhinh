@@ -1,0 +1,20 @@
+<div class="build-item media">
+  <div class="media-left">
+    <% if build.user.avatar_url %>
+    <img src="<%= build.user.avatar_url %>" alt="<%= build.user.short_username %>">
+    <% else %>
+    <img src="/img/avatar.png" alt="wofiminh">
+    <% end %>
+  </div>
+  <div class="media-body">
+    <p>
+      <a class="media-username" href="#"><%= build.user.short_username %></a>
+      <span class="media-date"><%= I18n.t('views.built_at') %><%= build.created_at %></time>
+    </p>
+    <h3 class="build-title"><a href="/builds/<%= build.slug %>"><%= build.title %></a></h3>
+    <div class="build-status">
+      <span class="build-label"><%= I18n.t("views.#{build.price_type}") %></span>
+      <span class="build-label"><%= I18n.t("views.cpu_#{build.cpu_type}") %></span>
+    </div>
+  </div>
+</div>

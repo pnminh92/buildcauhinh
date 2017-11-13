@@ -27,7 +27,7 @@ input[type=file] {
 
   .form-label {
     display: block;
-    flex-basis: 25%;
+    width: 120px;
     font-size: $font-size-sm;
     font-weight: 500;
     line-height: 1;
@@ -37,8 +37,14 @@ input[type=file] {
   }
 
   .form-input {
-    flex-basis: 75%;
-    width: 0;
+    flex-basis: 0;
+    flex-grow: 1;
+  }
+  input[type=radio] + label {
+    margin-left: 5px;
+  }
+  label + input[type=radio] {
+    margin-left: 15px;
   }
 }
 

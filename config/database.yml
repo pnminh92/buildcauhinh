@@ -3,7 +3,7 @@ default: &default
   encoding: utf8
   max_connections: 5
   username: minh
-  password: gamegame
+  password:
 
 development:
   <<: *default

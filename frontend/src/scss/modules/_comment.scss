@@ -26,3 +26,46 @@
     font-size: 14px;
   }
 }
+
+.comment-item {
+  .comment-info {
+    display: flex;
+    align-items: center;
+    .media-username {
+      margin-right: 5px;
+    }
+    .media-date {
+      margin-right: 10px;
+    }
+    span {
+      line-height: 1;
+    }
+    svg {
+      color: $color-gray;
+      stroke-width: 1.5px;
+      width: 18px;
+      height: 18px;
+      margin-right: 5px;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+      &:hover {
+        color: $color-black;
+        stroke-width: 2px;
+      }
+    }
+  }
+
+  .comment-content {
+    margin-top: 5px;
+  }
+
+  .comment-btn {
+    margin-top: 8px;
+  }
+
+  .media-body.editor-opened {
+    .comment-content {
+      display: none;
+    }
+  }
+}

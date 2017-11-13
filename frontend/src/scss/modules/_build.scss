@@ -111,13 +111,17 @@
   svg {
     color: $color-white;
     padding: 8px;
-    width: 40px;
-    height: 40px;
-    background-color: $color-green;
+    width: 64px;
+    height: 64px;
+    background-color: $color-blue;
     border-radius: 6px;
     transition: background-color .2s ease-in-out;
     &:hover {
-      background-color: lighten($color-green, 5%);
+      background-color: lighten($color-blue, 5%);
+    }
+    @include respond-to-sp() {
+      width: 48px;
+      height: 48px;
     }
   }
   .builder-num {
@@ -128,10 +132,31 @@
     display: inline-block;
     background-color: $color-red;
     font-size: $font-size-sm;
-    line-height: 20px;
+    line-height: 25px;
     color: $color-white;
-    width: 20px;
-    height: 21px;
+    width: 24px;
+    height: 25px;
     border-radius: 50%;
+    @include respond-to-sp() {
+      width: 20px;
+      height: 21px;
+      line-height: 21px;
+    }
+  }
+}
+
+.building-list {
+  .hardware-list {
+    margin-top: 30px;
+  }
+  .building-list-btn {
+    margin-top: 30px;
+    text-align: center;
+  }
+  .form-label {
+    width: 150px;
+    @include respond-to-sp() {
+      width: 120px;
+    }
   }
 }

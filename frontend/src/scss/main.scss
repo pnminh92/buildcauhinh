@@ -5,6 +5,8 @@
 @import 'base/minireset';
 @import 'base/base';
 
+@import 'vendor/selectr';
+
 @import 'layout/content';
 @import 'layout/header';
 @import 'layout/footer';
@@ -22,3 +24,4 @@
 @import 'modules/build';
 @import 'modules/comment';
 @import 'modules/user';
+

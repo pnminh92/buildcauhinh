@@ -4,6 +4,7 @@
   display: inline-block;
   color: $color-white;
   font-size: $font-size-base;
+  line-height: 1;
   font-weight: 500;
   min-width: 60px;
   padding: 8px 14px;
@@ -31,6 +32,21 @@
     &:hover {
       background-color: lighten($color-lighter-gray, 5%);
     }
+  }
+
+  &.btn-red {
+    background-color: $color-red;
+    color: $color-white;
+    &:hover {
+      background-color: lighten($color-red, 5%);
+    }
+  }
+
+  &.btn-sm {
+    min-width: 40px;
+    padding: 5px 8px;
+    font-size: $font-size-xs;
+    font-weight: 400;
   }
 
   &.btn-block {

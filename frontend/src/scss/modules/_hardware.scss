@@ -29,6 +29,7 @@
   .hardware-body {
     margin-left: 15px;
     flex-grow: 1;
+    flex-basis: 0;
   }
   .hardware-name {
     color: $color-gray;
@@ -77,14 +78,16 @@
   }
 }
 
-.search-hardwares {
+.hardware-search {
   margin-bottom: 40px;
   display: flex;
-  height: 40px;
-  .input {
+  .hardware-search-input {
     flex-grow: 1;
+  }
+  .input {
+    width: 100%;
     border-right: 0;
-    border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 0;
   }
   .btn {
     width: 80px;
