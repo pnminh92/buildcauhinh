@@ -4,21 +4,31 @@
       <div class="main-content">
         <h1 class="title"><%= I18n.t('views.profile') %></h1>
         <form class="form" action="/settings" method="post" enctype="multipart/form-data">
+          <input name="avatar" type="hidden" value="<%= current_user.cached_avatar_data %>">
           <div class="form-group">
-            <label class="form-label" for=""><img src="/img/avatar.png" alt="<%= @user.short_username %>"></label>
-            <input class="input form-input" type="file">
+            <label class="form-label" for=""><img src="<%= current_user.avatar_url %>" alt="<%= current_user.short_username %>"></label>
+            <input name="avatar" class="input form-input" type="file">
           </div>
           <div class="form-group">
             <label class="form-label" for=""><%= I18n.t('views.username') %></label>
-            <input name="username" class="input form-input" type="text" value="<%= @user.short_username %>">
+            <div class="form-input">
+              <input name="username" class="input" type="text" value="<%= current_user.short_username %>">
+              <%= model_text_error(@errors, :user, :username) %>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-label" for=""><%= I18n.t('views.email') %></label>
-            <input name="email" class="input form-input" type="text" value="<%= @user.email %>">
+            <div class="form-input">
+              <input name="email" class="input" type="text" value="<%= current_user.email %>">
+              <%= model_text_error(@errors, :user, :email) %>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-label" for=""><%= I18n.t('views.about') %></label>
-            <textarea name="about" class="textarea form-input"><%= @user.about %></textarea>
+            <div class="form-input">
+              <textarea name="about" class="textarea"><%= current_user.about %></textarea>
+              <%= model_text_error(@errors, :user, :about) %>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-label"></label>

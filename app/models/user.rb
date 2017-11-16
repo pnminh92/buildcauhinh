@@ -13,6 +13,9 @@
 # Indexes:
 #  users_pkey         | PRIMARY KEY btree (id)
 #  users_username_key | UNIQUE btree (username)
+# Referenced By:
+#  builds   | builds_user_id_fkey   | (user_id) REFERENCES users(id)
+#  comments | comments_user_id_fkey | (user_id) REFERENCES users(id)
 
 class User < Sequel::Model
   plugin :secure_password, include_validations: false
@@ -26,6 +29,16 @@ class User < Sequel::Model
 
   include AvatarUploader::Attachment.new(:avatar)
 
+  def before_create
+    self.avatar = File.open(File.join(App.settings.root, 'app', 'assets', 'default_avatar.png').to_s) unless self.avatar_data
+    super
+  end
+
+  def before_validation
+    self.username = "@#{self.username}" if self.username && self.username[0] != '@'
+    super
+  end
+
   def validate
     super
     validates_presence :username
@@ -37,15 +50,15 @@ class User < Sequel::Model
       validates_min_length 6, :password
     end
     validates_unique :username
-    validates_unique :email, allow_nil: true
+    validates_unique :email, allow_blank: true
     validates_max_length 64, :email
     validates_max_length 500, :about
     validates_format REGEX_VALID_USERNAME, :username
-    validates_format REGEX_VALID_EMAIL, :email, allow_nil: true
+    validates_format REGEX_VALID_EMAIL, :email, allow_blank: true
   end
 
   def short_username
-    username[1..-1]
+    username[1..-1] if username[0] == '@'
   end
 
   def gen_reset_pwd_token

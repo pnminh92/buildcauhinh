@@ -3,7 +3,6 @@ hardware_providers:
   - ha_noi_new
   - mai_hoang
   - nam_an
-  - phong_vu
   - tan_doanh
 price_type:
   - under_7

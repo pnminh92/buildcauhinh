@@ -9,6 +9,7 @@ Sequel::Model.plugin :json_serializer
 Sequel::Model.plugin :validation_helpers
 Sequel::Model.plugin :timestamps, update_on_create: true
 Sequel::Model.plugin :dataset_associations
+Sequel::Model.plugin :association_dependencies
 
 # Sequel overrides
 class Sequel::Model

@@ -3,6 +3,8 @@
 module Providers
   class Tandoanh
     URL = 'http://tandoanh.vn/search'
+    DOMAIN = 'http://tandoanh.vn'
+    SLUG = 'tan_doanh'
 
     class << self
       def search(words)
@@ -21,15 +23,17 @@ module Providers
         html_doc.css('.product-list .pro-loop').map do |html_product|
           ele = html_product.css('h3.pro-name a')
           name = ele.first.content
-          url = ele.first['href']
-          price = html_product.css('.pro-price').first.content.gsub(/[^\d]/, '').to_i
+          code = ::Util.codify(name, SLUG)
+          next if ::Hardware.first(code: code)
           {
+            code: code,
             name: name,
-            price: price,
-            url: url,
-            provider: 'tandoanh'
+            price:  html_product.css('.pro-price').first.content.gsub(/[^\d]/, '').to_i,
+            url: DOMAIN + ele.first['href'],
+            image_url: html_product.css('.product-img img')[1]['src'],
+            provider: SLUG
           }
-        end
+        end.compact
       end
     end
   end

@@ -135,10 +135,22 @@ body {
     }
   }
 
+  .link-sign-out,
   a {
-    display: inline-block;
+    display: block;
     padding: 8px 0;
     color: $color-black;
     font-size: $font-size-sm;
+  }
+
+  .link-sign-out {
+    appearance: none;
+    border: 0;
+    line-height: 1;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

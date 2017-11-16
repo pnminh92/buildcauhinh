@@ -11,6 +11,7 @@ class App < Sinatra::Base
 
   register Sinatra::MultiRoute
   register Sinatra::Namespace
+  register Sinatra::Flash
 
   configure do
     enable :sessions
@@ -56,6 +57,7 @@ end
 SETTINGS = YAML.load_file(File.join(settings.root, 'config', 'settings.yml').to_s).freeze
 
 Dir[File.join(settings.root, 'config', '*.rb')].each { |f| require f }
+Dir[File.join(settings.root, 'lib', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'lib', 'providers', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'app', 'uploaders', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'app', 'models', '*.rb')].each { |f| require f }

@@ -9,8 +9,8 @@ Sequel.migration do
       String :code, size: 255, null: false, index: { unique: true }
       String :name, size: 255, null: false
       String :url, size: 255, null: false
-      String :image, size: 255, null: false
-      Integer :price, size: 255, null: false
+      String :image_url, size: 255, null: false
+      Integer :price, null: false
       DateTime :created_at
       DateTime :updated_at
     end

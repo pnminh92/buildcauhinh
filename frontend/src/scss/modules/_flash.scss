@@ -1,0 +1,27 @@
+.flash {
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  top: 100px;
+  text-align: center;
+  padding: 15px 0;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity .4s ease-in-out;
+
+  &.flash-success {
+    background-color: lighten($color-green, 50%);
+    border: 1px solid lighten($color-green, 40%);
+    color: $color-green;
+  }
+
+  &.flash-fade-out {
+    opacity: 1;
+  }
+
+  &.flash-error {
+    background-color: lighten($color-red, 50%);
+    border: 1px solid lighten($color-red, 40%);
+    color: $color-red;
+  }
+}

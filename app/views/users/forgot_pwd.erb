@@ -1,15 +1,42 @@
 <main class="contents">
   <div class="form-wrapper">
     <h1 class="title text-center"><%= I18n.t('views.forgot_pwd') %></h1>
+    <%= single_text_error(@error) %>
     <form class="form" action="/forgot_pwd" method="post">
       <div class="form-group">
-        <label class="form-label" for=""><%= I18n.t('views.email') %></label>
-        <input name="email" class="input form-input" type="email">
+        <input name="email" class="input form-input" type="email" placeholder="<%= I18n.t('views.email') %>">
       </div>
       <div class="form-group">
-        <label class="form-label"></label>
-        <input class="btn" type="submit" value="<%= I18n.t('views.send_btn') %>">
+        <input class="btn btn-block" type="submit" value="<%= I18n.t('views.send_btn') %>">
       </div>
     </form>
   </div>
 </main>
+
+<% content_for(:title) do %>
+<%= 'Quên mật khẩu - rapmay' %>
+<% end %>
+<% content_for(:description) do %>
+<%= 'Tìm lại mâth khẩu đã mất hay đã quên của bạn' %>
+<% end %>
+<% content_for(:canonical) do %>
+<%= 'https://rapmay.com/forgot_pwd' %>
+<% end %>
+<% content_for(:og_title) do %>
+<%= 'Quên mật khẩu - rapmay' %>
+<% end %>
+<% content_for(:og_site_name) do %>
+<%= 'Quên mật khẩu - rapmay' %>
+<% end %>
+<% content_for(:og_description) do %>
+<%= 'Tìm lại mâth khẩu đã mất hay đã quên của bạn' %>
+<% end %>
+<% content_for(:og_url) do %>
+<%= 'https://rapmay.com/forgot_pwd' %>
+<% end %>
+
+<% if flash[:success] %>
+  <% content_for(:success) do %>
+    <%= flash[:success] %>
+  <% end %>
+<% end %>

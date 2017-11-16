@@ -4,20 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="format-detection" content="telephone=no">
 
-    <title><%= yield_content(:title) { 'Tìm giá linh kiện máy tính' } %></title>
-    <meta name="description" content="<%= yield_content(:description) { 'Giá linh kiện máy tính tại các cửa hàng ở HCM, Hà Nội' } %>">
+    <title><%= yield_content(:title) { 'Ráp thử máy tính, tìm giá linh kiện - rapmay' } %></title>
+    <meta name="description" content="<%= yield_content(:description) { 'rapmay là ứng dụng ráp thử máy tính, tìm kiếm giá linh kiện và chia sẻ cấu hình máy' } %>">
 
-    <link rel="canonical" href="<%= yield_content(:canonical) { 'https://timgialinhkien.com' } %>">
-    <meta name="robots" content="index,follow">
-    <meta name="googlebot" content="index,follow">
+    <link rel="canonical" href="<%= yield_content(:canonical) { 'https://rapmay.com' } %>">
 
-    <meta property="og:title" content="<%= yield_content(:og_title) { 'Tìm giá linh kiện máy tính' } %>">
-    <meta property="og:site_name" content="<%= yield_content(:og_site_name) { 'Tìm giá linh kiện máy tính' } %>">
-    <meta property="og:description" content="<%= yield_content(:og_description) { 'Giá linh kiện máy tính tại các cửa hàng ở HCM, Hà Nội' } %>">
-    <meta property="og:url" content="<%= yield_content(:og_url) { 'https://timgialinhkien.com' } %>">
-    <meta property="og:image" content="<%= yield_content(:og_image) { 'https://timgialinhkien.com/img/og.png' } %>">
+    <meta property="og:title" content="<%= yield_content(:og_title) { 'Ráp thử máy tính, tìm giá linh kiện - rapmay' } %>">
+    <meta property="og:site_name" content="<%= yield_content(:og_site_name) { 'Ráp thử máy tính, tìm giá linh kiện - rapmay' } %>">
+    <meta property="og:description" content="<%= yield_content(:og_description) { 'rapmay là ứng dụng ráp thử máy tính, tìm kiếm giá linh kiện và chia sẻ cấu hình máy' } %>">
+    <meta property="og:url" content="<%= yield_content(:og_url) { 'https://rapmay.com' } %>">
+    <meta property="og:image" content="<%= yield_content(:og_image) { 'https://rapmay.com/img/og.png' } %>">
     <meta property="og:type" content="website">
 
     <link rel="dns-prefetch" href="//hanoicomputer.vn">
@@ -42,7 +39,11 @@
     <%= yield %>
     <%= erb :'shared/footer' %>
     <%= erb :'shared/builder' %>
+    <%= erb(:'shared/flash', locals: { message: yield_content(:success), success: true }) if content_for?(:success) %>
+    <%= erb(:'shared/flash', locals: { message: yield_content(:error), success: false }) if content_for?(:error) %>
 
+    <script>var providers</script>
+    <%= yield_content :js if content_for?(:js) %>
     <%= yield_content :js_templates if current_user %>
     <script src="/js/main.js"></script>
   </body>

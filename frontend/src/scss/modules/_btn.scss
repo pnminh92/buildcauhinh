@@ -3,7 +3,7 @@
   background-color: $color-green;
   display: inline-block;
   color: $color-white;
-  font-size: $font-size-base;
+  font-size: $font-size-sm;
   line-height: 1;
   font-weight: 500;
   min-width: 60px;
@@ -14,7 +14,7 @@
   transition: background-color .2s ease-in-out;
 
   @include respond-to-sp() {
-    font-size: $font-size-sm;
+    font-size: $font-size-xs;
   }
 
   &:focus {

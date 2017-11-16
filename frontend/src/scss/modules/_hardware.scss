@@ -3,15 +3,6 @@
   padding: 15px 0;
   border-bottom: 1px solid $color-lighter-gray;
 
-  @include respond-to-tablet() {
-    padding: 15px;
-  }
-
-  &:hover {
-    background-color: $color-almost-white;
-    cursor: pointer;
-  }
-
   &:last-child {
     border-bottom: 0;
   }
@@ -27,51 +18,43 @@
     }
   }
   .hardware-body {
-    margin-left: 15px;
+    margin: 0 15px;
     flex-grow: 1;
     flex-basis: 0;
   }
+
+  a {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   .hardware-name {
-    color: $color-gray;
-    font-weight: 500;
+    font-size: $font-size-xs;
+    @include respond-to-tablet() {
+      font-size: $font-size-base;
+    }
     margin-bottom: 5px;
     @include respond-to-sp() {
       line-height: 1.1;
     }
+  }
 
-    a {
-      color: inherit;
-      font-size: $font-size-xs;
-      @include respond-to-tablet() {
-        font-size: $font-size-base;
-      }
-      &:hover {
-        cursor: pointer;
-        text-decoration: none;
-      }
-    }
-  }
-  .hardware-provider {
-    color: $color-black;
-    &:before {
-      content: '[';
-    }
-    &:after {
-      content: '] ';
-    }
-  }
   .hardware-price {
     color: $color-red;
+  }
+
+  .hardware-provider,
+  .hardware-price {
     font-size: $font-size-xs;
 
     @include respond-to-tablet() {
       font-size: $font-size-sm;
     }
   }
+
   .btn {
-    font-size: $font-size-sm;
     @include respond-to-sp() {
-      font-size: $font-size-xs;
       min-width: 40px;
       padding: 6px 8px;
     }

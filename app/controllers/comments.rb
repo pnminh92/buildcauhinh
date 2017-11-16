@@ -6,13 +6,13 @@ class App
       @build = Build[params[:build_id]]
       halt 404 unless @build
       @comment = Comment.new
-      params.merge!(JSON.parse(request.body.read))
       if @comment.set_fields(params.merge(user_id: current_user.id), %i[build_id content user_id]).save
-        status 201
-        json(comment: @comment, user: current_user)
+        redirect to("/builds/#{@build.slug}")
       else
-        status 422
-        json @comment.errors
+        @comments = @build.comments
+        @hardwares = @build.hardwares
+        @new_builds = Build.limit(5).order(Sequel.desc(:id)).all
+        erb :"builds/show", layout: :'layout/main'
       end
     end
 
@@ -25,7 +25,7 @@ class App
         json @comment
       else
         status 422
-        json @comment.errors
+        json(content: @comment.errors.full_messages_for(:comment, :content))
       end
     end
 

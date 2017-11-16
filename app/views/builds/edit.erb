@@ -1,80 +1,79 @@
 <main class="contents">
   <div class="container">
-    <div class="building-list">
-      <h1 class="title text-center">Dàn máy đang ráp</h1>
-      <div class="form">
-        <div class="form-group">
-          <label class="form-label">Tiêu đề</label>
-          <input class="form-input input" type="text">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Nội dung</label>
-          <textarea class="form-input textarea"></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mức giá</label>
-          <select name="price_type" class="form-input input">
-            <option value="" selected>Chọn mức giá</option>
-            <% SETTINGS['price_type'].each do |price| %>
-            <option value="<%= price %>"><%= I18n.t("views.#{price}") %></option>
-            <% end %>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Loại CPU</label>
-          <div class="form-input">
-            <% SETTINGS['cpu_type'].each do |cpu| %>
-            <input type="radio" id="cpu_type_<%= cpu %>" name="cpu_type"><label for="cpu_type_<%= cpu %>"><%= I18n.t("views.cpu_#{cpu}") %></label>
-            <% end %>
+    <form action="/builds/<%= @build.id %>/update" method="post">
+      <input type="hidden" name="user_id" value="<%= current_user&.id %>">
+      <% @hardwares.each do |hardware| %>
+      <input type="hidden" name="hardware_ids[]" value="<%= hardware.id %>">
+      <% end %>
+      <div class="building-list">
+        <h1 class="title text-center"><%= I18n.t('views.edit_building_list') %></h1>
+        <div class="form">
+          <div class="form-group">
+            <label class="form-label"><%= I18n.t('views.build_title') %></label>
+            <div class="form-input">
+              <input name="title" class="input" type="text" value="<%= @build.title %>">
+              <%= model_text_error(@build.errors, :build, :title) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><%= I18n.t('views.build_description') %></label>
+            <div class="form-input">
+              <textarea name="description" class="textarea" value="<%= @build.description %>"></textarea>
+              <%= model_text_error(@build.errors, :build, :description) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><%= I18n.t('views.build_price_type') %></label>
+            <div class="form-input">
+              <select name="price_type" class="input">
+                <option value=""><%= I18n.t('views.build_select_price_type') %></option>
+                <% SETTINGS['price_type'].each do |price| %>
+                <option value="<%= price %>" <%= @build.price_type == price ? 'selected' : '' %>><%= I18n.t("views.#{price}") %></option>
+                <% end %>
+              </select>
+              <%= model_text_error(@build.errors, :build, :price_type) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><%= I18n.t('views.build_cpu_type') %></label>
+            <div class="form-input">
+              <% SETTINGS['cpu_type'].each do |cpu| %>
+              <input type="radio" id="cpu_type_<%= cpu %>" name="cpu_type" value="<%= cpu %>" <%= @build.cpu_type == cpu ? 'checked' : '' %>>
+              <label for="cpu_type_<%= cpu %>"><%= I18n.t("views.cpu_#{cpu}") %></label>
+              <% end %>
+              <%= model_text_error(@build.errors, :build, :cpu_type) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><%= I18n.t('views.build_price_showed') %></label>
+            <div class="form-input">
+              <input type="radio" id="price_showed_yes" name="price_showed" <%= @build.price_showed ? 'checked' : '' %>>
+              <label for="price_showed_yes"><%= I18n.t('views.price_showed_yes') %></label>
+              <input type="radio" id="price_showed_no" name="price_showed" <%= @build.price_showed ? '' : 'checked' %>>
+              <label for="price_showed_no"><%= I18n.t('views.price_showed_no') %></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><%= I18n.t('views.build_provider_showed') %></label>
+            <div class="form-input">
+              <input type="radio" id="provider_showed_yes" name="provider_showed" <%= @build.provider_showed ? 'checked' : '' %>>
+              <label for="provider_showed_yes"><%= I18n.t('views.provider_showed_yes') %></label>
+              <input type="radio" id="provider_showed_no" name="provider_showed" <%= @build.provider_showed ? '' : 'checked' %>>
+              <label for="provider_showed_no"><%= I18n.t('views.provider_showed_no') %></label>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Hiện giá phần cứng</label>
-          <div class="form-input">
-            <input type="radio" id="price_showed_yes" name="price_showed"><label for="price_showed_yes">Có</label><input type="radio" id="price_showed_no" name="price_showed"><label for="price_showed_no">Không</label>
-          </div>
+        <div class="hardware-list">
+          <% @hardwares.each do |hardware| %>
+          <%= erb(:'shared/hardware', locals: { hardware: hardware, hardware_list: true }) %>
+          <% end %>
         </div>
-        <div class="form-group">
-          <label class="form-label">Hiện tên cửa hàng</label>
-          <div class="form-input"><input type="radio" id="provider_showed_yes" name="provider_showed"><label for="provider_showed_yes">Có</label><input type="radio" id="provider_showed_no" name="provider_showed"><label for="provider_showed_no">Không</label></div>
+        <div class="building-list-btn">
+          <button type="submit" class="btn btn-green" title="<%= I18n.t('views.build_edit_title') %>"><%= I18n.t('views.edit_btn') %></button>
+          <a href="/" class="btn btn-gray" title="<%= I18n.t('views.change_parts_title') %>"><%= I18n.t('views.change_parts_btn') %></a>
+          <button type="button" class="btn btn-red" title="<%= I18n.t('views.remove_title') %>" onclick="Build.cancel(<%= @build.id %>)"><%= I18n.t('views.remove_btn') %></button>
         </div>
       </div>
-      <div class="hardware-list">
-        <div class="hardware-item">
-          <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-          <div class="hardware-body">
-            <h3 class="hardware-name"><a href="#"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</a></h3>
-            <p class="hardware-price">1.600.000 VND</p>
-          </div>
-          <div class="hardware-btn">
-            <button type="button" class="btn btn-gray"><%= I18n.t('views.build_btn') %></button>
-          </div>
-        </div>
-        <div class="hardware-item">
-          <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-          <div class="hardware-body">
-            <h3 class="hardware-name"><a href="#"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake Intel G4600 Kabylake Intel G4600 Kabylake Intel G4600 Kabylake</a></h3>
-            <p class="hardware-price">1.600.000 VND</p>
-          </div>
-          <div class="hardware-btn">
-            <button type="button" class="btn btn-gray"><%= I18n.t('views.build_btn') %></button>
-          </div>
-        </div>
-        <div class="hardware-item">
-          <img class="hardware-img" src="/img/intel_g4600.jpg" alt="">
-          <div class="hardware-body">
-            <h3 class="hardware-name"><a href="#"><span class="hardware-provider">Mai Hoàng</span>Intel G4600 Kabylake</a></h3>
-            <p class="hardware-price">1.600.000 VND</p>
-          </div>
-          <div class="hardware-btn">
-            <button type="button" class="btn btn-gray"><%= I18n.t('views.build_btn') %></button>
-          </div>
-        </div>
-      </div>
-      <div class="building-list-btn">
-        <button type="button" class="btn btn-green" onclick="BuildingList.create()">Tạo</button>
-        <a href="/" class="btn btn-gray">Tiếp tục ráp</a>
-      </div>
-    </div>
+    </form>
   </div>
 </main>

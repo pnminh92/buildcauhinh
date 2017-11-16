@@ -6,7 +6,7 @@
 
         <div class="build-items">
         <% @builds.each do |build| %>
-        <%= erb(:'builds/build', locals: { build: build }) %>
+        <%= erb(:'shared/build', locals: { build: build }) %>
         <% end %>
         </div>
       </section>
@@ -14,27 +14,58 @@
       <aside class="sidebar">
         <h2 class="title"><%= I18n.t('views.filter_title') %></h2>
 
-        <div class="flexbox flexbox-sidebar">
-          <div class="build-options">
-            <h3 class="sub-title"><%= I18n.t('views.filter_price') %></h3>
-            <ul>
-              <% SETTINGS['price_type'].each do |price| %>
-              <li><input type="checkbox" id="price_type_<%= price %>"><label for="price_type_<%= price %>"><%= I18n.t("views.#{price}") %></label></li>
-              <% end %>
-            </ul>
+        <form action="/builds" method="get">
+          <div class="flexbox flexbox-sidebar">
+            <div class="build-options">
+              <h3 class="sub-title"><%= I18n.t('views.filter_price') %></h3>
+              <ul>
+                <% SETTINGS['price_type'].each do |price| %>
+                <li>
+                  <input name="price_type[]" type="checkbox" id="price_type_<%= price %>" value="<%= price %>" <%= params[:price_type]&.include?(price) ? 'checked' : '' %>>
+                  <label for="price_type_<%= price %>"><%= I18n.t("views.#{price}") %></label>
+                </li>
+                <% end %>
+              </ul>
+            </div>
+
+            <div class="build-options">
+              <h3 class="sub-title"><%= I18n.t('views.filter_cpu') %></h3>
+              <ul>
+                <% SETTINGS['cpu_type'].each do |type| %>
+                <li>
+                  <input name="cpu_type[]" type="checkbox" id="cpu_<%= type %>" value="<%= type %>" <%= params[:cpu_type]&.include?(type) ? 'checked' : '' %>>
+                  <label for="cpu_<%= type %>"><%= I18n.t("views.cpu_#{type}") %></label>
+                </li>
+                <% end %>
+              </ul>
+            </div>
           </div>
 
-          <div class="build-options">
-            <h3 class="sub-title"><%= I18n.t('views.filter_cpu') %></h3>
-            <ul>
-              <% SETTINGS['cpu_type'].each do |type| %>
-              <li><input name="cpu_type" type="radio" id="cpu_<%= type %>"><label for="cpu_<%= type %>"><%= I18n.t("views.cpu_#{type}") %></label></li>
-              <% end %>
-              <li><input name="cpu_type" type="radio" id="cpu_none"><label for="cpu_none"><%= I18n.t('views.cpu_none') %></label></li>
-            </ul>
-          </div>
-        </div>
+          <button type="submit" class="btn"><%= I18n.t('views.filter_btn') %></button>
+        </form>
       </aside>
     </div>
   </div>
 </main>
+
+<% content_for(:title) do %>
+<%= 'Dàn máy - rapmay' %>
+<% end %>
+<% content_for(:description) do %>
+<%= 'Những dàn máy tính được ráp và chia sẻ bởi cộng đồng rapmay' %>
+<% end %>
+<% content_for(:canonical) do %>
+<%= 'https://rapmay.com/builds' %>
+<% end %>
+<% content_for(:og_title) do %>
+<%= 'Dàn máy - rapmay' %>
+<% end %>
+<% content_for(:og_site_name) do %>
+<%= 'Dàn máy - rapmay' %>
+<% end %>
+<% content_for(:og_description) do %>
+<%= 'Những dàn máy tính được ráp và chia sẻ bởi cộng đồng rapmay' %>
+<% end %>
+<% content_for(:og_url) do %>
+<%= 'https://rapmay.com/builds' %>
+<% end %>

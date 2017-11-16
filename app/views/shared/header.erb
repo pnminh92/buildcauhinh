@@ -7,14 +7,14 @@
         </div>
         <div class="nav-control">
           <div class="nav-control-item"><a href="/builds"><%= I18n.t('views.builds') %></a></div>
-          <div class="menu"><img src="/img/avatar.png" alt="wofiminh"></div>
+          <div class="menu"><img src="<%= current_user.avatar_url %>" alt="<%= current_user.short_username %>"></div>
         </div>
       </nav>
       <ul class="nav-dropdown">
         <li><a href="/builds"><%= I18n.t('views.builds') %></a></li>
         <li><a href="/<%= current_user.username %>"><%= I18n.t('views.profile_page') %></a></li>
         <li><a href="/settings"><%= I18n.t('views.settings') %></a></li>
-        <li><a href="#" onclick="Timgialinhkien.signout()"><%= I18n.t('views.sign_out_btn') %></a></li>
+        <li><form method="post" action="/sign_out"><button type="submit" class="link-sign-out"><%= I18n.t('views.sign_out_btn') %></button></form></li>
       </ul>
     <% else %>
       <nav class="nav">

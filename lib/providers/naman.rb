@@ -3,6 +3,7 @@
 module Providers
   class Naman
     URL = 'http://vitinhnaman.com/search'
+    SLUG = 'nam_an'
 
     class << self
       def search(words)
@@ -21,15 +22,17 @@ module Providers
         html_doc.css('.product-list .product-item').map do |html_product|
           ele = html_product.css('h3 a')
           name = ele.first.content
-          url = ele.first['href']
-          price = html_product.css('.product-price').first.content.gsub(/[^\d]/, '').to_i
+          code = ::Util.codify(name, SLUG)
+          next if ::Hardware.first(code: code)
           {
+            code: code,
             name: name,
-            price: price,
-            url: url,
-            provider: 'naman'
+            price: html_product.css('.product-price').first.content.gsub(/[^\d]/, '').to_i,
+            url: ele.first['href'],
+            image_url: html_product.css('.product-img img').first['src'],
+            provider: SLUG
           }
-        end
+        end.compact
       end
     end
   end

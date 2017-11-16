@@ -4,7 +4,6 @@
     border-bottom: 1px solid $color-lighter-gray;
     &:before {
       content: '> ';
-      color: $color-blue;
     }
     &:first-child {
       padding-top: 0;
@@ -15,6 +14,7 @@
     }
     a {
       font-size: 14px;
+      color: $color-black;
     }
   }
 }
@@ -31,11 +31,6 @@
     padding-bottom: 0;
     border-bottom: 0;
   }
-
-  .build-title {
-    font-weight: 600;
-  }
-
 }
 
 .build-status {
@@ -81,11 +76,26 @@
   .title {
     margin-bottom: 0;
   }
-  .media {
-    margin-bottom: 10px;
-  }
   .build-spec {
     margin-bottom: 20px;
+  }
+  .build-info {
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+    .media-body {
+      display: flex;
+      align-items: center;
+      form {
+        display: inline-block;
+        line-height: 1;
+      }
+    }
+  }
+
+  .build-description {
+    font-size: $font-size-sm;
+    margin-bottom: 15px;
   }
 }
 
@@ -103,6 +113,7 @@
 }
 
 .builder {
+  display: block;
   position: fixed;
   right: 20px;
   bottom: 20px;
@@ -111,13 +122,13 @@
   svg {
     color: $color-white;
     padding: 8px;
-    width: 64px;
-    height: 64px;
-    background-color: $color-blue;
+    width: 54px;
+    height: 54px;
+    background-color: $color-green;
     border-radius: 6px;
     transition: background-color .2s ease-in-out;
     &:hover {
-      background-color: lighten($color-blue, 5%);
+      background-color: lighten($color-green, 5%);
     }
     @include respond-to-sp() {
       width: 48px;

@@ -3,8 +3,15 @@ vi:
     user:
       username: 'Tên đăng nhập'
       password: 'Mật khẩu'
-      email: 'Email'
+      email: 'Địa chỉ email'
       about: 'Giới thiệu'
+    comment:
+      content: 'Bình luận'
+    build:
+      title: 'Tên'
+      description: 'Mô tả'
+      price_type: 'Mức giá'
+      cpu_type: 'Loại CPU'
   errors:
     exact_length: "không đúng %{exact} kí tự"
     format: "không hợp lệ"
@@ -23,6 +30,10 @@ vi:
     unique: "đã tồn tại"
     joiner: " và "
   views:
+    price_showed_yes: 'Có'
+    price_showed_no: 'Không'
+    provider_showed_yes: 'Có'
+    provider_showed_no: 'Không'
     send_btn: 'Gửi'
     change_pwd_btn: 'Đổi mật khẩu'
     sign_in_btn: 'Đăng nhập'
@@ -35,11 +46,12 @@ vi:
     change_pwd: 'Thay đổi mật khẩu'
     reset_pwd: 'Khôi phục mật khẩu'
     forgot_pwd: 'Quên mật khẩu'
+    forgot_pwd_link: 'Quên mật khẩu ?'
     sign_in: 'Đăng nhập tài khoản'
     sign_up: 'Đăng kí tài khoản'
     username: 'Tên đăng nhập'
     password: 'Mật khẩu'
-    email: 'Email'
+    email: 'Địa chỉ email'
     current_password: 'Mật khẩu hiện tại'
     new_password: 'Mật khẩu mới'
     change_pwd_label: 'Đổi mật khẩu'
@@ -51,6 +63,7 @@ vi:
     builds: 'Tham khảo cấu hình'
     build: 'Cấu hình'
     built_at: ' ráp ngày '
+    filter_btn: 'Lọc'
     filter_title: 'Lọc'
     filter_cpu: 'CPU'
     cpu_intel: 'Intel'
@@ -61,14 +74,26 @@ vi:
     between_7_12: '7tr - 12tr'
     between_13_20: '13tr - 20tr'
     above_20: 'Trên 20tr'
+    edit_building_list: 'Sửa dàn máy'
+    create_building_list: 'Tạo mới dàn máy'
+    build_title: 'Tiêu đề'
+    build_description: 'Mô tả'
+    build_price_type: 'Mức giá'
+    build_select_price_type: 'Chọn mức giá'
+    build_cpu_type: 'Loại CPU'
+    build_price_showed: 'Hiện giá phần cứng'
+    build_provider_showed: 'Hiện tên cửa hàng'
     new_builds: 'Cấu hình mới ráp'
     profile_page: 'Trang cá nhân'
     recent_search: 'Tìm kiếm gần đây'
     plh_search_hardware: 'Nhập tên linh kiện'
     search_btn: 'Tìm'
     build_btn: 'Ráp'
+    continue_build_btn: 'Tiếp tục ráp'
+    remove_btn: 'Huỷ'
     close_btn: 'Đóng'
     view_more_btn: 'Xem thêm'
+    change_parts_btn: 'Thay đổi linh kiện'
     site_main_title: 'Tìm giá linh kiện đơn giản nhanh chóng'
     comment: 'Bình luận'
     comment_content: 'Ý kiến của bạn...'
@@ -78,9 +103,20 @@ vi:
     tan_doanh: 'Tân Doanh'
     phong_vu: 'Phong Vũ'
     nam_an: 'Nam An'
+    result_search: "%{count} linh kiện để ráp máy"
+    build_edit_title: 'Xác nhận sửa cấu hình máy'
+    change_parts_title: 'Trở về trang chủ để thêm những linh kiện mới'
+    remove_title: 'Dừng không sửa cấu hình này nữa'
+    comment_date_min: "%{min} phút trước"
+    comment_date_hour: "%{hour} giờ trước"
+    comment_date_day: "%{day} ngày trước"
+    currency: ' VNĐ'
   controllers:
     users:
       sign_in_error: 'Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại!'
-      forgot_pwd_error: 'Email không tồn tại'
+      forgot_pwd_error: 'Địa chỉ email không tồn tại'
       change_pwd_error: 'Mật khẩu hiện tại không đúng'
       reset_pwd_error: 'Token không hợp lệ'
+      sign_up_success: 'Đăng kí thành công'
+      forgot_pwd_success: 'Hệ thống đã gửi bạn email để khôi phục mật khẩu'
+      reset_pwd_success: 'Khôi phục mật khẩu thành công'

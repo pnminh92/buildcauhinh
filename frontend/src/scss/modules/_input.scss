@@ -10,7 +10,8 @@ input[type=file] {
 .form {
   .form-group {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+
     + .form-group {
       margin-top: 20px;
     }
@@ -39,6 +40,16 @@ input[type=file] {
   .form-input {
     flex-basis: 0;
     flex-grow: 1;
+
+    .input {
+      width: 100%;
+    }
+
+    .single-text-error {
+      margin-top: 5px;
+      margin-bottom: 0;
+      text-align: left;
+    }
   }
   input[type=radio] + label {
     margin-left: 5px;
@@ -49,7 +60,7 @@ input[type=file] {
 }
 
 .form-wrapper {
-  width: 400px;
+  width: 360px;
   margin: 0 auto;
 
   @include respond-to-sp() {
@@ -61,6 +72,11 @@ input[type=file] {
     @include respond-to-sp() {
       margin-bottom: 20px;
     }
+  }
+
+  a {
+    line-height: 1;
+    font-size: $font-size-sm;
   }
 }
 

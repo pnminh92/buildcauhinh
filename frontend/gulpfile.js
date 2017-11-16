@@ -76,7 +76,7 @@ function rebundle(bundler) {
 }
 
 gulp.task('standard', function () {
-  gulp.src(`${config.srcPath}/js/**/*.js`)
+  gulp.src(`${config.srcPath}/js/*.js`)
       .pipe(standard())
       .pipe(standard.reporter('default', {
         quiet: true,

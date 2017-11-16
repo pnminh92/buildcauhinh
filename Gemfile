@@ -3,9 +3,10 @@ source 'https://rubygems.org'
 require 'logger'
 require 'json'
 
-# Core
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'sinatra-flash'
+
 gem 'puma'
 gem 'sidekiq'
 gem 'rake'

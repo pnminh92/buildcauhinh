@@ -1,16 +1,17 @@
 class App
   get '/sign_up' do
-    redirect(to('/')) && return if session[:id]
+    redirect(to('/')) && return if signed_in?
 
     erb :'users/sign_up', layout: :'layout/simple'
   end
 
   post '/sign_up' do
-    redirect(to('/')) && return if session[:id]
+    redirect(to('/')) && return if signed_in?
 
     @user = User.new
-    @user.username = username(params[:username]) if params[:username]
-    if @user.set_fields(params, %i[password]).save
+    if @user.set_fields(params, %i[username password]).save
+      byebug
+      flash[:success] = I18n.t('controllers.users.sign_up_success')
       redirect to('/')
     else
       @errors = @user.errors
@@ -19,13 +20,13 @@ class App
   end
 
   get '/sign_in' do
-    redirect(to('/')) && return if session[:id]
+    redirect(to('/')) && return if signed_in?
 
     erb :'users/sign_in', layout: :'layout/simple'
   end
 
   post '/sign_in' do
-    redirect(to('/')) && return if session[:id]
+    redirect(to('/')) && return if signed_in?
 
     @user = User.where(username: username(params[:username])).first
     if @user && @user.authenticate(params[:password])
@@ -37,12 +38,13 @@ class App
     end
   end
 
-  delete '/sign_out' do
+  post '/sign_out' do
     session[:id] = nil
+    redirect to('/')
   end
 
   get '/forgot_pwd' do
-    redirect(to('/')) && return if session[:id]
+    redirect(to('/')) && return if signed_in?
 
     erb :'users/forgot_pwd', layout: :'layout/simple'
   end
@@ -52,6 +54,7 @@ class App
     if @user
       @user.gen_reset_pwd_token
       SendResetPwdTokenWorker.perform_async(@user.id)
+      flash[:success] = I18n.t('controllers.users.forgot_pwd_success')
       redirect to('/sign_in')
     else
       @error = I18n.t('controllers.users.forgot_pwd_error')
@@ -69,6 +72,7 @@ class App
     @token = params[:reset_pwd_token]
     if @user && @user.reset_pwd_token_valid?
       if @user.update(password: params[:password])
+        flash[:success] = I18n.t('controllers.users.reset_pwd_success')
         redirect to('/sign_in')
       else
         @errors = @user.errors
@@ -85,18 +89,15 @@ class App
   end
 
   post '/settings/change_pwd' do
-    unless current_user.authenticate(params[:current_password])
+    if !current_user.authenticate(params[:current_password])
       @error = I18n.t('controllers.users.change_pwd_error')
-      halt erb(:'users/change_pwd', layout: :'layout/main')
-    end
-    unless current_user.update(password: params['new_password'])
+    elsif !current_user.set_fields(params, %i[password]).save
       @errors = current_user.errors
     end
     erb :'users/change_pwd', layout: :'layout/main'
   end
 
   get '/settings' do
-    @user = current_user
     erb :'users/settings', layout: :'layout/main'
   end
 
@@ -108,10 +109,8 @@ class App
   end
 
   post '/settings' do
-    @user = current_user
-    @user.username = username(params[:username]) if params[:username]
-    @user.update_fields(params, %i[email about])
-    @errors = current_user.errors if @user.errors
+    current_user.set_fields(params, %i[username avatar email about]).save
+    @errors = current_user.errors if current_user.errors
     erb :'users/settings', layout: :'layout/main'
   end
 end

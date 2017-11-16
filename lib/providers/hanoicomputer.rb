@@ -2,7 +2,9 @@
 
 module Providers
   class Hanoicomputer
+    DOMAIN = 'https://www.hanoicomputer.vn'
     URL = 'https://www.hanoicomputer.vn/tim'
+    SLUG = 'ha_noi_computer'
 
     class << self
       def search(words)
@@ -23,13 +25,16 @@ module Providers
           next unless price > 0
           ele = html_product.css('.p_name')
           name = ele.first.content
-          url = ele.first['href']
+          code = ::Util.codify(name, SLUG)
+          next if ::Hardware.first(code: code)
           discount = (html_product.css('.price_off').first&.content&.gsub(/[^\d]/, '').to_f / 100) * price
           {
+            code: code,
             name: name,
             price: price - discount,
-            url: url,
-            provider: 'hanoicomputer'
+            url: DOMAIN + ele.first['href'],
+            image_url: DOMAIN + html_product.css('.p_img img').first['src'],
+            provider: SLUG
           }
         end.compact
       end

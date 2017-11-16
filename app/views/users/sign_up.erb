@@ -3,19 +3,42 @@
     <h1 class="title text-center"><%= I18n.t('views.sign_up') %></h1>
     <form class="form" action="/sign_up" method="post">
       <div class="form-group">
-        <label class="form-label" for=""><%= I18n.t('views.username') %></label>
-        <input name="username" class="input form-input" type="text" value="<%= @user&.short_username %>">
-        <p class="text-error"><%= @errors&.full_messages_for(:user, :username)&.first %></p>
+        <div class="form-input">
+          <input name="username" class="input" type="text" value="<%= @user&.short_username %>" placeholder="<%= I18n.t('views.username') %>">
+          <%= model_text_error(@errors, :user, :username) %>
+        </div>
       </div>
       <div class="form-group">
-        <label class="form-label" for=""><%= I18n.t('views.password') %></label>
-        <input name="password" class="input form-input" type="password">
-        <p class="text-error"><%= @errors&.full_messages_for(:user, :password)&.first %></p>
+        <div class="form-input">
+          <input name="password" class="input" type="password" placeholder="<%= I18n.t('views.password') %>">
+          <%= model_text_error(@errors, :user, :password) %>
+        </div>
       </div>
       <div class="form-group">
-        <label class="form-label"></label>
-        <input class="btn" type="submit" value="<%= I18n.t('views.sign_up_btn') %>">
+        <input class="btn btn-block" type="submit" value="<%= I18n.t('views.sign_up_btn') %>">
       </div>
     </form>
   </div>
 </main>
+
+<% content_for(:title) do %>
+<%= 'Đăng kí thành viên - rapmay' %>
+<% end %>
+<% content_for(:description) do %>
+<%= 'Tham gia cộng đồng rapmay để được trải nghiệm ráp thử máy tính, tìm giá linh kiện một cách đơn giản nhất' %>
+<% end %>
+<% content_for(:canonical) do %>
+<%= 'https://rapmay.com/sign_up' %>
+<% end %>
+<% content_for(:og_title) do %>
+<%= 'Đăng kí thành viên - rapmay' %>
+<% end %>
+<% content_for(:og_site_name) do %>
+<%= 'Đăng kí thành viên - rapmay' %>
+<% end %>
+<% content_for(:og_description) do %>
+<%= 'Tham gia cộng đồng rapmay để được trải nghiệm ráp thử máy tính, tìm giá linh kiện một cách đơn giản nhất' %>
+<% end %>
+<% content_for(:og_url) do %>
+<%= 'https://rapmay.com/sign_up' %>
+<% end %>

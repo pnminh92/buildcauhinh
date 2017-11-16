@@ -9,16 +9,16 @@
       <div class="hardware-search">
         <div class="hardware-search-input">
           <form id="hardware-search-form" action="/search" method="post">
-            <input name="word" type="text" class="input input-search" placeholder="<%= I18n.t('views.plh_search_hardware') %>">
+            <input value="<%= @q[:word] %>" name="word" type="text" class="input input-search" placeholder="<%= I18n.t('views.plh_search_hardware') %>">
             <select name="providers[]" class="hardware-provider-select"></select>
           </form>
         </div>
-        <button type="button" class="btn" onclick="Timgialinhkien.search(event)"><%= I18n.t('views.search_btn') %></button>
+        <button type="button" class="btn" onclick="Timgialinhkien.search()"><%= I18n.t('views.search_btn') %></button>
       </div>
 
       <div class="flexbox flexbox-main">
         <div class="main-content">
-          <h2 class="title"><%= I18n.t('views.recent_search') %></h2>
+          <h2 class="title"><%= I18n.t('views.result_search', count: @hardwares.length) %></h2>
           <div class="hardware-list">
           <% @hardwares.each do |hardware| %>
           <%= erb :'shared/hardware', locals: { hardware: hardware, hardware_list: false } %>
@@ -32,15 +32,9 @@
   </section>
 </main>
 
-<% if flash[:success] %>
-  <% content_for(:success) do %>
-    <%= flash[:success] %>
-  <% end %>
-<% end %>
-
 <% content_for(:js) do %>
 <script>
-var selectedProviders
 var providers = JSON.parse('<%= providers.to_json %>')
+var selectedProviders = "<%= @q[:providers].join(', ') %>".split(', ')
 </script>
 <% end %>

@@ -6,18 +6,14 @@
 
         <div class="build-items">
         <% @builds.each do |build| %>
-        <%= erb(:'builds/build', locals: { build: build }) %>
+        <%= erb(:'shared/build', locals: { build: build }) %>
         <% end %>
         </div>
       </section>
 
       <aside class="sidebar">
         <div class="user-profile">
-          <% if @user.avatar_url %>
           <img class="user-avatar" src="<%= @user.avatar_url %>" alt="<%= @user.short_username %>">
-          <% else %>
-          <img class="user-avatar" src="/img/avatar.png" alt="<%= @user.short_username %>">
-          <% end %>
           <h1 class="user-name sub-title"><%= @user.short_username %></h1>
           <% if @user.about %>
           <p class="user-about"><%= @user.about %></p>
@@ -27,3 +23,28 @@
     </div>
   </div>
 </main>
+
+<% content_for(:title) do %>
+<%= "#{@user.short_username} - rapmay" %>
+<% end %>
+<% content_for(:description) do %>
+<%= "Những dàn máy tính mà #{@user.short_username} đã ráp" %>
+<% end %>
+<% content_for(:canonical) do %>
+<%= "https://rapmay.com/#{@user.username}" %>
+<% end %>
+<% content_for(:og_title) do %>
+<%= "#{@user.short_username} - rapmay" %>
+<% end %>
+<% content_for(:og_site_name) do %>
+<%= "#{@user.short_username} - rapmay" %>
+<% end %>
+<% content_for(:og_description) do %>
+<%= "Những dàn máy tính mà #{@user.short_username} đã ráp" %>
+<% end %>
+<% content_for(:og_url) do %>
+<%= "https://rapmay.com/#{@user.username}" %>
+<% end %>
+<% content_for(:og_image) do %>
+<%= @user.avatar_url %>
+<% end %>

@@ -1,22 +1,48 @@
 <main class="contents">
   <div class="form-wrapper">
     <h1 class="title text-center"><%= I18n.t('views.sign_in') %></h1>
-    <% if @error %>
-      <p><%= @error %></p>
-    <% end %>
+    <%= single_text_error(@error) %>
     <form class="form" action="/sign_in" method="POST">
       <div class="form-group">
-        <label class="form-label" for=""><%= I18n.t('views.username') %></label>
-        <input name="username" class="input form-input" type="text">
+        <input name="username" class="input form-input" type="text" placeholder="<%= I18n.t('views.username') %>">
       </div>
       <div class="form-group">
-        <label class="form-label" for=""><%= I18n.t('views.password') %></label>
-        <input name="password" class="input form-input" type="password">
+        <input name="password" class="input form-input" type="password" placeholder="<%= I18n.t('views.password') %>">
       </div>
       <div class="form-group">
-        <label class="form-label"></label>
-        <input class="btn" type="submit" value="<%= I18n.t('views.sign_in_btn') %>">
+        <input class="btn btn-block" type="submit" value="<%= I18n.t('views.sign_in_btn') %>">
+      </div>
+      <div class="form-group">
+        <a href="/forgot_pwd"><%= I18n.t('views.forgot_pwd_link') %></a>
       </div>
     </form>
   </div>
 </main>
+
+<% content_for(:title) do %>
+<%= 'Đăng nhập - rapmay' %>
+<% end %>
+<% content_for(:description) do %>
+<%= 'Tham gia cộng đồng rapmay để được trải nghiệm ráp thử máy tính, tìm giá linh kiện một cách đơn giản nhất' %>
+<% end %>
+<% content_for(:canonical) do %>
+<%= 'https://rapmay.com/sign_in' %>
+<% end %>
+<% content_for(:og_title) do %>
+<%= 'Đăng nhập - rapmay' %>
+<% end %>
+<% content_for(:og_site_name) do %>
+<%= 'Đăng nhập - rapmay' %>
+<% end %>
+<% content_for(:og_description) do %>
+<%= 'Tham gia cộng đồng rapmay để được trải nghiệm ráp thử máy tính, tìm giá linh kiện một cách đơn giản nhất' %>
+<% end %>
+<% content_for(:og_url) do %>
+<%= 'https://rapmay.com/sign_in' %>
+<% end %>
+
+<% if flash[:success] %>
+  <% content_for(:success) do %>
+    <%= flash[:success] %>
+  <% end %>
+<% end %>

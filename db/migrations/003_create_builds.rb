@@ -9,6 +9,7 @@ Sequel.migration do
       foreign_key :user_id, :users, null: false
       String :slug, size: 255, null: false, index: { unique: true }
       String :title, size: 255, null: false
+      String :description, text: true, size: 500
       price_type :price_type, null: false
       cpu_type :cpu_type, null: false
       TrueClass :price_showed, null: false, default: true
