@@ -12,6 +12,7 @@ vi:
       description: 'Mô tả'
       price_type: 'Mức giá'
       cpu_type: 'Loại CPU'
+      hardwares: 'Linh kiện'
   errors:
     exact_length: "không đúng %{exact} kí tự"
     format: "không hợp lệ"
@@ -29,6 +30,8 @@ vi:
     presence: "trống"
     unique: "đã tồn tại"
     joiner: " và "
+    max_elements: 'có nhiều hơn %{num} đơn vị'
+    min_elements: 'có ít hơn %{num} đơn vị'
   views:
     price_showed_yes: 'Có'
     price_showed_no: 'Không'
@@ -111,6 +114,8 @@ vi:
     comment_date_hour: "%{hour} giờ trước"
     comment_date_day: "%{day} ngày trước"
     currency: ' VNĐ'
+    spam_msg: 'Nhanh quá chịu không nổi, từ từ thôi nha!'
+    select_hardwares: 'Ráp linh kiện'
   controllers:
     users:
       sign_in_error: 'Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại!'

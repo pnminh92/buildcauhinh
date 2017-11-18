@@ -64,6 +64,11 @@
 .hardware-search {
   margin-bottom: 40px;
   display: flex;
+
+  @include respond-to-sp() {
+    margin-bottom: 20px;
+  }
+
   .hardware-search-input {
     flex-grow: 1;
   }

@@ -1,100 +1,92 @@
 <main class="contents">
   <div class="container">
-    <form action="/builds" method="post">
-      <input type="hidden" name="user_id" value="<%= current_user&.id %>">
-      <% @hardwares.each do |hardware| %>
-      <input type="hidden" name="hardware_ids[]" value="<%= hardware.id %>">
-      <% end %>
-      <div class="building-list">
-        <h1 class="title text-center"><%= I18n.t('views.create_building_list') %></h1>
-        <div class="form">
-          <div class="form-group">
-            <label class="form-label"><%= I18n.t('views.build_title') %></label>
-            <div class="form-input">
-              <input name="title" class="input" type="text" value="<%= @build.title %>">
-              <%= model_text_error(@build.errors, :build, :title) %>
+    <div class="box">
+      <form action="/builds" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
+        <input type="hidden" name="user_id" value="<%= current_user&.id %>">
+        <input type="hidden" name="total_price" value="<%= @total_price %>">
+        <% @hardwares.each do |hardware| %>
+        <input type="hidden" name="hardware_ids[]" value="<%= hardware.id %>">
+        <% end %>
+        <div class="building-list">
+          <h1 class="title text-center"><%= I18n.t('views.create_building_list') %></h1>
+          <div class="form">
+            <div class="form-group">
+              <label class="form-label"><%= I18n.t('views.build_title') %></label>
+              <div class="form-input">
+                <input name="title" class="input" type="text" value="<%= @build.title %>">
+                <%= model_text_error(@build.errors, :build, :title) %>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label"><%= I18n.t('views.build_description') %></label>
-            <div class="form-input">
-              <textarea name="description" class="textarea" value="<%= @build.description %>"></textarea>
-              <%= model_text_error(@build.errors, :build, :description) %>
+            <div class="form-group">
+              <label class="form-label"><%= I18n.t('views.build_description') %></label>
+              <div class="form-input">
+                <textarea name="description" class="textarea" value="<%= @build.description %>"></textarea>
+                <%= model_text_error(@build.errors, :build, :description) %>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label"><%= I18n.t('views.build_price_type') %></label>
-            <div class="form-input">
-              <select name="price_type" class="input">
-                <option value="" <%= !@build.price_type ? 'selected' : '' %>><%= I18n.t('views.build_select_price_type') %></option>
-                <% SETTINGS['price_type'].each do |price| %>
-                <option value="<%= price %>" <%= @build.price_type == price ? 'selected' : '' %>><%= I18n.t("views.#{price}") %></option>
+            <div class="form-group">
+              <label class="form-label"><%= I18n.t('views.build_cpu_type') %></label>
+              <div class="form-input">
+                <% SETTINGS['cpu_type'].each do |cpu| %>
+                <input type="radio" id="cpu_type_<%= cpu %>" name="cpu_type" value="<%= cpu %>" <%= @build.cpu_type == cpu ? 'checked' : '' %>>
+                <label for="cpu_type_<%= cpu %>"><%= I18n.t("views.cpu_#{cpu}") %></label>
                 <% end %>
-              </select>
-              <%= model_text_error(@build.errors, :build, :price_type) %>
+                <%= model_text_error(@build.errors, :build, :cpu_type) %>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label"><%= I18n.t('views.build_cpu_type') %></label>
-            <div class="form-input">
-              <% SETTINGS['cpu_type'].each do |cpu| %>
-              <input type="radio" id="cpu_type_<%= cpu %>" name="cpu_type" value="<%= cpu %>" <%= @build.cpu_type == cpu ? 'checked' : '' %>>
-              <label for="cpu_type_<%= cpu %>"><%= I18n.t("views.cpu_#{cpu}") %></label>
-              <% end %>
-              <%= model_text_error(@build.errors, :build, :cpu_type) %>
+            <div class="form-group">
+              <label class="form-label"><%= I18n.t('views.build_price_showed') %></label>
+              <div class="form-input">
+                <input type="radio" id="price_showed_yes" name="price_showed" value="true" <%= @build.price_showed ? 'checked' : '' %>>
+                <label for="price_showed_yes"><%= I18n.t('views.price_showed_yes') %></label>
+                <input type="radio" id="price_showed_no" name="price_showed" value="false" <%= @build.price_showed ? '' : 'checked' %>>
+                <label for="price_showed_no"><%= I18n.t('views.price_showed_no') %></label>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label"><%= I18n.t('views.build_price_showed') %></label>
-            <div class="form-input">
-              <input type="radio" id="price_showed_yes" name="price_showed" value="true" <%= @build.price_showed ? 'checked' : '' %>>
-              <label for="price_showed_yes"><%= I18n.t('views.price_showed_yes') %></label>
-              <input type="radio" id="price_showed_no" name="price_showed" value="false" <%= @build.price_showed ? '' : 'checked' %>>
-              <label for="price_showed_no"><%= I18n.t('views.price_showed_no') %></label>
+            <div class="form-group">
+              <label class="form-label"><%= I18n.t('views.build_provider_showed') %></label>
+              <div class="form-input">
+                <input type="radio" id="provider_showed_yes" name="provider_showed" value="true" <%= @build.provider_showed ? 'checked' : '' %>>
+                <label for="provider_showed_yes"><%= I18n.t('views.provider_showed_yes') %></label>
+                <input type="radio" id="provider_showed_no" name="provider_showed" value="false" <%= @build.provider_showed ? '' : 'checked' %>>
+                <label for="provider_showed_no"><%= I18n.t('views.provider_showed_no') %></label>
+              </div>
             </div>
+          </form>
+          <div class="hardware-list">
+            <% @hardwares.each do |hardware| %>
+            <%= erb(:'shared/hardware', locals: { hardware: hardware, hardware_list: true }) %>
+            <% end %>
           </div>
-          <div class="form-group">
-            <label class="form-label"><%= I18n.t('views.build_provider_showed') %></label>
-            <div class="form-input">
-              <input type="radio" id="provider_showed_yes" name="provider_showed" value="true" <%= @build.provider_showed ? 'checked' : '' %>>
-              <label for="provider_showed_yes"><%= I18n.t('views.provider_showed_yes') %></label>
-              <input type="radio" id="provider_showed_no" name="provider_showed" value="false" <%= @build.provider_showed ? '' : 'checked' %>>
-              <label for="provider_showed_no"><%= I18n.t('views.provider_showed_no') %></label>
-            </div>
+          <div class="building-list-btn">
+            <button type="submit" class="btn btn-green" title="Xác nhận ráp máy"><%= I18n.t('views.build_btn') %></button>
+            <a href="/" class="btn btn-gray" title="Trở về trang chủ tiếp tục ráp linh kiện"><%= I18n.t('views.continue_build_btn') %></a>
           </div>
-        </form>
-        <div class="hardware-list">
-          <% @hardwares.each do |hardware| %>
-          <%= erb(:'shared/hardware', locals: { hardware: hardware, hardware_list: true }) %>
-          <% end %>
         </div>
-        <div class="building-list-btn">
-          <button type="submit" class="btn btn-green" title="Xác nhận ráp máy"><%= I18n.t('views.build_btn') %></button>
-          <a href="/" class="btn btn-gray" title="Trở về trang chủ tiếp tục ráp linh kiện"><%= I18n.t('views.continue_build_btn') %></a>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </main>
 
 <% content_for(:title) do %>
-<%= "Ráp dàn máy tính mới - rapmay" %>
+<%= 'Build case, xây dựng cấu hình máy tính mới - buildcasepc' %>
 <% end %>
 <% content_for(:description) do %>
-<%= "Ráp dàn máy tính mới để lưu lại cho mình và chia sẻ với bạn bè và cộng đồng" %>
+<%= 'Build case, xây dựng cấu hình máy tính mới cho mình và để chia sẻ với bạn bè và cộng đồng' %>
 <% end %>
 <% content_for(:canonical) do %>
-<%= "https://rapmay.com/builds/new" %>
+<%= "https://buildcasepc.com/builds/new" %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= "Ráp dàn máy tính mới - rapmay" %>
+<%= 'Build case, xây dựng cấu hình máy tính mới - buildcasepc' %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= "Ráp dàn máy tính mới - rapmay" %>
+<%= 'Build case, xây dựng cấu hình máy tính mới cho mình và để chia sẻ với bạn bè và cộng đồng' %>
 <% end %>
 <% content_for(:og_description) do %>
-<%= "Ráp dàn máy tính mới để lưu lại cho mình và chia sẻ với bạn bè và cộng đồng" %>
+<%= 'Build case, xây dựng cấu hình máy tính mới cho mình và để chia sẻ với bạn bè và cộng đồng' %>
 <% end %>
 <% content_for(:og_url) do %>
-<%= "https://rapmay.com/builds/new" %>
+<%= "https://buildcasepc.com/builds/new" %>
 <% end %>

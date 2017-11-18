@@ -6,9 +6,12 @@ class App < Sinatra::Base
   helpers Sinatra::ContentFor
   helpers Sinatra::JSON
 
-  helpers Timgialinhkien::UserSession
-  helpers Timgialinhkien::Util
+  helpers BuildCasePc::UserSession
+  helpers BuildCasePc::Util
+  helpers BuildCasePc::AntiSpam
+  helpers BuildCasePc::Serializers
 
+  register Sinatra::RespondWith
   register Sinatra::MultiRoute
   register Sinatra::Namespace
   register Sinatra::Flash
@@ -19,6 +22,9 @@ class App < Sinatra::Base
     use Rack::Deflater
     use Rack::ConditionalGet
     use Rack::ETag
+
+    use Rack::Protection
+    use Rack::Protection::AuthenticityToken
 
     set :root, File.dirname(__FILE__)
     set :public_folder, proc { File.join(settings.root, 'public') }
@@ -35,6 +41,12 @@ class App < Sinatra::Base
     set :dump_errors, true
     set :raise_errors, false
     set :show_exceptions, true
+
+
+    before {
+      session[:anti_spam_timestamp] ||= Time.now
+      session[:hardwares] ||= []
+    }
   end
 
   configure :development do
@@ -42,7 +54,6 @@ class App < Sinatra::Base
   end
 
   configure :production do
-    use Rack::Protection
     set :session_secret, proc { ENV['SESSION_SECRET'] }
     set :show_exceptions, false
 
@@ -60,6 +71,7 @@ Dir[File.join(settings.root, 'config', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'lib', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'lib', 'providers', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'app', 'uploaders', '*.rb')].each { |f| require f }
+Dir[File.join(settings.root, 'app', 'models', 'concerns', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'app', 'models', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'app', 'workers', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'app', 'controllers', '*.rb')].each { |f| require f }

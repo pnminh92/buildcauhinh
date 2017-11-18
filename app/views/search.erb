@@ -9,6 +9,7 @@
       <div class="hardware-search">
         <div class="hardware-search-input">
           <form id="hardware-search-form" action="/search" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
             <input value="<%= @q[:word] %>" name="word" type="text" class="input input-search" placeholder="<%= I18n.t('views.plh_search_hardware') %>">
             <select name="providers[]" class="hardware-provider-select"></select>
           </form>

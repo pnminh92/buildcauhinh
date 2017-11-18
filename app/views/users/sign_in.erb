@@ -3,6 +3,7 @@
     <h1 class="title text-center"><%= I18n.t('views.sign_in') %></h1>
     <%= single_text_error(@error) %>
     <form class="form" action="/sign_in" method="POST">
+      <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
       <div class="form-group">
         <input name="username" class="input form-input" type="text" placeholder="<%= I18n.t('views.username') %>">
       </div>

@@ -2,39 +2,42 @@
   <div class="container">
     <div class="flexbox flexbox-main">
       <div class="main-content">
-        <h1 class="title"><%= I18n.t('views.profile') %></h1>
-        <form class="form" action="/settings" method="post" enctype="multipart/form-data">
-          <input name="avatar" type="hidden" value="<%= current_user.cached_avatar_data %>">
-          <div class="form-group">
-            <label class="form-label" for=""><img src="<%= current_user.avatar_url %>" alt="<%= current_user.short_username %>"></label>
-            <input name="avatar" class="input form-input" type="file">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for=""><%= I18n.t('views.username') %></label>
-            <div class="form-input">
-              <input name="username" class="input" type="text" value="<%= current_user.short_username %>">
-              <%= model_text_error(@errors, :user, :username) %>
+        <div class="box">
+          <h1 class="title"><%= I18n.t('views.profile') %></h1>
+          <form class="form" action="/settings" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
+            <input name="avatar" type="hidden" value="<%= current_user.cached_avatar_data %>">
+            <div class="form-group">
+              <label class="form-label" for=""><img src="<%= current_user.avatar_url %>" alt="<%= current_user.short_username %>"></label>
+              <input name="avatar" class="input form-input" type="file">
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for=""><%= I18n.t('views.email') %></label>
-            <div class="form-input">
-              <input name="email" class="input" type="text" value="<%= current_user.email %>">
-              <%= model_text_error(@errors, :user, :email) %>
+            <div class="form-group">
+              <label class="form-label" for=""><%= I18n.t('views.username') %></label>
+              <div class="form-input">
+                <input name="username" class="input" type="text" value="<%= current_user.short_username %>">
+                <%= model_text_error(@errors, :user, :username) %>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for=""><%= I18n.t('views.about') %></label>
-            <div class="form-input">
-              <textarea name="about" class="textarea"><%= current_user.about %></textarea>
-              <%= model_text_error(@errors, :user, :about) %>
+            <div class="form-group">
+              <label class="form-label" for=""><%= I18n.t('views.email') %></label>
+              <div class="form-input">
+                <input name="email" class="input" type="text" value="<%= current_user.email %>">
+                <%= model_text_error(@errors, :user, :email) %>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label"></label>
-            <input class="btn" type="submit" value="<%= I18n.t('views.edit_btn') %>">
-          </div>
-        </form>
+            <div class="form-group">
+              <label class="form-label" for=""><%= I18n.t('views.about') %></label>
+              <div class="form-input">
+                <textarea name="about" class="textarea"><%= current_user.about %></textarea>
+                <%= model_text_error(@errors, :user, :about) %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label"></label>
+              <input class="btn" type="submit" value="<%= I18n.t('views.edit_btn') %>">
+            </div>
+          </form>
+        </div>
       </div>
 
       <aside class="sidebar">

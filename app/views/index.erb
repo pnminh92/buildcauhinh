@@ -9,6 +9,7 @@
       <div class="hardware-search">
         <div class="hardware-search-input">
           <form id="hardware-search-form" action="/search" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
             <input name="word" type="text" class="input input-search" placeholder="<%= I18n.t('views.plh_search_hardware') %>">
             <select name="providers[]" class="hardware-provider-select"></select>
           </form>
@@ -18,15 +19,34 @@
 
       <div class="flexbox flexbox-main">
         <div class="main-content">
-          <h2 class="title"><%= I18n.t('views.recent_search') %></h2>
-          <div class="hardware-list">
-          <% @hardwares.each do |hardware| %>
-          <%= erb :'shared/hardware', locals: { hardware: hardware, hardware_list: false } %>
-          <% end %>
+          <div class="box">
+            <h2 class="title"><%= I18n.t('views.recent_search') %></h2>
+            <div class="hardware-list">
+            <% @hardwares.each do |hardware| %>
+            <%= erb :'shared/hardware', locals: { hardware: hardware, hardware_list: false } %>
+            <% end %>
+            </div>
+
+            <% if @next_info[:has_next] %>
+            <button class="btn btn-gray btn-block btn-view-more" data-json="<%= escape_html(@next_info.to_json) %>" onclick="Timgialinhkien.loadMoreHardwares(this)"><%= I18n.t('views.view_more_btn') %></button>
+            <% end %>
           </div>
         </div>
 
-        <%= erb(:'shared/sidebar', locals: { new_builds: @new_builds }) %>
+        <aside class="sidebar hidden-sp">
+          <h2 class="title"><%= I18n.t('views.select_hardwares') %></h2>
+          <ul class="building-list">
+          <% SETTINGS['part_type'].each do |part| %>
+            <li data-part-type="<%= part %>">
+              <div class="build-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+              <h3><%= part %></h3>
+              <% if hardware = @building_hardwares.find { |h| h.part == part } %>
+              <p><%= hardware.name  %></p>
+              <% end %>
+            </li>
+          <% end %>
+          </ul>
+        </aside>
       </div>
     </div>
   </section>
@@ -38,9 +58,37 @@
   <% end %>
 <% end %>
 
+<% if flash[:error] %>
+  <% content_for(:error) do %>
+    <%= flash[:error] %>
+  <% end %>
+<% end %>
+
 <% content_for(:js) do %>
 <script>
 var selectedProviders
 var providers = JSON.parse('<%= providers.to_json %>')
+</script>
+<% end %>
+
+<% content_for(:js_templates) do %>
+<script type="text/template" id="hardware-item">
+{% hardwares.forEach(function(hardware) { %}
+<div class="hardware-item">
+  <a href="{%- hardware.url %}" target="_blank"><img class="hardware-img" src="{%- hardware.image_url %}" alt="{%- hardware.name %}"></a>
+  <div class="hardware-body">
+    <a href="{%- hardware.url %}" target="_blank">
+      <h3 class="hardware-name">{%- hardware.name %}</h3>
+    </a>
+    <p>
+      <span class="hardware-provider">{%- hardware.provider %}</span> -
+      <span class="hardware-price">{%- hardware.display_price %}</span>
+    </p>
+  </div>
+  <div class="hardware-btn">
+    <button type="button" class="btn btn-gray" onclick="HardwareList.addItem({%- hardware.id %})"><%= I18n.t('views.build_btn') %></button>
+  </div>
+</div>
+{% }) %}
 </script>
 <% end %>

@@ -4,6 +4,7 @@ import Selectr from './vendor/selectr'
 
 import HardwareList from './hardware_list'
 import Build from './build'
+import Commentation from './commentation'
 
 _.templateSettings = {
   escape: /\{%-([\s\S]+?)%\}/g,
@@ -11,6 +12,8 @@ _.templateSettings = {
   interpolate: /\{%=([\s\S]+?)%\}/g
 }
 window._ = _
+
+axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name=csrf-token]').getAttribute('content')
 
 class Timgialinhkien {
   static toggleDropdown () {
@@ -43,50 +46,6 @@ class Timgialinhkien {
     document.querySelector('#hardware-search-form').submit()
   }
 
-  static openCommentEditor (target, commentId, buildId) {
-    const commentItemBody = target.parentNode.parentNode
-    if (commentItemBody.classList.contains('editor-opened')) return
-    const editorHtml = _.template(document.getElementById('edit-comment-form').innerHTML)({
-      content: commentItemBody.querySelector('.comment-content').innerText,
-      comment: { id: commentId, build_id: buildId }
-    })
-    commentItemBody.insertAdjacentHTML('beforeend', editorHtml)
-    commentItemBody.classList.add('editor-opened')
-  }
-
-  static closeCommentEditor (target) {
-    const commentItemBody = target.parentNode.parentNode.parentNode
-    commentItemBody.querySelector('.edit-comment-form').remove()
-    commentItemBody.classList.remove('editor-opened')
-  }
-
-  static editComment (target, commentId, buildId) {
-    const commentItemBody = target.parentNode.parentNode.parentNode
-    axios.patch(`/builds/${buildId}/comments/${commentId}`, { content: commentItemBody.querySelector('textarea').value })
-      .then(response => {
-        commentItemBody.querySelector('.edit-comment-form').remove()
-        commentItemBody.classList.remove('editor-opened')
-        commentItemBody.querySelector('.comment-content').innerHTML = _.escape(response.data.content)
-      })
-      .catch(error => {
-        if (error.response.data) {
-          document.querySelector('.edit-comment-form .form-group').insertAdjacentHTML('beforeend', `<p class="model-text-error">${error.response.data.content}</p>`)
-        } else {
-          alertServerError()
-        }
-      })
-  }
-
-  static deleteComment (target, commentId, buildId) {
-    if (confirm('Bạn có chắc muốn xoá bình luận này ?')) {
-      axios.delete(`/builds/${buildId}/comments/${commentId}`)
-        .then(response => target.parentNode.parentNode.parentNode.remove())
-        .catch(error => alertServerError())
-    } else {
-      return
-    }
-  }
-
   static fadeOutFlash () {
     const flash = document.querySelector('.flash')
     if (flash) {
@@ -108,6 +67,61 @@ class Timgialinhkien {
       data: data
     })
   }
+
+  static loadMoreHardwares (target) {
+    const nextInfo = JSON.parse(target.getAttribute('data-json'))
+    if (!nextInfo.has_next) return
+    axios.get('/', { params: { max_id: nextInfo.max_id } })
+      .then(response => {
+        const html = _.template(document.getElementById('hardware-item').innerHTML)(response.data)
+        document.querySelector('.hardware-list').insertAdjacentHTML('beforeend', html)
+        if (response.data.next_info.has_next) {
+          target.setAttribute('data-json', JSON.stringify(response.data.next_info))
+        } else {
+          target.remove()
+        }
+      })
+      .catch(() => alertServerError())
+  }
+
+  static loadMoreBuilds (target) {
+    const nextInfo = JSON.parse(target.getAttribute('data-json'))
+    if (!nextInfo.has_next) {
+      target.remove()
+      return
+    }
+    axios.get('/builds', { params: { max_id: nextInfo.max_id } })
+      .then(response => {
+        const html = _.template(document.getElementById('build-item').innerHTML)(response.data)
+        document.querySelector('.build-items').insertAdjacentHTML('beforeend', html)
+        if (response.data.next_info.has_next) {
+          target.setAttribute('data-json', JSON.stringify(response.data.next_info))
+        } else {
+          target.remove()
+        }
+      })
+      .catch(() => alertServerError())
+  }
+
+  static loadMoreUserBuilds (target) {
+    const nextInfo = JSON.parse(target.getAttribute('data-json'))
+    if (!nextInfo.has_next) {
+      target.remove()
+      return
+    }
+    const username = target.getAttribute('data-username')
+    axios.get(`/${username}`, { params: { max_id: nextInfo.max_id } })
+      .then(response => {
+        const html = _.template(document.getElementById('build-item').innerHTML)(response.data)
+        document.querySelector('.build-items').insertAdjacentHTML('beforeend', html)
+        if (response.data.next_info.has_next) {
+          target.setAttribute('data-json', JSON.stringify(response.data.next_info))
+        } else {
+          target.remove()
+        }
+      })
+      .catch((error) => console.log(error))
+  }
 }
 
 
@@ -117,6 +131,7 @@ window.alertServerError = function () {
 window.Timgialinhkien = Timgialinhkien
 window.HardwareList = HardwareList
 window.Build = Build
+window.Commentation = Commentation
 
 let selectrData = []
 if (providers) {

@@ -1,11 +1,12 @@
 class App
   get '/sign_up' do
     redirect(to('/')) && return if signed_in?
-
+    @user = User.new
     erb :'users/sign_up', layout: :'layout/simple'
   end
 
   post '/sign_up' do
+    detect_spam!
     redirect(to('/')) && return if signed_in?
 
     @user = User.new
@@ -50,6 +51,7 @@ class App
   end
 
   post '/forgot_pwd' do
+    detect_spam!
     @user = User.where(email: params[:email]).first
     if @user
       @user.gen_reset_pwd_token
@@ -85,10 +87,12 @@ class App
   end
 
   get '/settings/change_pwd' do
+    halt 404 unless signed_in?
     erb :'users/change_pwd', layout: :'layout/main'
   end
 
   post '/settings/change_pwd' do
+    halt 404 unless signed_in?
     if !current_user.authenticate(params[:current_password])
       @error = I18n.t('controllers.users.change_pwd_error')
     elsif !current_user.set_fields(params, %i[password]).save
@@ -98,17 +102,23 @@ class App
   end
 
   get '/settings' do
+    halt 404 unless signed_in?
     erb :'users/settings', layout: :'layout/main'
   end
 
   get '/:username' do
     @user = User.first(username: params[:username])
     halt 404 unless @user
-    @builds = Build.limit(10).order(Sequel.desc(:id)).all
-    erb :'users/show', layout: :'layout/main'
+    @builds = User.where(username: params[:username]).builds.cursor(params[:max_id], params[:per_page]).all
+    @next_info = Build.next_info(@builds.last.id)
+    respond_to do |f|
+      f.html { erb :'users/show', layout: :'layout/main' }
+      f.json { json(builds: build_serializer(@builds), next_info: @next_info) }
+    end
   end
 
   post '/settings' do
+    halt 404 unless signed_in?
     current_user.set_fields(params, %i[username avatar email about]).save
     @errors = current_user.errors if current_user.errors
     erb :'users/settings', layout: :'layout/main'

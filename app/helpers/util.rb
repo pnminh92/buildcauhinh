@@ -1,4 +1,4 @@
-module Timgialinhkien
+module BuildCasePc
   module Util
     def username(u)
       "@#{u}"

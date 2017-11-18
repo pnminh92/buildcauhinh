@@ -3,6 +3,8 @@ class App
 
   namespace '/builds' do
     post '/:build_id/comments' do
+      detect_spam!
+      halt 404 unless signed_in?
       @build = Build[params[:build_id]]
       halt 404 unless @build
       @comment = Comment.new

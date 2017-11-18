@@ -17,6 +17,7 @@ body {
 
 .header-simple,
 .header {
+  background-color: $color-white;
   border-bottom: 1px solid $color-lighter-gray;
 }
 
@@ -77,6 +78,11 @@ body {
 
   a:not(.btn) {
     color: $color-black;
+    &.active,
+    &:hover {
+      color: $color-green;
+      text-decoration: none;
+    }
   }
 }
 
@@ -144,6 +150,7 @@ body {
   }
 
   .link-sign-out {
+    background-color: $color-white;
     appearance: none;
     border: 0;
     line-height: 1;

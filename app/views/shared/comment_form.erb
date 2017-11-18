@@ -1,10 +1,11 @@
+<% if signed_in? %>
 <div class="comment-form media">
-  <% if signed_in? %>
   <div class="media-left">
     <img src="<%= current_user.avatar_url %>" alt="<%= current_user.short_username %>">
   </div>
   <div class="media-body">
     <form class="form" method="post" action="/builds/<%= build.id %>/comments">
+      <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
       <div class="comment-content">
         <textarea name="content" class="textarea" placeholder="<%= I18n.t('views.comment_content') %>"></textarea>
         <%= model_text_error(errors, :comment, :content) %>
@@ -14,7 +15,13 @@
       </div>
     </form>
   </div>
-  <% else %>
-    <h3 class="sub-title">Đăng nhập để bình luận</h3>
-  <% end %>
 </div>
+<% else %>
+  <div class="comment-form text-center">
+    <p class="mb-10">Đăng nhập để bình luận</p>
+    <div>
+      <a href="/sign_in" class="btn btn-gray"><%= I18n.t('views.sign_in_btn') %></a>
+      <a href="/sign_up" class="btn"><%= I18n.t('views.sign_up_btn') %></a>
+    </div>
+  </div>
+<% end %>

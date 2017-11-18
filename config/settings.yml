@@ -12,4 +12,13 @@ price_type:
 cpu_type:
   - intel
   - amd
-
+part_type:
+  - cpu
+  - mainboard
+  - ram
+  - vga
+  - hdd
+  - ssd
+  - psu
+  - case
+  - monitor

@@ -7,7 +7,7 @@
       <a href="/<%= build.user.username %>" class="media-username"><%= build.user.short_username %></a>
       <span class="media-date"><%= I18n.t('views.built_at') %><%= build.display_date %></time>
     </p>
-    <h3 class="build-title"><a href="/builds/<%= build.slug %>"><%= build.title %></a></h3>
+    <h3 class="build-title"><a href="/builds/<%= escape_html build.slug %>"><%= escape_html build.title %></a></h3>
     <div class="build-status">
       <span class="build-label"><%= I18n.t("views.#{build.price_type}") %></span>
       <span class="build-label"><%= I18n.t("views.cpu_#{build.cpu_type}") %></span>

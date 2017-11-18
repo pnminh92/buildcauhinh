@@ -9,9 +9,6 @@ input[type=file] {
 
 .form {
   .form-group {
-    display: flex;
-    align-items: flex-start;
-
     + .form-group {
       margin-top: 20px;
     }
@@ -28,32 +25,31 @@ input[type=file] {
 
   .form-label {
     display: block;
-    width: 120px;
     font-size: $font-size-sm;
     font-weight: 500;
     line-height: 1;
+    margin-bottom: 5px;
     img {
       width: 64px;
     }
   }
 
   .form-input {
-    flex-basis: 0;
-    flex-grow: 1;
-
-    .input {
-      width: 100%;
-    }
-
     .single-text-error {
       margin-top: 5px;
       margin-bottom: 0;
       text-align: left;
     }
   }
+
+  .input {
+    width: 100%;
+  }
+
   input[type=radio] + label {
     margin-left: 5px;
   }
+
   label + input[type=radio] {
     margin-left: 15px;
   }
@@ -83,7 +79,7 @@ input[type=file] {
 .textarea,
 .input {
   appearance: none;
-  background-color: $color-lightest-gray;
+  background-color: $color-white;
   font-size: $font-size-sm;
   padding: 8px 14px;
   border: 1px solid $color-lighter-gray;
@@ -93,5 +89,9 @@ input[type=file] {
   &:hover {
     background-color: lighten($color-lightest-gray, 5%);
     outline: none;
+  }
+
+  .box & {
+    background-color: $color-lightest-gray;
   }
 }

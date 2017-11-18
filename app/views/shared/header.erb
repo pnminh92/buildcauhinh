@@ -14,7 +14,12 @@
         <li><a href="/builds"><%= I18n.t('views.builds') %></a></li>
         <li><a href="/<%= current_user.username %>"><%= I18n.t('views.profile_page') %></a></li>
         <li><a href="/settings"><%= I18n.t('views.settings') %></a></li>
-        <li><form method="post" action="/sign_out"><button type="submit" class="link-sign-out"><%= I18n.t('views.sign_out_btn') %></button></form></li>
+        <li>
+          <form method="post" action="/sign_out">
+            <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
+            <button type="submit" class="link-sign-out"><%= I18n.t('views.sign_out_btn') %></button>
+          </form>
+        </li>
       </ul>
     <% else %>
       <nav class="nav">

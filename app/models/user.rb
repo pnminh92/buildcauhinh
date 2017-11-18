@@ -58,7 +58,7 @@ class User < Sequel::Model
   end
 
   def short_username
-    username[1..-1] if username[0] == '@'
+    username[1..-1] if username && username[0] == '@'
   end
 
   def gen_reset_pwd_token

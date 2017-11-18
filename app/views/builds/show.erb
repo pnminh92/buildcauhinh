@@ -2,48 +2,51 @@
   <div class="container">
     <div class="flexbox flexbox-main">
       <section class="main-content">
-        <div class="build-detail">
-          <h1 class="title"><%= @build.title %></h1>
-          <div class="media media-center build-info">
-            <div class="media-left">
-            <img src="<%= @build.user.avatar_url %>" alt="<%= @build.user.short_username %>">
+        <div class="box">
+          <div class="build-detail">
+            <h1 class="title"><%= @build.title %></h1>
+            <div class="media media-center build-info">
+              <div class="media-left">
+              <img src="<%= @build.user.avatar_url %>" alt="<%= @build.user.short_username %>">
+              </div>
+              <div class="media-body">
+                <a class="media-username" href="/<%= @build.user.username %>"><%= @build.user.short_username %></a>
+                <time class="media-date"><%= I18n.t('views.built_at') %><%= @build.display_date %></time>
+                <% if signed_in? && current_user.id == @build.user_id %>
+                <a class="icon-action" href="/builds/<%= @build.id %>/edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
+                <form action="/builds/<%= @build.id %>/delete" method="post">
+                <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
+                <button class="icon-action" type="button" onclick="Build.delete()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                </form>
+                <% end %>
+              </div>
             </div>
-            <div class="media-body">
-              <a class="media-username" href="/<%= @build.user.username %>"><%= @build.user.short_username %></a>
-              <time class="media-date"><%= I18n.t('views.built_at') %><%= @build.display_date %></time>
-              <% if signed_in? && current_user.id == @build.user_id %>
-              <a class="icon-action" href="/builds/<%= @build.id %>/edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
-              <form action="/builds/<%= @build.id %>/delete" method="post">
-              <button class="icon-action" type="button" onclick="Build.delete()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
-              </form>
+
+            <% if @build.description %>
+            <p class="build-description"><%= @build.description %></p>
+            <% end %>
+
+            <div class="hardware-list">
+            <% @hardwares.each do |hardware| %>
+            <%= erb :'shared/hardware', locals: { hardware: hardware, hardware_list: false } %>
+            <% end %>
+            </div>
+
+            <div class="build-status">
+              <span class="build-label"><%= I18n.t("views.#{@build.price_type}") %></span>
+              <span class="build-label"><%= I18n.t("views.cpu_#{@build.cpu_type}") %></span>
+            </div> </div>
+
+          <div class="comment">
+            <h2 class="title"><%= I18n.t('views.comment') %></h2>
+
+            <%= erb(:'shared/comment_form', locals: { build: @build, errors: @comment&.errors }) %>
+
+            <div class="comment-list">
+              <% @comments.each do |comment| %>
+              <%= erb(:'shared/comment', locals: { comment: comment }) %>
               <% end %>
             </div>
-          </div>
-
-          <% if @build.description %>
-          <p class="build-description"><%= @build.description %></p>
-          <% end %>
-
-          <div class="hardware-list">
-          <% @hardwares.each do |hardware| %>
-          <%= erb :'shared/hardware', locals: { hardware: hardware, hardware_list: false } %>
-          <% end %>
-          </div>
-
-          <div class="build-status">
-            <span class="build-label"><%= I18n.t("views.#{@build.price_type}") %></span>
-            <span class="build-label"><%= I18n.t("views.cpu_#{@build.cpu_type}") %></span>
-          </div> </div>
-
-        <div class="comment">
-          <h2 class="title"><%= I18n.t('views.comment') %></h2>
-
-          <%= erb(:'shared/comment_form', locals: { build: @build, errors: @comment&.errors }) %>
-
-          <div class="comment-list">
-            <% @comments.each do |comment| %>
-            <%= erb(:'shared/comment', locals: { comment: comment }) %>
-            <% end %>
           </div>
         </div>
       </section>
@@ -54,25 +57,25 @@
 </main>
 
 <% content_for(:title) do %>
-<%= "#{@build.title} - rapmay" %>
+<%= "#{@build.title} - cauhinhpc" %>
 <% end %>
 <% content_for(:description) do %>
 <%= @build.description ? @build.description : "#{@build.title} được ráp bởi thành viên #{@build.user.short_username}" %>
 <% end %>
 <% content_for(:canonical) do %>
-<%= "https://rapmay.com/builds/#{@build.slug}" %>
+<%= "https://cauhinhpc.com/builds/#{@build.slug}" %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= "#{@build.title} - rapmay" %>
+<%= "#{@build.title} - cauhinhpc" %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= "#{@build.title} - rapmay" %>
+<%= "#{@build.title} - cauhinhpc" %>
 <% end %>
 <% content_for(:og_description) do %>
 <%= @build.description ? @build.description : "#{@build.title} được ráp bởi thành viên #{@build.user.short_username}" %>
 <% end %>
 <% content_for(:og_url) do %>
-<%= "https://rapmay.com/builds/#{@build.slug}" %>
+<%= "https://cauhinhpc.com/builds/#{@build.slug}" %>
 <% end %>
 
 <% content_for :js_templates do %>
@@ -82,8 +85,8 @@
     <textarea class="textarea">{%- content %}</textarea>
   </div>
   <div class="comment-btn">
-    <button onclick="Timgialinhkien.editComment(this, {%- comment.id %}, {%- comment.build_id %})" type="button" class="btn btn-sm"><%= I18n.t('views.edit_btn') %></button>
-    <button onclick="Timgialinhkien.closeCommentEditor(this)" type="button" class="btn btn-sm btn-gray"><%= I18n.t('views.close_btn') %></button>
+    <button onclick="Commentation.edit(this, {%- comment.id %}, {%- comment.build_id %})" type="button" class="btn btn-sm"><%= I18n.t('views.edit_btn') %></button>
+    <button onclick="Commentation.closeEditor(this)" type="button" class="btn btn-sm btn-gray"><%= I18n.t('views.close_btn') %></button>
   </div>
 </div>
 </script>

@@ -1,8 +1,13 @@
 class App
   get '/' do
-    @hardwares = Hardware.limit(10).order(Sequel.desc(:id)).all
-    @new_builds = Build.limit(5).order(Sequel.desc(:id)).all
-    erb :index, layout: :'layout/main'
+    @hardwares = Hardware.cursor(params[:max_id], params[:per_page]).all
+    hardwares = (session[:build] && session[:build][:hardwares]) || session[:hardwares]
+    @building_hardwares = Hardware.where_all(id: hardwares.map { |h| h[:id] })
+    @next_info = Hardware.next_info(@hardwares.last&.id)
+    respond_to do |f|
+      f.html { erb :index, layout: :'layout/main' }
+      f.json { json(hardwares: hardware_serializer(@hardwares), next_info: @next_info) }
+    end
   end
 
   post '/search' do
@@ -21,28 +26,35 @@ class App
       end
       erb :search, layout: :'layout/main'
     rescue NameError => e
-      logger.error(e.message)
-      halt 500
+      logger.info(e.message)
+      flash[:error] = 'Tìm kiếm không thành công, vui lòng thử lại!'
+      redirect to('/')
     end
   end
 
   post '/hardware_list/:hardware_id' do
     id = params[:hardware_id].to_i
-    if session[:hardware_ids].is_a?(Array)
-      session[:hardware_ids].push(id) unless session[:hardware_ids].include?(id)
-    else
-      session[:hardware_ids] = [id]
-    end
-    json(num: session[:hardware_ids].size)
+    part = params[:part].to_s
+    updated = if session[:hardwares].size > 0
+                if session[:hardwares].find { |h| h[:id] == id && h[:part] = part }
+                  false
+                else
+                  session[:hardwares].push({ id: id, part: part })
+                  true
+                end
+              else
+                session[:hardwares] = [{ id: id, part: part }]
+                true
+              end
+
+    json(num: session[:hardwares].size, updated: updated)
   end
 
   delete '/hardware_list/:hardware_id' do
-    if session[:hardware_ids].is_a?(Array)
-      i = session[:hardware_ids].index(params[:hardware_id].to_i)
-      session[:hardware_ids].slice!(i)
-    else
-      session[:hardware_ids] = []
+    if session[:hardwares].size > 0
+      i = session[:hardwares].find_index { |h| h[:id] == params[:hardware_id].to_i && h[:part] == params[:part].to_s }
+      session[:hardwares].slice!(i)
     end
-    json(num: session[:hardware_ids].size)
+    json(num: session[:hardwares].size)
   end
 end

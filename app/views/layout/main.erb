@@ -32,6 +32,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/img/touch_icon_76x76.png">
     <link rel="icon" sizes="192x192" href="/img/touch_icon_192x192.png">
 
+    <meta name="csrf-token" content="<%= Rack::Protection::AuthenticityToken.token(session) %>">
     <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
@@ -43,8 +44,8 @@
     <%= erb(:'shared/flash', locals: { message: yield_content(:error), success: false }) if content_for?(:error) %>
 
     <script>var providers</script>
-    <%= yield_content :js if content_for?(:js) %>
-    <%= yield_content :js_templates if current_user %>
+    <%= yield_content :js %>
+    <%= yield_content :js_templates %>
     <script src="/js/main.js"></script>
   </body>
 </html>

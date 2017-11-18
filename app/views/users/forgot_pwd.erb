@@ -3,6 +3,7 @@
     <h1 class="title text-center"><%= I18n.t('views.forgot_pwd') %></h1>
     <%= single_text_error(@error) %>
     <form class="form" action="/forgot_pwd" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
       <div class="form-group">
         <input name="email" class="input form-input" type="email" placeholder="<%= I18n.t('views.email') %>">
       </div>

@@ -1,4 +1,4 @@
-module Timgialinhkien
+module BuildCasePc
   module UserSession
     def current_user
       @current_user ||= User[session[:id]]

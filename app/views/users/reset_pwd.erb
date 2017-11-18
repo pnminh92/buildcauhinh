@@ -3,6 +3,7 @@
     <h1 class="title text-center"><%= I18n.t('views.reset_pwd') %></h1>
     <%= single_text_error(@error) %>
     <form class="form" action="/reset_pwd" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
       <input name="reset_pwd_token" type="hidden" value="<%= @token %>">
       <div class="form-group">
         <div class="form-input">

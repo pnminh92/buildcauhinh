@@ -46,6 +46,10 @@
   }
 }
 
+.mb-10 {
+  margin-bottom: 10px;
+}
+
 .hidden-pc {
   @include respond-to-pc() {
     display: none;

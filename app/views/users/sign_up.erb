@@ -2,9 +2,10 @@
   <div class="form-wrapper">
     <h1 class="title text-center"><%= I18n.t('views.sign_up') %></h1>
     <form class="form" action="/sign_up" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
       <div class="form-group">
         <div class="form-input">
-          <input name="username" class="input" type="text" value="<%= @user&.short_username %>" placeholder="<%= I18n.t('views.username') %>">
+          <input name="username" class="input" type="text" value="<%= @user.short_username %>" placeholder="<%= I18n.t('views.username') %>">
           <%= model_text_error(@errors, :user, :username) %>
         </div>
       </div>

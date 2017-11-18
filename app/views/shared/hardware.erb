@@ -1,19 +1,19 @@
 <div class="hardware-item">
-  <a href="<%= hardware.url %>" target="_blank"><img class="hardware-img" src="<%= hardware.image_url %>" alt="<%= hardware.name %>"></a>
+  <a href="<%= escape_html hardware.url %>" target="_blank"><img class="hardware-img" src="<%= escape_html hardware.image_url %>" alt="<%= escape_html hardware.name %>"></a>
   <div class="hardware-body">
-    <a href="<%= hardware.url %>" target="_blank">
-      <h3 class="hardware-name"><%= hardware.name %></h3>
+    <a href="<%= escape_html hardware.url %>" target="_blank">
+      <h3 class="hardware-name"><%= escape_html hardware.name %></h3>
     </a>
     <p>
       <span class="hardware-provider"><%= I18n.t("views.#{hardware.provider}") %></span> -
-      <span class="hardware-price"><%= hardware.display_price %></span>
+      <span class="hardware-price"><%= escape_html hardware.display_price %></span>
     </p>
   </div>
   <div class="hardware-btn">
     <% if hardware_list %>
     <button type="button" class="btn btn-gray" onclick="HardwareList.removeItem(<%= hardware.id %>, this)"><%= I18n.t('views.remove_btn') %></button>
     <% else %>
-    <button type="button" class="btn btn-gray" onclick="HardwareList.addItem(<%= hardware.id %>)"><%= I18n.t('views.build_btn') %></button>
+      <button type="button" class="btn btn-gray" data-hardware-name="<%= escape_html hardware.name %>" onclick="HardwareList.addItem(<%= hardware.id %>)"><%= I18n.t('views.build_btn') %></button>
     <% end %>
   </div>
 </div>

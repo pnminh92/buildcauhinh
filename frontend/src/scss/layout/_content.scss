@@ -5,7 +5,7 @@
   padding-left: 15px;
   padding-right: 15px;
   @include respond-to-pc() {
-    width: 990px;
+    width: 1008px;
   }
 }
 
@@ -17,26 +17,34 @@
 }
 
 .main-content {
-  flex-grow: 4;
-  flex-shrink: 1;
-  margin-right: 30px;
+  width: 75%;
+  flex: none;
+  padding: 0 15px;
   @include respond-to-sp() {
-    margin-right: 0;
+    width: 100%;
     order: 2;
   }
 }
 
 .sidebar {
-  flex-grow: 1;
-  flex-shrink: 1;
+  width: 25%;
+  flex: none;
+  padding: 0 15px;
   @include respond-to-sp() {
-    margin-bottom: 20px;
+    width: 100%;
     order: 1;
+    margin-bottom: 20px;
   }
 }
 
 .flexbox {
   display: flex;
+  margin: 0 -15px;
+
+  .flexbox {
+    margin: auto;
+  }
+
   &.flexbox-sidebar {
     @include respond-to-tablet() {
       flex-direction: column;
@@ -47,4 +55,10 @@
       flex-direction: column;
     }
   }
+}
+
+.box {
+  background-color: $color-white;
+  border-radius: 4px;
+  padding: 15px;
 }

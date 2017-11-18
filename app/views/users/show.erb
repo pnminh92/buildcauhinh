@@ -2,12 +2,18 @@
   <div class="container">
     <div class="flexbox flexbox-main">
       <section class="main-content">
-        <h2 class="title"><%= I18n.t('views.new_builds') %></h2>
+        <div class="box">
+          <h2 class="title"><%= I18n.t('views.new_builds') %></h2>
 
-        <div class="build-items">
-        <% @builds.each do |build| %>
-        <%= erb(:'shared/build', locals: { build: build }) %>
-        <% end %>
+          <div class="build-items">
+          <% @builds.each do |build| %>
+          <%= erb(:'shared/build', locals: { build: build }) %>
+          <% end %>
+          </div>
+
+          <% if @next_info[:has_next] %>
+          <button class="btn btn-gray btn-block btn-view-more" data-username="<%= @user.username %>" data-json="<%= escape_html(@next_info.to_json) %>" onclick="Timgialinhkien.loadMoreUserBuilds(this)"><%= I18n.t('views.view_more_btn') %></button>
+          <% end %>
         </div>
       </section>
 
@@ -48,3 +54,24 @@
 <% content_for(:og_image) do %>
 <%= @user.avatar_url %>
 <% end %>
+
+<script type="text/template" id="build-item">
+{% builds.forEach(function(build) { %}
+<div class="build-item media">
+  <div class="media-left">
+    <a href="/{%- build.user.username %}"><img src="{%- build.user.avatar_url %}" alt="{%- build.user.short_username %}"></a>
+  </div>
+  <div class="media-body">
+    <p>
+      <a href="/{%- build.user.username %}" class="media-username">{%- build.user.short_username %}</a>
+      <span class="media-date"><%= I18n.t('views.built_at') %>{%- build.display_date %}</time>
+    </p>
+    <h3 class="build-title"><a href="/builds/{%- build.slug %}">{%- build.title %}</a></h3>
+    <div class="build-status">
+      <span class="build-label">{%- build.price_type %}</span>
+      <span class="build-label">{%- build.cpu_type %}</span>
+    </div>
+  </div>
+</div>
+{% } ) %}
+</script>
