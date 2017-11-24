@@ -32,7 +32,6 @@ gem 'nokogiri'
 group :development do
   gem 'shotgun'
   gem 'letter_opener'
-
   gem 'sequel-annotate'
 end
 

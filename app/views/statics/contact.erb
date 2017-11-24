@@ -1,0 +1,30 @@
+<main class="contents">
+  <div class="container">
+    <h1 class="title text-center">Liên hệ</h1>
+    <p>
+      Mọi thông tin liên hệ, góp ý và phản hồi xin gửi email về địa chỉ email <span class="text-bold">buildcauhinh_at_gmail_dot_com</span>
+    </p>
+  </div>
+</main>
+
+<% content_for(:title) do %>
+<%= 'Liên hệ - buildcauhinh' %>
+<% end %>
+<% content_for(:description) do %>
+<%= 'Thông tin liên hệ góp ý về buildcauhinh' %>
+<% end %>
+<% content_for(:canonical) do %>
+<%= to('/contact') %>
+<% end %>
+<% content_for(:og_title) do %>
+<%= 'Liên hệ - buildcauhinh' %>
+<% end %>
+<% content_for(:og_site_name) do %>
+<%= 'Liên hệ - buildcauhinh' %>
+<% end %>
+<% content_for(:og_description) do %>
+<%= 'Thông tin liên hệ góp ý về buildcauhinh' %>
+<% end %>
+<% content_for(:og_url) do %>
+<%= to('/contact') %>
+<% end %>

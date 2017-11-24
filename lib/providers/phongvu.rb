@@ -13,7 +13,7 @@ module Providers
           body = HTTP.headers('cookie': 'etoken=25f9b476a9c4150c70c6e78dc949249a; erandom=5237;')
                      .get(URL, params: { q: words }, ssl_context: ctx).to_s
           parse(body)
-        rescue TimeoutError
+        rescue Timeout::Error
           []
         end
       end
@@ -24,7 +24,7 @@ module Providers
         html_doc = Nokogiri::HTML(html)
         html_doc.css('.container .product-warp').map do |html_product|
           name = html_product.css('h3.pdTitle').first.content
-          code = ::Util.codify(name, SLUG)
+          code = Util.codify(name, SLUG)
           next if ::Hardware.first(code: code)
           {
             code: code,

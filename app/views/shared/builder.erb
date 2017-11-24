@@ -1,6 +1,6 @@
 <% hardwares = session[:build] ? session[:build][:hardwares] : session[:hardwares] %>
 
-<a class="builder" href="<%= session[:build] ? "/builds/#{session[:build][:id]}/edit" : '/builds/new' %>" title="Xem chi tiết dàn máy tính đang ráp">
+<a class="builder" href="<%= session[:build] ? "/builds/#{session[:build][:id]}/edit" : '/builds/new' %>" title="<%= I18n.t('views.builder_btn_title') %>">
   <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
     viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
   <path fill="currentColor" d="M68.8,57.4c-1.2-1.2-3.1-1.2-4.2,0l-3,3l-4.3-4.3l14.2-14.2c7.5,0.7,13.3-1,17.2-5c6.4-6.5,5.1-16.5,5.1-16.9

@@ -9,7 +9,6 @@ class App < Sinatra::Base
   helpers BuildCasePc::UserSession
   helpers BuildCasePc::Util
   helpers BuildCasePc::AntiSpam
-  helpers BuildCasePc::Serializers
 
   register Sinatra::RespondWith
   register Sinatra::MultiRoute
@@ -42,11 +41,14 @@ class App < Sinatra::Base
     set :raise_errors, false
     set :show_exceptions, true
 
-
     before {
       session[:anti_spam_timestamp] ||= Time.now
       session[:hardwares] ||= []
     }
+
+    not_found do
+      erb :'errors/404', layout: :'layout/simple'
+    end
   end
 
   configure :development do
@@ -54,7 +56,7 @@ class App < Sinatra::Base
   end
 
   configure :production do
-    set :session_secret, proc { ENV['SESSION_SECRET'] }
+    set :session_secret, proc { ENV['BUILDCAUHINH_SESSION_SECRET'] }
     set :show_exceptions, false
 
     error_log_file = File.new("#{root}/log/#{settings.environment}_error.log", 'a+')
@@ -66,6 +68,8 @@ class App < Sinatra::Base
 end
 
 SETTINGS = YAML.load_file(File.join(settings.root, 'config', 'settings.yml').to_s).freeze
+tmp_assets = JSON.parse(File.read(File.join(settings.root, 'config', 'rev-manifest.json').to_s))
+ASSETS = tmp_assets.keys.map { |k| { "#{k}" => '/assets/' + tmp_assets[k] } }.reduce({}, :merge).freeze
 
 Dir[File.join(settings.root, 'config', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'lib', '*.rb')].each { |f| require f }

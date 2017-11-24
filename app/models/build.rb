@@ -6,7 +6,7 @@
 #  title           | character varying(255)      | NOT NULL
 #  description     | character varying(500)      |
 #  total_price     | integer                     | NOT NULL
-#  cpu_type        | cpu_type                    | NOT NULL
+#  cpu_type        | cpu_type                    |
 #  price_showed    | boolean                     | NOT NULL DEFAULT true
 #  provider_showed | boolean                     | NOT NULL DEFAULT false
 #  created_at      | timestamp without time zone |
@@ -34,7 +34,7 @@ class Build < Sequel::Model
   def before_create
     num = 0
     self.slug = loop do
-                  tmp = ::Util.slugify(title, num)
+                  tmp = Providers::Util.slugify(title, num)
                   num += 1
                   break tmp unless Build.first(slug: tmp)
                 end
@@ -43,12 +43,13 @@ class Build < Sequel::Model
 
   def validate
     super
-    validates_presence %i[title price_type cpu_type]
-    validates_min_length 30, :title
+    validates_presence %i[title]
+    validates_min_length 10, :title
     validates_max_length 255, :title
-    validates_includes SETTINGS['cpu_type'], :cpu_type
-    errors.add(:hardwares, I18n.t('errors.max_elements', num: hardware_ids)) if hardware_ids&.size.to_i > SETTINGS['part_type'].size
-    errors.add(:hardwares, I18n.t('errors.format')) unless hardwares_ids.is_a?(Array)
+    validates_includes SETTINGS['cpu_type'], :cpu_type, allow_nil: true
+    errors.add(:hardwares, I18n.t('errors.max_elements', num: hardware_ids.size)) if hardware_ids&.size.to_i > SETTINGS['part_type'].size
+    errors.add(:hardwares, I18n.t('errors.min_elements', num: hardware_ids.size)) if hardware_ids&.size.to_i < 2
+    errors.add(:hardwares, I18n.t('errors.format')) unless hardware_ids.is_a?(Array)
   end
 
   def display_date
@@ -77,5 +78,14 @@ class Build < Sequel::Model
 
   def self.total_price(hardwares)
     hardwares.inject(0) { |o, h| o += h.price  }
+  end
+
+  def self.detect_cpu_type(hardwares)
+    case hardwares.find { |h| h.part == 'cpu' }&.name
+    when /intel/i
+      'intel'
+    when /amd/i
+      'amd'
+    end
   end
 end

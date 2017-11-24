@@ -15,5 +15,11 @@ module BuildCasePc
     def providers
       SETTINGS['hardware_providers'].map { |p| { value: p, text: I18n.t("views.#{p}") } }
     end
+
+    def self.to_vnd(price)
+      price = price.to_s.split('').reverse
+      tmp = price.each_with_index.inject('') { |o, (v, k)| o = (k % 3 == 2) ? '.' + v + o : v + o } + I18n.t('views.currency')
+      tmp[0] == '.' ? tmp[1..-1] : tmp
+    end
   end
 end

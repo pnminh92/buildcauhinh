@@ -1,13 +1,9 @@
 class App
   get '/about' do
-    erb :'statics/about', layout: :'layout/main'
+    erb :'statics/about', layout: :'layout/simple'
   end
 
-  get '/tos' do
-    erb :'statics/tos', layout: :'layout/main'
-  end
-
-  get '/privacy' do
-    erb :'statics/privacy', layout: :'layout/main'
+  get '/contact' do
+    erb :'statics/contact', layout: :'layout/simple'
   end
 end

@@ -24,6 +24,11 @@ namespace :db do
     end
   end
 
+  desc 'Drop database'
+  task :drop do
+    system!("PGPASSWORD=#{db_config['password']} dropdb #{db_config['database']} --username=#{db_config['username']}")
+  end
+
   desc 'Create database'
   task :create do
     system!("PGPASSWORD=#{db_config['password']} createdb #{db_config['database']} --username=#{db_config['username']} --encoding=#{db_config['encoding']}")

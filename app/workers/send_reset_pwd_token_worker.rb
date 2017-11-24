@@ -11,9 +11,9 @@ class SendResetPwdTokenWorker
   def mail(user)
     tmpl_path = File.expand_path('../views/mailers/forgot_pwd.erb', File.dirname(__FILE__))
     Mail.deliver do
-      from 'timgialinhkien@gmail.com'
+      from 'buildcauhinh@gmail.com'
       to user.email
-      subject '[timgialinhkien] Khôi phục mật khẩu'
+      subject '[buildcauhinh] Khôi phục mật khẩu'
       body ERB.new(File.read(tmpl_path)).result(binding)
     end
   end

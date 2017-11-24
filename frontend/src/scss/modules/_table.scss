@@ -1,13 +1,16 @@
 .table-responsive {
-  overflow-x: auto;
-  white-space: nowrap;
+  @include respond-to-sp() {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
 
 .table {
   width: 100%;
+  font-size: $font-size-sm;
 
   @include respond-to-sp() {
-    font-size: $font-size-sm;
+    font-size: $font-size-xs;
   }
 
   &.table-striped {
@@ -35,5 +38,18 @@
   th,
   td {
     padding: 10px;
+  }
+
+  &.table-hardwares {
+    .th-provider {
+      @include respond-to-tablet() {
+        width: 135px;
+      }
+    }
+    .th-price {
+      @include respond-to-tablet() {
+        width: 130px;
+      }
+    }
   }
 }

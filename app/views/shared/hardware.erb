@@ -10,10 +10,6 @@
     </p>
   </div>
   <div class="hardware-btn">
-    <% if hardware_list %>
-    <button type="button" class="btn btn-gray" onclick="HardwareList.removeItem(<%= hardware.id %>, this)"><%= I18n.t('views.remove_btn') %></button>
-    <% else %>
-      <button type="button" class="btn btn-gray" data-hardware-name="<%= escape_html hardware.name %>" onclick="HardwareList.addItem(<%= hardware.id %>)"><%= I18n.t('views.build_btn') %></button>
-    <% end %>
+    <button type="button" class="btn btn-gray" data-json="<%= escape_html({ name: hardware.name, id: hardware.id, part: hardware.part }.to_json) %>" onclick="HardwareList.addItem(this)"><%= I18n.t('views.build_btn') %></button>
   </div>
 </div>

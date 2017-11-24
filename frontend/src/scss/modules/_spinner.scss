@@ -1,0 +1,23 @@
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -24px;
+  margin-left: -24px;
+  border: 6px solid $color-lightest-gray;
+  border-radius: 50%;
+  border-top: 6px solid $color-green;
+  width: 48px;
+  height: 48px;
+  animation: spin 2s linear infinite;
+  &.spinner-load-more{
+    top: initial;
+    bottom: 0;
+    margin-top: 0;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -7,14 +7,14 @@ default: &default
 
 development:
   <<: *default
-  database: timgialinhkien_development
+  database: buildcauhinh_development
 
 test:
   <<: *default
-  database: timgialinhkien_test
+  database: buildcauhinh_test
 
 production:
   <<: *default
-  database: timgialinhkien_production
-  username: <%= ENV['SINATRA_USERNAME_PASSWORD'] %>
-  password: <%= ENV['SINATRA_DATABASE_PASSWORD'] %>
+  database: buildcauhinh_production
+  username: <%= ENV['BUILDCAUHINH_DATABASE_USERNAME'] %>
+  password: <%= ENV['BUILDCAUHINH_DATABASE_PASSWORD'] %>

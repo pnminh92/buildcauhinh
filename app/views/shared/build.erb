@@ -9,8 +9,10 @@
     </p>
     <h3 class="build-title"><a href="/builds/<%= escape_html build.slug %>"><%= escape_html build.title %></a></h3>
     <div class="build-status">
-      <span class="build-label"><%= I18n.t("views.#{build.price_type}") %></span>
+      <% if build.cpu_type %>
       <span class="build-label"><%= I18n.t("views.cpu_#{build.cpu_type}") %></span>
+      <% end %>
+      <span class="build-label"><%= BuildCasePc::Util.to_vnd(build.total_price) %></span>
     </div>
   </div>
 </div>

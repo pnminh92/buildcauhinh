@@ -23,20 +23,31 @@ class Hardware < Sequel::Model
 
   def validate
     super
-    validates_presence [:part, :provider, :code, :name, :url, :image_url, :price]
-    validates_includes Settings['hardware_providers'], :provider
-    validates_includes Settings['part_type'], :part
+    validates_presence [:provider, :code, :name, :url, :image_url, :price]
+    validates_presence :part
+    validates_includes SETTINGS['hardware_providers'], :provider
+    validates_includes SETTINGS['part_type'], :part
   end
 
   def display_price
-    to_vnd(price) + I18n.t('views.currency')
+    BuildCasePc::Util.to_vnd(price)
   end
 
-  private
+  dataset_module do
+    def search(params)
+      q = self
+      q = q.where(provider: params['providers'])
+      q = q.where(part: params['part']) if params['part']
+      q = q.grep(:name, params['word'].strip.split(' ').map { |w| "%#{w}%" }, all_patterns: true, case_insensitive: true) if params['word'] && params['word'] != ''
+      q
+    end
 
-  def to_vnd(price)
-    price = price.to_s.split('').reverse
-    tmp = price.each_with_index.inject('') { |o, (v, k)| o = (k % 3 == 2) ? '.' + v + o : v + o }
-    tmp[0] == '.' ? tmp[1..-1] : tmp
+    def fetch_from_providers(params)
+      return [] unless params['word'] && params['word'].to_s.strip != ''
+      tmp = []
+      params['providers'].each { |provider| tmp.concat(Providers.const_get(provider.capitalize.gsub('_', '')).search(params['word'])) }
+      import(%i[code name part price url image_url provider], tmp.map(&:values)) if tmp.size > 0
+      where_all(code: tmp.map { |o| o[:code] })
+    end
   end
 end

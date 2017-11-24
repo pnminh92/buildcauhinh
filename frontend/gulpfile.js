@@ -9,17 +9,19 @@ const sourcemaps = require('gulp-sourcemaps');
 const standard = require('gulp-standard');
 const uglify = require('gulp-uglify');
 const gutil = require('gulp-util');
+const rev = require('gulp-rev');
+const revDel = require('rev-del');
+const override = require('gulp-rev-css-url');
 const browserSync = require('browser-sync').create();
 const browserify = require('browserify')
 const babelify = require('babelify');
 const buffer = require('vinyl-buffer');
-const source = require('vinyl-source-stream');
-const watchify = require('watchify');
+const source = require('vinyl-source-stream'); const watchify = require('watchify');
 
 const config = {
   srcPath: './src',
   destPath: './public',
-  appPath: '../public'
+  appPath: '../app/assets/frontend'
 };
 
 gulp.task('html', function () {
@@ -42,7 +44,7 @@ gulp.task('css', function () {
       .pipe(autoprefixer({ browsers: ['last 2 versions', 'ie > 9'], cascade: false }))
       .pipe(gulpif(gutil.env.development, sourcemaps.write('.')))
       .pipe(gulp.dest(`${config.destPath}/css`))
-      .pipe(copy(`${config.appPath}/css`, { prefix: 2 }))
+      .pipe(copy(`${config.appPath}`, { prefix: 2 }))
       .pipe(browserSync.stream());
 });
 
@@ -72,7 +74,7 @@ function rebundle(bundler) {
     .pipe(uglify({ compress: true, mangle: true }))
     .pipe(gulpif(gutil.env.development, sourcemaps.write('.')))
     .pipe(gulp.dest(`${config.destPath}/js`))
-    .pipe(copy(`${config.appPath}/js`, { prefix: 2 }));
+    .pipe(copy(`${config.appPath}`, { prefix: 2 }));
 }
 
 gulp.task('standard', function () {
@@ -91,12 +93,23 @@ gulp.task('serve', function () {
   browserSync.init({ server: config.destPath });
   gulp.watch(`${config.srcPath}/html/**/*.html`, ['reload-html']);
   gulp.watch(`${config.srcPath}/scss/**/*.scss`, ['css']);
+  gulp.watch(`${config.appPath}/*.{css,js,map}`, ['rev']);
   watchBundler();
 });
 
+gulp.task('rev', function () {
+  gulp.src([`${config.appPath}/*.{jpg,jpeg,png,gif,ico,js,css,map}`])
+      .pipe(rev())
+      .pipe(override())
+      .pipe(gulp.dest('../public/assets'))
+      .pipe(rev.manifest())
+      .pipe(revDel({ oldManifest: '../config/rev-manifest.json', dest: '../public/assets', force: true }))
+      .pipe(gulp.dest('../config'))
+})
 
 gulp.task('serve-mini', function () {
   gulp.watch(`${config.srcPath}/scss/**/*.scss`, ['css']);
+  gulp.watch(`${config.appPath}/*.{css,js,map}`, ['rev']);
   watchBundler();
 });
 

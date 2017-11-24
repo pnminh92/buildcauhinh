@@ -19,7 +19,7 @@ class Comment < Sequel::Model
   def validate
     super
     validates_presence :content
-    validates_min_length 30, :content
+    validates_min_length 10, :content
     validates_max_length 500, :content
   end
 

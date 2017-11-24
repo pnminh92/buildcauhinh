@@ -1,16 +1,15 @@
 class App
-  ALLOWED_BUILD_PARAMS = %i[user_id title description total_price cpu_type price_showed provider_showed hardware_ids]
+  ALLOWED_BUILD_PARAMS = %i[user_id title description total_price price_showed provider_showed hardware_ids]
 
   namespace '/builds' do
     get do
-      @builds = Build.search(params).cursor(params[:max_id], params[:per_page]).all
-      @next_info = Build.next_info(@builds.last.id)
+      ds = Build.search(params).cursor(params[:max_id], params[:per_page])
+      @builds = ds.all
+      @next_info = ds.next_info(@builds.last&.id)
+      @params = params
       respond_to do |f|
-        f.html {
-          @params = params
-          erb :'builds/index', layout: :'layout/main'
-        }
-        f.json { json(builds: build_serializer(@builds), next_info: @next_info) }
+        f.html { erb :'builds/index', layout: :'layout/main' }
+        f.json { json(html: erb(:'shared/builds', locals: { builds: @builds }), next_info: @next_info) }
       end
     end
 
@@ -18,6 +17,7 @@ class App
       @build = Build.new
       @hardwares = Hardware.where_all(id: session[:hardwares].map { |h| h[:id] }) || []
       @total_price = Build.total_price(@hardwares)
+      @cpu_type = Build.detect_cpu_type(@hardwares)
       erb :'builds/new', layout: :'layout/main'
     end
 
@@ -34,6 +34,7 @@ class App
         }
       end
       @total_price = Build.total_price(@hardwares)
+      @cpu_type = Build.detect_cpu_type(@hardwares)
       erb :'builds/edit', layout: :'layout/main'
     end
 
@@ -43,6 +44,7 @@ class App
       @comments = Build.where(slug: params[:slug].to_s).comments.order(Sequel.desc(:id))
       @new_builds = Build.limit(5).order(Sequel.desc(:id)).all
       @hardwares = @build.hardwares
+      @total_price = Build.total_price(@hardwares)
       erb :'builds/show', layout: :'layout/main'
     end
 
@@ -56,10 +58,13 @@ class App
           BuildsHardware.build(@build.id, params[:hardware_ids])
         end
         session[:hardwares] = nil
-        redirect to('/')
+        flash[:success] = I18n.t('views.create_build_success')
+        redirect to("/#{current_user.username}")
       rescue StandardError => e
         logger.info(e.message)
         @hardwares = Hardware.where_all(id: session[:hardwares].map { |h| h[:id] }) || []
+        @total_price = Build.total_price(@hardwares)
+        @cpu_type = Build.detect_cpu_type(@hardwares)
         erb :'builds/new', layout: :'layout/main'
       end
     end

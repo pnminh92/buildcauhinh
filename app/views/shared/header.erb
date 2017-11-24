@@ -3,7 +3,7 @@
     <% if signed_in? %>
       <nav class="nav">
         <div class="nav-logo">
-          <a href="/"><img src="/img/logo.png" alt="timgialinhkien"></a>
+          <a href="/"><img src="<%= ASSETS['logo.png'] %>" alt="buildcauhinh"></a>
         </div>
         <div class="nav-control">
           <div class="nav-control-item"><a href="/builds"><%= I18n.t('views.builds') %></a></div>
@@ -24,13 +24,13 @@
     <% else %>
       <nav class="nav">
         <div class="nav-logo">
-          <a href="/"><img src="/img/logo.png" alt="timgialinhkien"></a>
+          <a href="/"><img src="<%= ASSETS['logo.png'] %>" alt="buildcauhinh"></a>
         </div>
         <div class="nav-control">
           <div class="nav-control-item"><a href="/builds"><%= I18n.t('views.builds') %></a></div>
           <div class="nav-control-item"><a href="/sign_in" class="btn btn-gray"><%= I18n.t('views.sign_in_btn') %></a></div>
           <div class="nav-control-item"><a href="/sign_up" class="btn"><%= I18n.t('views.sign_up_btn') %></a></div>
-          <div class="menu hidden-pc"><img src="/img/menu.svg" alt="menu"></div>
+          <div class="menu hidden-pc"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
         </div>
       </nav>
 

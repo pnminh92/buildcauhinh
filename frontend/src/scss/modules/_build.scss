@@ -20,17 +20,22 @@
   }
 }
 
-.building-list {
+.hardware-list {
   li {
     position: relative;
     padding: 10px;
     border-radius: 4px;
+    border: 1px solid darken($color-lighter-gray, 10%);
     background-color: $color-lighter-gray;
     transition: all .2s ease-in-out;
     cursor: pointer;
 
-    &.selected,
     &:hover {
+      background-color: lighten($color-lighter-gray, 5%);
+    }
+
+    &.selected {
+      border: 1px solid darken($color-blue, 10%);
       background-color: $color-blue;
       color: $color-white;
     }
@@ -46,7 +51,7 @@
     }
 
     + li {
-      margin-top: 10px;
+      margin-top: 2px;
     }
 
     .build-close-btn {
@@ -207,7 +212,7 @@
 
 .building-list {
   .hardware-list {
-    margin-top: 30px;
+    margin-top: 15px;
   }
   .building-list-btn {
     margin-top: 30px;

@@ -11,7 +11,6 @@ class App
 
     @user = User.new
     if @user.set_fields(params, %i[username password]).save
-      byebug
       flash[:success] = I18n.t('controllers.users.sign_up_success')
       redirect to('/')
     else
@@ -73,7 +72,7 @@ class App
     @user = User.where(reset_pwd_token: params[:reset_pwd_token]).first
     @token = params[:reset_pwd_token]
     if @user && @user.reset_pwd_token_valid?
-      if @user.update(password: params[:password])
+      if @user.set_fields(params, %i[password]).save
         flash[:success] = I18n.t('controllers.users.reset_pwd_success')
         redirect to('/sign_in')
       else
@@ -97,6 +96,8 @@ class App
       @error = I18n.t('controllers.users.change_pwd_error')
     elsif !current_user.set_fields(params, %i[password]).save
       @errors = current_user.errors
+    else
+      flash.now[:success] = 'Đổi mật khẩu thành công'
     end
     erb :'users/change_pwd', layout: :'layout/main'
   end
@@ -113,13 +114,13 @@ class App
     @next_info = Build.next_info(@builds.last.id)
     respond_to do |f|
       f.html { erb :'users/show', layout: :'layout/main' }
-      f.json { json(builds: build_serializer(@builds), next_info: @next_info) }
+      f.json { json(html: erb(:'shared/builds', locals: { builds: @builds }), next_info: @next_info) }
     end
   end
 
   post '/settings' do
     halt 404 unless signed_in?
-    current_user.set_fields(params, %i[username avatar email about]).save
+    current_user.set_fields(params, %i[avatar email about]).save
     @errors = current_user.errors if current_user.errors
     erb :'users/settings', layout: :'layout/main'
   end

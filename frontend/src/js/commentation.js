@@ -1,13 +1,22 @@
 import axios from 'axios'
+import Util from './util'
 
 export default class Commentation {
   static openEditor (target, commentId, buildId) {
     const commentItemBody = target.parentNode.parentNode
     if (commentItemBody.classList.contains('editor-opened')) return
-    const editorHtml = _.template(document.getElementById('edit-comment-form').innerHTML)({
-      content: commentItemBody.querySelector('.comment-content').innerText,
-      comment: { id: commentId, build_id: buildId }
-    })
+    const content = commentItemBody.querySelector('.comment-content').innerText
+    const editorHtml = `
+      <div class="edit-comment-form">
+        <div class="form-group">
+          <textarea class="textarea">${content}</textarea>
+        </div>
+        <div class="comment-btn">
+          <button onclick="Commentation.edit(this, ${commentId}, ${buildId})" type="button" class="btn btn-sm">Sửa</button>
+          <button onclick="Commentation.closeEditor(this)" type="button" class="btn btn-sm btn-gray">Đóng</button>
+        </div>
+      </div>
+    `
     commentItemBody.insertAdjacentHTML('beforeend', editorHtml)
     commentItemBody.classList.add('editor-opened')
   }
@@ -24,13 +33,13 @@ export default class Commentation {
       .then(response => {
         commentItemBody.querySelector('.edit-comment-form').remove()
         commentItemBody.classList.remove('editor-opened')
-        commentItemBody.querySelector('.comment-content').innerHTML = _.escape(response.data.content)
+        commentItemBody.querySelector('.comment-content').innerHTML = escapeHTML(response.data.content)
       })
       .catch(error => {
         if (error.response.data) {
           document.querySelector('.edit-comment-form .form-group').insertAdjacentHTML('beforeend', `<p class="model-text-error">${error.response.data.content}</p>`)
         } else {
-          alertServerError()
+          Util.alertServerError()
         }
       })
   }
@@ -39,7 +48,7 @@ export default class Commentation {
     if (confirm('Bạn có chắc muốn xoá bình luận này ?')) {
       axios.delete(`/builds/${buildId}/comments/${commentId}`)
         .then(response => target.parentNode.parentNode.parentNode.remove())
-        .catch(error => alertServerError())
+        .catch(error => Util.alertServerError())
     } else {
       return
     }

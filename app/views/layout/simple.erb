@@ -6,34 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
 
-    <title><%= yield_content(:title) { 'Tìm giá linh kiện máy tính' } %></title>
-    <meta name="description" content="<%= yield_content(:description) { 'Giá linh kiện máy tính tại các cửa hàng ở HCM, Hà Nội' } %>">
+    <title><%= yield_content(:title) { 'Build cấu hình máy tính - buildcauhinh' } %></title>
+    <meta name="description" content="<%= yield_content(:description) { 'Cộng đồng build, chia sẻ cấu hình máy tính' } %>">
 
-    <link rel="canonical" href="<%= yield_content(:canonical) { 'https://timgialinhkien.com' } %>">
-    <meta name="robots" content="index,follow">
-    <meta name="googlebot" content="index,follow">
+    <link rel="canonical" href="<%= yield_content(:canonical) { to('/') } %>">
 
-    <meta property="og:title" content="<%= yield_content(:og_title) { 'Tìm giá linh kiện máy tính' } %>">
-    <meta property="og:site_name" content="<%= yield_content(:og_site_name) { 'Tìm giá linh kiện máy tính' } %>">
-    <meta property="og:description" content="<%= yield_content(:og_description) { 'Giá linh kiện máy tính tại các cửa hàng ở HCM, Hà Nội' } %>">
-    <meta property="og:url" content="<%= yield_content(:og_url) { 'https://timgialinhkien.com' } %>">
-    <meta property="og:image" content="<%= yield_content(:og_image) { 'https://timgialinhkien.com/img/og.png' } %>">
+    <meta property="og:title" content="<%= yield_content(:og_title) { 'Build cấu hình máy tính - buildcauhinh' } %>">
+    <meta property="og:site_name" content="<%= yield_content(:og_site_name) { 'Build cấu hình máy tính - buildcauhinh' } %>">
+    <meta property="og:description" content="<%= yield_content(:og_description) { 'Cộng đồng build, chia sẻ cấu hình máy tính' } %>">
+    <meta property="og:url" content="<%= yield_content(:og_url) { to('/') } %>">
+    <meta property="og:image" content="<%= yield_content(:og_image) { to(ASSETS['og.png']) } %>">
     <meta property="og:type" content="website">
 
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon_16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon_32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/touch_icon_180x180.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/img/touch_icon_152x152.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/img/touch_icon_120x120.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/img/touch_icon_76x76.png">
-    <link rel="icon" sizes="192x192" href="/img/touch_icon_192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= ASSETS['favicon_16x16.png'] %>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= ASSETS['favicon_32x32.png'] %>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= ASSETS['touch_icon_180x180.png'] %>">
+    <link rel="apple-touch-icon" sizes="152x152" href="<%= ASSETS['touch_icon_152x152.png'] %>">
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= ASSETS['touch_icon_120x120.png'] %>">
+    <link rel="apple-touch-icon" sizes="76x76" href="<%= ASSETS['touch_icon_76x76.png'] %>">
+    <link rel="icon" sizes="192x192" href="<%= ASSETS['touch_icon_192x192.png'] %>">
 
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="<%= ASSETS['main.css'] %>">
   </head>
   <body>
     <header class="header-simple">
       <div class="container">
-        <a href="/"><img src="/img/logo.png" alt="Logo cua timgialinhkien"></a>
+        <a href="/"><img src="<%= ASSETS['logo.png'] %>" alt="Logo cua buildcauhinh"></a>
       </div>
     </header>
     <%= yield %>

@@ -5,16 +5,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title><%= yield_content(:title) { 'Ráp thử máy tính, tìm giá linh kiện - rapmay' } %></title>
-    <meta name="description" content="<%= yield_content(:description) { 'rapmay là ứng dụng ráp thử máy tính, tìm kiếm giá linh kiện và chia sẻ cấu hình máy' } %>">
+    <title><%= yield_content(:title) { 'Build cấu hình máy tính - buildcauhinh' } %></title>
+    <meta name="description" content="<%= yield_content(:description) { 'Cộng đồng build, chia sẻ cấu hình máy tính' } %>">
 
-    <link rel="canonical" href="<%= yield_content(:canonical) { 'https://rapmay.com' } %>">
+    <link rel="canonical" href="<%= yield_content(:canonical) { to('/') } %>">
 
-    <meta property="og:title" content="<%= yield_content(:og_title) { 'Ráp thử máy tính, tìm giá linh kiện - rapmay' } %>">
-    <meta property="og:site_name" content="<%= yield_content(:og_site_name) { 'Ráp thử máy tính, tìm giá linh kiện - rapmay' } %>">
-    <meta property="og:description" content="<%= yield_content(:og_description) { 'rapmay là ứng dụng ráp thử máy tính, tìm kiếm giá linh kiện và chia sẻ cấu hình máy' } %>">
-    <meta property="og:url" content="<%= yield_content(:og_url) { 'https://rapmay.com' } %>">
-    <meta property="og:image" content="<%= yield_content(:og_image) { 'https://rapmay.com/img/og.png' } %>">
+    <meta property="og:title" content="<%= yield_content(:og_title) { 'Build cấu hình máy tính - buildcauhinh' } %>">
+    <meta property="og:site_name" content="<%= yield_content(:og_site_name) { 'Build cấu hình máy tính - buildcauhinh' } %>">
+    <meta property="og:description" content="<%= yield_content(:og_description) { 'Cộng đồng build, chia sẻ cấu hình máy tính' } %>">
+    <meta property="og:url" content="<%= yield_content(:og_url) { to('/') } %>">
+    <meta property="og:image" content="<%= yield_content(:og_image) { to(ASSETS['og.png']) } %>">
     <meta property="og:type" content="website">
 
     <link rel="dns-prefetch" href="//hanoicomputer.vn">
@@ -24,16 +24,17 @@
     <link rel="dns-prefetch" href="//tandoanh.vn">
     <link rel="dns-prefetch" href="//vitinhnaman.com">
 
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon_16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon_32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/touch_icon_180x180.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/img/touch_icon_152x152.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/img/touch_icon_120x120.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/img/touch_icon_76x76.png">
-    <link rel="icon" sizes="192x192" href="/img/touch_icon_192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= ASSETS['favicon_16x16.png'] %>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= ASSETS['favicon_32x32.png'] %>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= ASSETS['touch_icon_180x180.png'] %>">
+    <link rel="apple-touch-icon" sizes="152x152" href="<%= ASSETS['touch_icon_152x152.png'] %>">
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= ASSETS['touch_icon_120x120.png'] %>">
+    <link rel="apple-touch-icon" sizes="76x76" href="<%= ASSETS['touch_icon_76x76.png'] %>">
+    <link rel="icon" sizes="192x192" href="<%= ASSETS['touch_icon_192x192.png'] %>">
 
     <meta name="csrf-token" content="<%= Rack::Protection::AuthenticityToken.token(session) %>">
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="<%= ASSETS['main.css'] %>">
+    <script src="<%= ASSETS['main.js'] %>" defer></script>
   </head>
   <body>
     <%= erb :'shared/header' %>
@@ -42,10 +43,5 @@
     <%= erb :'shared/builder' %>
     <%= erb(:'shared/flash', locals: { message: yield_content(:success), success: true }) if content_for?(:success) %>
     <%= erb(:'shared/flash', locals: { message: yield_content(:error), success: false }) if content_for?(:error) %>
-
-    <script>var providers</script>
-    <%= yield_content :js %>
-    <%= yield_content :js_templates %>
-    <script src="/js/main.js"></script>
   </body>
 </html>

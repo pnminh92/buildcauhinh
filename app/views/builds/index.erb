@@ -12,7 +12,9 @@
           </div>
 
           <% if @next_info[:has_next] %>
-          <button class="btn btn-gray btn-block btn-view-more" data-json="<%= escape_html(@next_info.to_json) %>" onclick="Timgialinhkien.loadMoreBuilds(this)"><%= I18n.t('views.view_more_btn') %></button>
+          <div class="block-view-more">
+            <button class="btn btn-gray btn-block" data-json="<%= escape_html(@next_info.to_json) %>" onclick="Buildcauhinh.loadMoreBuilds(this)"><%= I18n.t('views.view_more_btn') %></button>
+          </div>
           <% end %>
         </div>
       </section>
@@ -27,10 +29,14 @@
               <ul>
                 <% SETTINGS['price_type'].each do |price| %>
                 <li>
-                  <input name="price_type[]" type="checkbox" id="price_type_<%= price %>" value="<%= price %>" <%= params[:price_type]&.include?(price) ? 'checked' : '' %>>
+                  <input name="price_type" type="radio" id="price_type_<%= price %>" value="<%= price %>" <%= params[:price_type] == price ? 'checked' : '' %>>
                   <label for="price_type_<%= price %>"><%= I18n.t("views.#{price}") %></label>
                 </li>
                 <% end %>
+                <li>
+                  <input name="price_type" type="radio" id="price_type_none" <%= params[:price_type] == 'none' || !params[:price_type] ? 'checked' : '' %>>
+                  <label for="price_type_none"><%= I18n.t("views.price_type_none") %></label>
+                </li>
               </ul>
             </div>
 
@@ -39,10 +45,14 @@
               <ul>
                 <% SETTINGS['cpu_type'].each do |type| %>
                 <li>
-                  <input name="cpu_type[]" type="checkbox" id="cpu_<%= type %>" value="<%= type %>" <%= params[:cpu_type]&.include?(type) ? 'checked' : '' %>>
+                  <input name="cpu_type" type="radio" id="cpu_<%= type %>" value="<%= type %>" <%= params[:cpu_type]&.include?(type) ? 'checked' : '' %>>
                   <label for="cpu_<%= type %>"><%= I18n.t("views.cpu_#{type}") %></label>
                 </li>
                 <% end %>
+                <li>
+                  <input name="cpu_type" type="radio" id="cpu_type_none" <%= params[:cpu_type] == 'none' || !params[:cpu_type] ? 'checked' : '' %>>
+                  <label for="cpu_type_none"><%= I18n.t("views.cpu_type_none") %></label>
+                </li>
               </ul>
             </div>
           </div>
@@ -55,44 +65,23 @@
 </main>
 
 <% content_for(:title) do %>
-<%= 'Dàn máy - rapmay' %>
+<%= 'Cấu hình máy tính - buildcauhinh' %>
 <% end %>
 <% content_for(:description) do %>
-<%= 'Những dàn máy tính được ráp và chia sẻ bởi cộng đồng rapmay' %>
+<%= 'Những cấu hình máy tính được build bởi cộng đồng' %>
 <% end %>
 <% content_for(:canonical) do %>
-<%= 'https://rapmay.com/builds' %>
+<%= to('/builds') %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= 'Dàn máy - rapmay' %>
+<%= 'Cấu hình máy tính - buildcauhinh' %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= 'Dàn máy - rapmay' %>
+<%= 'Cấu hình máy tính - buildcauhinh' %>
 <% end %>
 <% content_for(:og_description) do %>
-<%= 'Những dàn máy tính được ráp và chia sẻ bởi cộng đồng rapmay' %>
+<%= 'Những cấu hình máy tính được build bởi cộng đồng' %>
 <% end %>
 <% content_for(:og_url) do %>
-<%= 'https://rapmay.com/builds' %>
+<%= to('/builds') %>
 <% end %>
-
-<script type="text/template" id="build-item">
-{% builds.forEach(function(build) { %}
-<div class="build-item media">
-  <div class="media-left">
-    <a href="/{%- build.user.username %}"><img src="{%- build.user.avatar_url %}" alt="{%- build.user.short_username %}"></a>
-  </div>
-  <div class="media-body">
-    <p>
-      <a href="/{%- build.user.username %}" class="media-username">{%- build.user.short_username %}</a>
-      <span class="media-date"><%= I18n.t('views.built_at') %>{%- build.display_date %}</time>
-    </p>
-    <h3 class="build-title"><a href="/builds/{%- build.slug %}">{%- build.title %}</a></h3>
-    <div class="build-status">
-      <span class="build-label">{%- build.price_type %}</span>
-      <span class="build-label">{%- build.cpu_type %}</span>
-    </div>
-  </div>
-</div>
-{% } ) %}
-</script>

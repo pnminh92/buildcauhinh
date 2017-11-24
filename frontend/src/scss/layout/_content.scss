@@ -17,6 +17,7 @@
 }
 
 .main-content {
+  position: relative;
   width: 75%;
   flex: none;
   padding: 0 15px;
@@ -58,6 +59,7 @@
 }
 
 .box {
+  height: 100%;
   background-color: $color-white;
   border-radius: 4px;
   padding: 15px;

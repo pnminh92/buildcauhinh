@@ -21,25 +21,25 @@
 </main>
 
 <% content_for(:title) do %>
-<%= 'Đăng nhập - rapmay' %>
+<%= 'Đăng nhập - buildcauhinh' %>
 <% end %>
 <% content_for(:description) do %>
-<%= 'Tham gia cộng đồng rapmay để được trải nghiệm ráp thử máy tính, tìm giá linh kiện một cách đơn giản nhất' %>
+<%= 'Tham gia cộng đồng buildcauhinh để build và chia sẻ cấu hình máy tính' %>
 <% end %>
 <% content_for(:canonical) do %>
-<%= 'https://rapmay.com/sign_in' %>
+<%= to('/sign_in') %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= 'Đăng nhập - rapmay' %>
+<%= 'Đăng nhập - buildcauhinh' %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= 'Đăng nhập - rapmay' %>
+<%= 'Đăng nhập - buildcauhinh' %>
 <% end %>
 <% content_for(:og_description) do %>
-<%= 'Tham gia cộng đồng rapmay để được trải nghiệm ráp thử máy tính, tìm giá linh kiện một cách đơn giản nhất' %>
+<%= 'Tham gia cộng đồng buildcauhinh để build và chia sẻ cấu hình máy tính' %>
 <% end %>
 <% content_for(:og_url) do %>
-<%= 'https://rapmay.com/sign_in' %>
+<%= to('/sign_in') %>
 <% end %>
 
 <% if flash[:success] %>

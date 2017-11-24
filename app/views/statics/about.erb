@@ -1,0 +1,32 @@
+<main class="contents">
+  <div class="container">
+    <h1 class="title text-center">Giới thiệu</h1>
+    <p>
+      buildcauhinh dựa trên ý tưởng của box 24 và 25 của vozforums và chức năng build cấu hình trên các trang web của
+      cửa hàng bán linh kiện máy tính. buildcauhinh ra đời với hy vọng tạo được sân chơi mới giúp cộng đồng yêu thích phần cứng dễ dàng
+      lựa chọn linh kiện và build cấu hình phù hợp cho cá nhân cũng như là nơi để chia sẻ học hỏi từ cộng đồng.
+    </p>
+  </div>
+</main>
+
+<% content_for(:title) do %>
+<%= 'Giới thiệu - buildcauhinh' %>
+<% end %>
+<% content_for(:description) do %>
+<%= 'buildcauhinh dựa trên ý tưởng của box 24 và 25 của vozforums và chức năng build cấu hình trên các trang web của cửa hàng bán linh kiện máy tính' %>
+<% end %>
+<% content_for(:canonical) do %>
+<%= to('/about') %>
+<% end %>
+<% content_for(:og_title) do %>
+<%= 'Giới thiệu - buildcauhinh' %>
+<% end %>
+<% content_for(:og_site_name) do %>
+<%= 'Giới thiệu - buildcauhinh' %>
+<% end %>
+<% content_for(:og_description) do %>
+<%= 'buildcauhinh dựa trên ý tưởng của box 24 và 25 của vozforums và chức năng build cấu hình trên các trang web của cửa hàng bán linh kiện máy tính' %>
+<% end %>
+<% content_for(:og_url) do %>
+<%= to('/about') %>
+<% end %>

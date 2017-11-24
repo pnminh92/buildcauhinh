@@ -67,12 +67,10 @@ body {
   }
 
   .menu {
+    cursor: pointer;
+    outline: none;
     @include respond-to-pc() {
       margin-left: 15px;
-    }
-    img {
-      height: 32px;
-      cursor: pointer;
     }
   }
 

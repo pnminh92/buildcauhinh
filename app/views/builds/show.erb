@@ -26,15 +26,36 @@
             <p class="build-description"><%= @build.description %></p>
             <% end %>
 
-            <div class="hardware-list">
-            <% @hardwares.each do |hardware| %>
-            <%= erb :'shared/hardware', locals: { hardware: hardware, hardware_list: false } %>
-            <% end %>
+            <% if @hardwares.size > 0 %>
+            <div class="hardware-list table-responsive">
+              <table class="table table-hardwares">
+                <tr>
+                  <th>#</th>
+                  <%= @build.provider_showed ? "<th class=\"th-provider\">#{I18n.t('views.hardware_provider')}</th>" : ''  %>
+                  <th><%= I18n.t('views.hardware_part') %></th>
+                  <th><%= I18n.t('views.hardware_name') %></th>
+                  <%= @build.price_showed ? "<th class=\"th-price\">#{I18n.t('views.hardware_price')}</th>" : ''  %>
+                  <th></th>
+                </tr>
+              <% @hardwares.each_with_index do |hardware, k| %>
+                <tr>
+                  <td><%= k + 1 %></td>
+                  <%= @build.provider_showed ? "<td>#{escape_html(hardware.provider)}</td>" : ''  %>
+                  <td><%= hardware.part %></td>
+                  <td><a href="<%= escape_html hardware.url %>" target="_blank"><%= escape_html hardware.name %></a></td>
+                  <%= @build.price_showed ? "<td class=\"text-red\">#{escape_html(hardware.display_price)}</td>" : ''  %>
+                  <td><button type="button" class="btn btn-gray" data-json="<%= escape_html({ id: hardware.id, price: hardware.price, part: hardware.part }.to_json) %>" onclick="HardwareList.removeItem(this)"><%= I18n.t('views.remove_btn') %></button></td>
+                </tr>
+              <% end %>
+              </table>
             </div>
+            <% end %>
 
             <div class="build-status">
-              <span class="build-label"><%= I18n.t("views.#{@build.price_type}") %></span>
+              <% if @build.cpu_type %>
               <span class="build-label"><%= I18n.t("views.cpu_#{@build.cpu_type}") %></span>
+              <% end %>
+              <span class="build-label"><%= BuildCasePc::Util.to_vnd(@build.total_price) %></span>
             </div> </div>
 
           <div class="comment">
@@ -57,37 +78,23 @@
 </main>
 
 <% content_for(:title) do %>
-<%= "#{@build.title} - cauhinhpc" %>
+<%= "#{@build.title} - buildcauhinh" %>
 <% end %>
 <% content_for(:description) do %>
-<%= @build.description ? @build.description : "#{@build.title} được ráp bởi thành viên #{@build.user.short_username}" %>
+<%= @build.description ? @build.description : "#{@build.title} được build bởi thành viên #{@build.user.short_username}" %>
 <% end %>
 <% content_for(:canonical) do %>
-<%= "https://cauhinhpc.com/builds/#{@build.slug}" %>
+<%= to("/builds/#{@build.slug}") %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= "#{@build.title} - cauhinhpc" %>
+<%= "#{@build.title} - buildcauhinh" %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= "#{@build.title} - cauhinhpc" %>
+<%= "#{@build.title} - buildcauhinh" %>
 <% end %>
 <% content_for(:og_description) do %>
-<%= @build.description ? @build.description : "#{@build.title} được ráp bởi thành viên #{@build.user.short_username}" %>
+<%= @build.description ? @build.description : "#{@build.title} được build bởi thành viên #{@build.user.short_username}" %>
 <% end %>
 <% content_for(:og_url) do %>
-<%= "https://cauhinhpc.com/builds/#{@build.slug}" %>
-<% end %>
-
-<% content_for :js_templates do %>
-<script type="text/x-template" id="edit-comment-form">
-<div class="edit-comment-form">
-  <div class="form-group">
-    <textarea class="textarea">{%- content %}</textarea>
-  </div>
-  <div class="comment-btn">
-    <button onclick="Commentation.edit(this, {%- comment.id %}, {%- comment.build_id %})" type="button" class="btn btn-sm"><%= I18n.t('views.edit_btn') %></button>
-    <button onclick="Commentation.closeEditor(this)" type="button" class="btn btn-sm btn-gray"><%= I18n.t('views.close_btn') %></button>
-  </div>
-</div>
-</script>
+<%= to("/builds/#{@build.slug}") %>
 <% end %>

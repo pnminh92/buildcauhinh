@@ -28,7 +28,7 @@ input[type=file] {
     font-size: $font-size-sm;
     font-weight: 500;
     line-height: 1;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     img {
       width: 64px;
     }
@@ -52,6 +52,10 @@ input[type=file] {
 
   label + input[type=radio] {
     margin-left: 15px;
+  }
+
+  label {
+    font-size: $font-size-sm;
   }
 }
 

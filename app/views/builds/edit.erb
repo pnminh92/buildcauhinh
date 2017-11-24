@@ -5,6 +5,7 @@
         <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
         <input type="hidden" name="user_id" value="<%= current_user&.id %>">
         <input type="hidden" name="total_price" value="<%= @total_price %>">
+        <input type="hidden" name="cpu_type" value="<%= @cpu_type %>">
         <% @hardwares.each do |hardware| %>
         <input type="hidden" name="hardware_ids[]" value="<%= hardware.id %>">
         <% end %>
@@ -26,21 +27,11 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label"><%= I18n.t('views.build_cpu_type') %></label>
-              <div class="form-input">
-                <% SETTINGS['cpu_type'].each do |cpu| %>
-                <input type="radio" id="cpu_type_<%= cpu %>" name="cpu_type" value="<%= cpu %>" <%= @build.cpu_type == cpu ? 'checked' : '' %>>
-                <label for="cpu_type_<%= cpu %>"><%= I18n.t("views.cpu_#{cpu}") %></label>
-                <% end %>
-                <%= model_text_error(@build.errors, :build, :cpu_type) %>
-              </div>
-            </div>
-            <div class="form-group">
               <label class="form-label"><%= I18n.t('views.build_price_showed') %></label>
               <div class="form-input">
-                <input type="radio" id="price_showed_yes" name="price_showed" <%= @build.price_showed ? 'checked' : '' %>>
+                <input type="radio" id="price_showed_yes" name="price_showed" value="true" <%= (@build.price_showed == true || @build.price_showed.nil?) ? 'checked' : '' %>>
                 <label for="price_showed_yes"><%= I18n.t('views.price_showed_yes') %></label>
-                <input type="radio" id="price_showed_no" name="price_showed" <%= @build.price_showed ? '' : 'checked' %>>
+                <input type="radio" id="price_showed_no" name="price_showed" value="false" <%= @build.price_showed == false ? 'checked' : '' %>>
                 <label for="price_showed_no"><%= I18n.t('views.price_showed_no') %></label>
               </div>
             </div>
@@ -54,11 +45,36 @@
               </div>
             </div>
           </div>
-          <div class="hardware-list">
-            <% @hardwares.each do |hardware| %>
-            <%= erb(:'shared/hardware', locals: { hardware: hardware, hardware_list: true }) %>
+
+          <% if @hardwares.size > 0 %>
+          <div class="hardware-list table-responsive">
+            <table class="table">
+              <tr>
+                <th>#</th>
+                <th><%= I18n.t('views.hardware_provider') %></th>
+                <th><%= I18n.t('views.hardware_part') %></th>
+                <th><%= I18n.t('views.hardware_name') %></th>
+                <th><%= I18n.t('views.hardware_price') %></th>
+                <th></th>
+              </tr>
+            <% @hardwares.each_with_index do |hardware, k| %>
+              <tr>
+                <td><%= k + 1 %></td>
+                <td><%= escape_html I18n.t("views.#{hardware.provider}") %></td>
+                <th><%= escape_html hardware.part %></th>
+                <td><a href="<%= escape_html hardware.url %>" target="_blank"><%= escape_html hardware.name %></a></td>
+                <td class="text-red"><%= escape_html hardware.display_price %></td>
+                <td><button type="button" class="btn btn-gray" data-json="<%= escape_html({ id: hardware.id, price: hardware.price, part: hardware.part }.to_json) %>" onclick="HardwareList.removeItem(this)"><%= I18n.t('views.remove_btn') %></button></td>
+              </tr>
             <% end %>
+              <tr>
+                <td colspan="4" class="text-right text-bold"><%= I18n.t('views.hardware_total_price') %></td>
+                <td id="total-price" colspan="2" class="text-red"><%= BuildCasePc::Util.to_vnd(@total_price) %></td>
+              </tr>
+            </table>
           </div>
+          <% end %>
+
           <div class="building-list-btn">
             <button type="submit" class="btn btn-green" title="<%= I18n.t('views.build_edit_title') %>"><%= I18n.t('views.edit_btn') %></button>
             <a href="/" class="btn btn-gray" title="<%= I18n.t('views.change_parts_title') %>"><%= I18n.t('views.change_parts_btn') %></a>
@@ -69,3 +85,25 @@
     </div>
   </div>
 </main>
+
+<% content_for(:title) do %>
+<%= "#{@build.title} - buildcauhinh" %>
+<% end %>
+<% content_for(:description) do %>
+<%= @build.description ? @build.description : "#{@build.title} được build bởi thành viên #{@build.user.short_username}" %>
+<% end %>
+<% content_for(:canonical) do %>
+<%= to("/builds/#{@build.id}/edit") %>
+<% end %>
+<% content_for(:og_title) do %>
+<%= "#{@build.title} - buildcauhinh" %>
+<% end %>
+<% content_for(:og_site_name) do %>
+<%= "#{@build.title} - buildcauhinh" %>
+<% end %>
+<% content_for(:og_description) do %>
+<%= @build.description ? @build.description : "#{@build.title} được build bởi thành viên #{@build.user.short_username}" %>
+<% end %>
+<% content_for(:og_url) do %>
+<%= to("/builds/#{@build.id}/edit") %>
+<% end %>

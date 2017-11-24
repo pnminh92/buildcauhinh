@@ -10,7 +10,7 @@ Sequel.migration do
       String :title, size: 255, null: false
       String :description, text: true, size: 500
       Integer :total_price, null: false
-      cpu_type :cpu_type, null: false
+      cpu_type :cpu_type
       TrueClass :price_showed, null: false, default: true
       TrueClass :provider_showed, null: false, default: false
       DateTime :created_at
