@@ -18,3 +18,4 @@ production:
   database: buildcauhinh_production
   username: <%= ENV['BUILDCAUHINH_DATABASE_USERNAME'] %>
   password: <%= ENV['BUILDCAUHINH_DATABASE_PASSWORD'] %>
+  max_connections: <%= ENV['BUILDCAUHINH_MAX_THREAD'] || 5 %>
