@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# config valid only for current version of Capistrano
-lock '3.6.1'
+# config valid only for current version of Capistrano lock '3.6.1'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -48,4 +47,13 @@ namespace :deploy do
     end
   end
   before 'deploy:check', 'deploy:upload_yml'
+
+  desc 'Run migrations'
+  task :migrate do
+    on roles(:app) do
+      db_url = "postgres://localhost/buildcauhinh_production?user=$BUILDCAUHINH_DATABASE_USERNAME&password=$BUILDCAUHINH_DATABASE_PASSWORD"
+      execute("sequel -m #{current_path}/db/migrations #{db_url}")
+    end
+  end
+  before 'deploy:publishing', 'deploy:migrate'
 end

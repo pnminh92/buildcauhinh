@@ -33,6 +33,7 @@ set :puma_role, :web
 
 # capistrano/sidekiq
 set :sidekiq_config, "#{shared_path}/config/sidekiq.yml"
+set :sidekiq_require, "#{current_path}/boot.rb"
 
 # Global options
 # --------------

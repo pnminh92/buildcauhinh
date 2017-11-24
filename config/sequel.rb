@@ -1,6 +1,5 @@
 # Sequel open connection to database
-DB = Sequel.connect(YAML.load_file(File.join(settings.root, 'config', 'database.yml').to_s)[ENV.fetch('RACK_ENV') { 'development' }])
-DB.extension :pagination
+DB = Sequel.connect(YAML.load(ERB.new(File.read("#{settings.root}/config/database.yml")).result)[ENV.fetch('RACK_ENV') { 'development' }])
 
 # Sequel load plugins
 Sequel::Model.raise_on_save_failure = false
