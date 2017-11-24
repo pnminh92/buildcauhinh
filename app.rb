@@ -71,7 +71,7 @@ SETTINGS = YAML.load_file(File.join(settings.root, 'config', 'settings.yml').to_
 tmp_assets = JSON.parse(File.read(File.join(settings.root, 'config', 'rev-manifest.json').to_s))
 ASSETS = tmp_assets.keys.map { |k| { "#{k}" => '/assets/' + tmp_assets[k] } }.reduce({}, :merge).freeze
 
-Dir[File.join(settings.root, 'config', '*.rb')].each { |f| require f }
+Dir[File.join(settings.root, 'config', '*.rb')].each { |f| require f unless f.include?('deploy.rb') }
 Dir[File.join(settings.root, 'lib', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'lib', 'providers', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'app', 'uploaders', '*.rb')].each { |f| require f }

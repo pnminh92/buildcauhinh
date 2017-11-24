@@ -32,7 +32,7 @@ set :puma_conf, -> { "#{shared_path}/config/puma/buildcauhinh.com.rb" }
 set :puma_role, :web
 
 # capistrano/sidekiq
-set :sidekiq_config, 'config/sidekiq.yml'
+set :sidekiq_config, "#{shared_path}/config/sidekiq.yml"
 
 # Global options
 # --------------
