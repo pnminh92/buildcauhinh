@@ -52,7 +52,7 @@ namespace :deploy do
   task :migrate do
     on roles(:app) do
       db_url = "postgres://localhost/buildcauhinh_production?user=$BUILDCAUHINH_DATABASE_USERNAME&password=$BUILDCAUHINH_DATABASE_PASSWORD"
-      execute("sequel -m #{current_path}/db/migrations #{db_url}")
+      execute("cd '#{current_path}' && #{fetch(:rbenv_prefix)} bundle exec sequel -m #{current_path}/db/migrations \"#{db_url}\"")
     end
   end
   before 'deploy:publishing', 'deploy:migrate'
