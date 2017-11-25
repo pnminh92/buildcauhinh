@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="E5Oy0kgIZ3RFlBThplk1vr765X3yJbQY3PX8UxpwLo8">
 
     <title><%= yield_content(:title) { 'Build cấu hình máy tính - buildcauhinh' } %></title>
     <meta name="description" content="<%= yield_content(:description) { 'Cộng đồng build, chia sẻ cấu hình máy tính' } %>">
@@ -24,7 +25,7 @@
     <link rel="dns-prefetch" href="//tandoanh.vn">
     <link rel="dns-prefetch" href="//vitinhnaman.com">
 
-    <link rel="shortcut icon" type="image/x-icon" href="<%= ASSETS['favicon_16x16.png'] %>">
+    <link rel="shortcut icon" type="image/x-icon" href="<%= ASSETS['favicon.ico'] %>">
     <link rel="apple-touch-icon" sizes="180x180" href="<%= ASSETS['touch_icon_180x180.png'] %>">
     <link rel="apple-touch-icon" sizes="152x152" href="<%= ASSETS['touch_icon_152x152.png'] %>">
     <link rel="apple-touch-icon" sizes="120x120" href="<%= ASSETS['touch_icon_120x120.png'] %>">
@@ -34,6 +35,18 @@
     <meta name="csrf-token" content="<%= Rack::Protection::AuthenticityToken.token(session) %>">
     <link rel="stylesheet" href="<%= ASSETS['main.css'] %>">
     <script src="<%= ASSETS['main.js'] %>" defer></script>
+
+    <script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-110209736-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-110209736-1', {
+        'page_title': '<%= yield_content(:og_title) { "Build cấu hình máy tính - buildcauhinh" } %>',
+        'page_url': '<%= yield_content(:canonical) { to("/") } %>'
+      });
+    </script>
   </head>
   <body>
     <%= erb :'shared/header' %>
