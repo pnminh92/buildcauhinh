@@ -34,6 +34,8 @@ group :development do
   gem 'letter_opener'
   gem 'sequel-annotate'
 
+  gem 'scss_lint'
+
   gem 'capistrano', '~> 3.6.0'
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-bundler', '~> 1.2'

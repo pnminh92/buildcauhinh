@@ -18,7 +18,6 @@ class App < Sinatra::Base
   configure do
     enable :sessions
 
-    use Rack::Deflater
     use Rack::ConditionalGet
     use Rack::ETag
 

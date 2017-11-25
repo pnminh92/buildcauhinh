@@ -22,10 +22,10 @@ set :format_options, command_output: true, log_file: 'log/capistrano.log', color
 set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, 'config/database.yml', 'config/sidekiq.yml'
+append :linked_files, 'config/database.yml', 'config/sidekiq.yml', 'config/rev-manifest.json'
 
 # Default value for linked_dirs is []
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'bundle', 'public/uploads', 'config/puma', 'public/assets'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'bundle', 'public/uploads', 'public/assets'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -47,6 +47,21 @@ namespace :deploy do
     end
   end
   before 'deploy:check', 'deploy:upload_yml'
+
+  desc 'Prepare assets'
+  task :prepare_assets do
+    run_locally do
+      execute "cd frontend && gulp --#{fetch(:stage)} && gulp rev"
+    end
+
+    on roles(:app) do
+      execute "mkdir -p #{shared_path}/config"
+      execute "mkdir -p #{shared_path}/public/assets"
+      execute "rm -rf #{shared_path}/public/assets/*"
+      upload!('config/rev-manifest.json', "#{shared_path}/config/rev-manifest.json")
+      upload!('public/assets', "#{shared_path}/public/", recursive: true)
+    end
+  end
 
   desc 'Run migrations'
   task :migrate do
