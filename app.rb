@@ -22,7 +22,6 @@ class App < Sinatra::Base
     use Rack::ETag
 
     use Rack::Protection
-    use Rack::Protection::AuthenticityToken
 
     set :root, File.dirname(__FILE__)
     set :public_folder, proc { File.join(settings.root, 'public') }
