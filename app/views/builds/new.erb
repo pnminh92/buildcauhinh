@@ -2,7 +2,7 @@
   <div class="container">
     <div class="box">
       <form action="/builds" method="post">
-        <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
+        <input type="hidden" name="authenticity_token" value="<%= session[:csrf] %>">
         <input type="hidden" name="user_id" value="<%= current_user&.id %>">
         <input type="hidden" name="total_price" value="<%= @total_price %>">
         <input type="hidden" name="cpu_type" value="<%= @cpu_type %>">

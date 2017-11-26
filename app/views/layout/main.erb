@@ -32,7 +32,8 @@
     <link rel="apple-touch-icon" sizes="76x76" href="<%= ASSETS['touch_icon_76x76.png'] %>">
     <link rel="icon" sizes="192x192" href="<%= ASSETS['touch_icon_192x192.png'] %>">
 
-    <meta name="csrf-token" content="<%= Rack::Protection::AuthenticityToken.token(session) %>">
+    <% byebug %>
+    <meta name="csrf-token" content="<%= session[:csrf] %>">
     <link rel="stylesheet" href="<%= ASSETS['main.css'] %>">
     <script src="<%= ASSETS['main.js'] %>" defer></script>
 

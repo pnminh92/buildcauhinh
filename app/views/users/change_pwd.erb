@@ -5,7 +5,7 @@
         <div class="box">
           <h1 class="title"><%= I18n.t('views.change_pwd') %></h1>
           <form class="form" action="/settings/change_pwd" method="post">
-            <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
+            <input type="hidden" name="authenticity_token" value="<%= session[:csrf] %>">
             <div class="form-group">
               <label class="form-label" for=""><%= I18n.t('views.current_password') %></label>
               <div class="form-input">

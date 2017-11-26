@@ -72,6 +72,10 @@ body {
     @include respond-to-pc() {
       margin-left: 15px;
     }
+
+    img {
+      height: 40px;
+    }
   }
 
   a:not(.btn) {

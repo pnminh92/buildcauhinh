@@ -5,7 +5,7 @@
         <div class="box">
           <h1 class="title"><%= I18n.t('views.profile') %></h1>
           <form class="form" action="/settings" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
+            <input type="hidden" name="authenticity_token" value="<%= session[:csrf] %>">
             <input name="avatar" type="hidden" value="<%= current_user.cached_avatar_data %>">
             <div class="form-group">
               <label class="form-label" for=""><img src="<%= current_user.avatar_url %>" alt="<%= current_user.short_username %>"></label>

@@ -5,7 +5,7 @@
   </div>
   <div class="media-body">
     <form class="form" method="post" action="/builds/<%= build.id %>/comments">
-      <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
+      <input type="hidden" name="authenticity_token" value="<%= session[:csrf] %>">
       <div class="comment-content">
         <textarea name="content" class="textarea" placeholder="<%= I18n.t('views.comment_content') %>"></textarea>
         <%= model_text_error(errors, :comment, :content) %>

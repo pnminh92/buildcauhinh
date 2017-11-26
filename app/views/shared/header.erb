@@ -16,7 +16,7 @@
         <li><a href="/settings"><%= I18n.t('views.settings') %></a></li>
         <li>
           <form method="post" action="/sign_out">
-            <input type="hidden" name="authenticity_token" value="<%= Rack::Protection::AuthenticityToken.token(session) %>">
+            <input type="hidden" name="authenticity_token" value="<%= session[:csrf] %>">
             <button type="submit" class="link-sign-out"><%= I18n.t('views.sign_out_btn') %></button>
           </form>
         </li>
