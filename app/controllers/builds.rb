@@ -1,18 +1,39 @@
 class App
   ALLOWED_BUILD_PARAMS = %i[user_id title description total_price price_showed provider_showed hardware_ids]
 
-  namespace '/builds' do
-    get do
-      ds = Build.search(params).cursor(params[:max_id], params[:per_page])
-      @builds = ds.all
-      @next_info = ds.next_info(@builds.last&.id)
-      @params = params
-      respond_to do |f|
-        f.html { erb :'builds/index', layout: :'layout/main' }
-        f.json { json(html: erb(:'shared/builds', locals: { builds: @builds }), next_info: @next_info) }
-      end
+  get '/builds' do
+    ds = Build.search(params).cursor(params[:max_id], params[:per_page])
+    @builds = ds.all
+    @next_info = ds.next_info(@builds.last&.id)
+    @params = params
+    respond_to do |f|
+      f.html { erb :'builds/index', layout: :'layout/main' }
+      f.json { json(html: erb(:'shared/builds', locals: { builds: @builds }), next_info: @next_info) }
     end
+  end
 
+  post '/builds' do
+    detect_spam!
+    halt 404 unless signed_in?
+    begin
+      @build = Build.new.set_fields(params, ALLOWED_BUILD_PARAMS)
+      DB.transaction do
+        @build.save(raise_on_failure: true)
+        BuildsHardware.build(@build.id, params[:hardware_ids])
+      end
+      session[:hardwares] = nil
+      flash[:success] = I18n.t('views.create_build_success')
+      redirect to("/#{current_user.username}")
+    rescue StandardError => e
+      logger.info(e.message)
+      @hardwares = Hardware.where_all(id: session[:hardwares].map { |h| h[:id] }) || []
+      @total_price = Build.total_price(@hardwares)
+      @cpu_type = Build.detect_cpu_type(@hardwares)
+      erb :'builds/new', layout: :'layout/main'
+    end
+  end
+
+  namespace '/builds' do
     get '/new' do
       @build = Build.new
       @hardwares = Hardware.where_all(id: session[:hardwares].map { |h| h[:id] }) || []
@@ -46,27 +67,6 @@ class App
       @hardwares = @build.hardwares
       @total_price = Build.total_price(@hardwares)
       erb :'builds/show', layout: :'layout/main'
-    end
-
-    post do
-      detect_spam!
-      halt 404 unless signed_in?
-      begin
-        @build = Build.new.set_fields(params, ALLOWED_BUILD_PARAMS)
-        DB.transaction do
-          @build.save(raise_on_failure: true)
-          BuildsHardware.build(@build.id, params[:hardware_ids])
-        end
-        session[:hardwares] = nil
-        flash[:success] = I18n.t('views.create_build_success')
-        redirect to("/#{current_user.username}")
-      rescue StandardError => e
-        logger.info(e.message)
-        @hardwares = Hardware.where_all(id: session[:hardwares].map { |h| h[:id] }) || []
-        @total_price = Build.total_price(@hardwares)
-        @cpu_type = Build.detect_cpu_type(@hardwares)
-        erb :'builds/new', layout: :'layout/main'
-      end
     end
 
     post '/:id/update' do
