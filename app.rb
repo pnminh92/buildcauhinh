@@ -21,8 +21,6 @@ class App < Sinatra::Base
     use Rack::ConditionalGet
     use Rack::ETag
 
-    use Rack::Protection
-
     set :root, File.dirname(__FILE__)
     set :public_folder, proc { File.join(settings.root, 'public') }
     set :run, false
