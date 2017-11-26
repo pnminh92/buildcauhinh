@@ -26,13 +26,8 @@ class App < Sinatra::Base
     set :run, false
     set :server, 'puma'
     set :views, proc { File.join(settings.root, 'app', 'views') }
-
     set :logging, true
-    logger = ::Logger.new("#{settings.root}/log/#{settings.environment}_access.log")
-    use Rack::CommonLogger, logger
-
     set :json_encoder, :to_json
-
     set :dump_errors, true
     set :raise_errors, false
     set :show_exceptions, true
@@ -40,6 +35,7 @@ class App < Sinatra::Base
     before {
       session[:anti_spam_timestamp] ||= Time.now
       session[:hardwares] ||= []
+      env['rack.logger'] = ::Logger.new("#{settings.root}/log/#{settings.environment}_debug.log")
     }
 
     not_found do
@@ -49,6 +45,8 @@ class App < Sinatra::Base
 
   configure :development do
     set :session_secret, proc { 'so_so_secret' }
+    logger = ::Logger.new("#{settings.root}/log/#{settings.environment}_access.log")
+    use Rack::CommonLogger, logger
   end
 
   configure :production do
