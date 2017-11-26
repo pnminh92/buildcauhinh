@@ -12,7 +12,7 @@ Turbolinks.start()
 window.HardwareList = HardwareList
 window.Build = Build
 window.Commentation = Commentation
-let selectr = null
+window.selectr = null
 window.isFetching = false
 
 axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name=csrf-token]').getAttribute('content')
@@ -144,6 +144,6 @@ window.Buildcauhinh = Buildcauhinh
 document.addEventListener('turbolinks:load', () => {
   Buildcauhinh.toggleDropdown()
   Buildcauhinh.fadeOutFlash()
-  selectr = Buildcauhinh.initSelectr()
+  if (document.querySelector('.hardware-provider-select') && !document.querySelector('.selectr-container')) selectr = Buildcauhinh.initSelectr()
   if (selectr) selectr.selectedValues = []
 })
