@@ -29,6 +29,8 @@ gem 'mail'
 gem 'http'
 gem 'nokogiri'
 
+gem 'byebug', platform: [:mri, :mingw, :x64_mingw]
+
 group :development do
   gem 'shotgun'
   gem 'letter_opener'
@@ -45,5 +47,4 @@ end
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'byebug', platform: [:mri, :mingw, :x64_mingw]
 end
