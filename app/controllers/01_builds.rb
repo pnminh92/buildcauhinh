@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class App
-  ALLOWED_BUILD_PARAMS = %i[user_id title description total_price price_showed provider_showed hardware_ids]
+  ALLOWED_BUILD_PARAMS = %i[user_id title description total_price price_showed provider_showed hardware_ids].freeze
 
   namespace '/builds' do
     get '/:id/edit' do

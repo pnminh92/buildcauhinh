@@ -66,7 +66,7 @@ namespace :deploy do
   desc 'Run migrations'
   task :migrate do
     on roles(:app) do
-      db_url = "postgres://localhost/buildcauhinh_production?user=$BUILDCAUHINH_DATABASE_USERNAME&password=$BUILDCAUHINH_DATABASE_PASSWORD"
+      db_url = 'postgres://localhost/buildcauhinh_production?user=$BUILDCAUHINH_DATABASE_USERNAME&password=$BUILDCAUHINH_DATABASE_PASSWORD'
       execute("cd '#{current_path}' && #{fetch(:rbenv_prefix)} bundle exec sequel -m #{current_path}/db/migrations \"#{db_url}\"")
     end
   end

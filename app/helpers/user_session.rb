@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BuildCasePc
   module UserSession
     def current_user
@@ -5,7 +7,7 @@ module BuildCasePc
     end
 
     def signed_in?
-      !!session[:id]
+      session[:id]
     end
 
     def set_session_hardwares(hardwares)

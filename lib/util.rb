@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Providers
   module Util
     def self.vi_to_latin(str)

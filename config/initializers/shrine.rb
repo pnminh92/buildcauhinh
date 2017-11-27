@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'shrine/storage/file_system'
 
 Shrine.storages = {

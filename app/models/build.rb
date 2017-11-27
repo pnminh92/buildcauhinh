@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Table: builds
 # Columns:
 #  id              | integer                     | PRIMARY KEY DEFAULT nextval('builds_id_seq'::regclass)
@@ -34,10 +36,10 @@ class Build < Sequel::Model
   def before_create
     num = 0
     self.slug = loop do
-                  tmp = Providers::Util.slugify(title, num)
-                  num += 1
-                  break tmp unless Build.first(slug: tmp)
-                end
+      tmp = Providers::Util.slugify(title, num)
+      num += 1
+      break tmp unless Build.first(slug: tmp)
+    end
     super
   end
 
@@ -62,13 +64,13 @@ class Build < Sequel::Model
       q = q.where(cpu_type: params[:cpu_type]) if params['cpu_type']
       q = case params['price_type']
           when 'under_7'
-            where{total_price < 7000000}
+            where { total_price < 7000000 }
           when 'between_7_12'
-            where{total_price >= 7000000}.where{total_price <= 12000000}
+            where { total_price >= 7000000 }.where { total_price <= 12000000 }
           when 'between_13_20'
-            where{total_price >= 13000000}.where{total_price <= 20000000}
+            where { total_price >= 13000000 }.where { total_price <= 20000000 }
           when 'above_20'
-            where{total_price > 20000000}
+            where { total_price > 20000000 }
           else
             q
           end
@@ -77,7 +79,7 @@ class Build < Sequel::Model
   end
 
   def self.total_price(hardwares)
-    hardwares.inject(0) { |o, h| o += h.price  }
+    hardwares.inject(0) { |o, h| o + h.price }
   end
 
   def self.detect_cpu_type(hardwares)

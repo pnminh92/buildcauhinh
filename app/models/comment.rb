@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Table: comments
 # Columns:
 #  id         | integer                     | PRIMARY KEY DEFAULT nextval('comments_id_seq'::regclass)

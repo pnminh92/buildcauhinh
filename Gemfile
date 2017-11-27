@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 require 'logger'
@@ -29,12 +31,12 @@ gem 'mail'
 gem 'http'
 gem 'nokogiri'
 
-gem 'byebug', platform: [:mri, :mingw, :x64_mingw]
-
 group :development do
   gem 'shotgun'
   gem 'letter_opener'
   gem 'sequel-annotate'
+
+  gem 'rubocop', require: false
 
   gem 'scss_lint'
 
@@ -46,5 +48,6 @@ group :development do
 end
 
 group :development, :test do
+  gem 'byebug', platform: %i[mri mingw x64_mingw]
   gem 'awesome_print'
 end

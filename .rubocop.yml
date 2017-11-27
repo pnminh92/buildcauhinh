@@ -1,0 +1,61 @@
+AllCops:
+  Exclude:
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'frontend/**/*'
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
+  TargetRubyVersion: 2.4
+
+Lint/ScriptPermission:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 160
+  Exclude:
+    - 'lib/providers/*'
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Max: 7
+  Exclude:
+    - 'lib/providers/*'
+
+Metrics/PerceivedComplexity:
+  Max: 8
+
+Metrics/AbcSize:
+  Max: 25
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  EnforcedStyle: no_braces
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 200

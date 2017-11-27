@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class App
-  ALLOWED_COMMENT_PARAMS = %i[content]
+  ALLOWED_COMMENT_PARAMS = %i[content].freeze
 
   namespace '/builds' do
     patch '/:build_id/comments/:comment_id' do

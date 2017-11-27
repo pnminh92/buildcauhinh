@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Mail.defaults do
   case App.settings.environment
   when :development

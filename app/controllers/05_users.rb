@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class App
   get '/settings/change_pwd' do
     halt 404 unless signed_in?
@@ -57,7 +59,7 @@ class App
     redirect(to('/')) && return if signed_in?
 
     @user = User.where(username: username(params[:username])).first
-    if @user && @user.authenticate(params[:password])
+    if @user&.authenticate(params[:password])
       session[:id] = @user.id
       redirect to('/')
     else
@@ -99,7 +101,7 @@ class App
   post '/reset_pwd' do
     @user = User.where(reset_pwd_token: params[:reset_pwd_token]).first
     @token = params[:reset_pwd_token]
-    if @user && @user.reset_pwd_token_valid?
+    if @user&.reset_pwd_token_valid?
       if @user.set_fields(params, %i[password]).save
         flash[:success] = I18n.t('controllers.users.reset_pwd_success')
         redirect to('/sign_in')

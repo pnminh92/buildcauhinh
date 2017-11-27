@@ -8,12 +8,10 @@ module Providers
 
     class << self
       def search(words)
-        begin
-          body = HTTP.timeout(write: 2, connect: 4, read: 8).get(URL, params: { scat_id: 0, q: words }).to_s
-          parse(body)
-        rescue Timeout::Error
-          []
-        end
+        body = HTTP.timeout(write: 2, connect: 4, read: 8).get(URL, params: { scat_id: 0, q: words }).to_s
+        parse(body)
+      rescue Timeout::Error
+        []
       end
 
       private
@@ -22,7 +20,7 @@ module Providers
         html_doc = Nokogiri::HTML(html)
         html_doc.css('.product_list li').map do |html_product|
           price = html_product.css('.p_old_price').first&.content&.gsub(/[^\d]/, '').to_i
-          next unless price > 0
+          next unless price.positive?
           ele = html_product.css('.p_name')
           name = ele.first.content
           part = detect_part_type(name)

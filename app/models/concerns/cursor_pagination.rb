@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Concerns
   module CursorPagination
     PER_PAGE = 10

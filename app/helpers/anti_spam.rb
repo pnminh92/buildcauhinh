@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BuildCasePc
   module AntiSpam
     TIMESTAMP_THRESHOLD = 4

@@ -8,12 +8,10 @@ module Providers
 
     class << self
       def search(words)
-        begin
-          body = HTTP.get(URL, params: { type: 'product', q: words }).to_s
-          parse(body)
-        rescue Timeout::Error
-          []
-        end
+        body = HTTP.get(URL, params: { type: 'product', q: words }).to_s
+        parse(body)
+      rescue Timeout::Error
+        []
       end
 
       private

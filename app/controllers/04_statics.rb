@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class App
   get '/about' do
     erb :'statics/about', layout: :'layout/simple'

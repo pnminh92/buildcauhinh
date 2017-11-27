@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Table: hardwares
 # Columns:
 #  id         | integer                     | PRIMARY KEY DEFAULT nextval('hardwares_id_seq'::regclass)
@@ -23,7 +25,7 @@ class Hardware < Sequel::Model
 
   def validate
     super
-    validates_presence [:provider, :code, :name, :url, :image_url, :price]
+    validates_presence %i[provider code name url image_url price]
     validates_presence :part
     validates_includes SETTINGS['hardware_providers'], :provider
     validates_includes SETTINGS['part_type'], :part
@@ -45,8 +47,8 @@ class Hardware < Sequel::Model
     def fetch_from_providers(params)
       return [] unless params['word'] && params['word'].to_s.strip != ''
       tmp = []
-      params['providers'].each { |provider| tmp.concat(Providers.const_get(provider.capitalize.gsub('_', '')).search(params['word'])) }
-      import(%i[code name part price url image_url provider], tmp.map(&:values)) if tmp.size > 0
+      params['providers'].each { |provider| tmp.concat(Providers.const_get(provider.capitalize.delete('_')).search(params['word'])) }
+      import(%i[code name part price url image_url provider], tmp.map(&:values)) unless tmp.empty?
       where_all(code: tmp.map { |o| o[:code] })
     end
   end

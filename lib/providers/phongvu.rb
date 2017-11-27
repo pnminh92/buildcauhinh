@@ -7,15 +7,13 @@ module Providers
 
     class << self
       def search(words)
-        begin
-          ctx = OpenSSL::SSL::SSLContext.new
-          ctx.verify_mode = OpenSSL::SSL::VERIFY_NONE
-          body = HTTP.headers('cookie': 'etoken=25f9b476a9c4150c70c6e78dc949249a; erandom=5237;')
-                     .get(URL, params: { q: words }, ssl_context: ctx).to_s
-          parse(body)
-        rescue Timeout::Error
-          []
-        end
+        ctx = OpenSSL::SSL::SSLContext.new
+        ctx.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        body = HTTP.headers('cookie': 'etoken=25f9b476a9c4150c70c6e78dc949249a; erandom=5237;')
+                   .get(URL, params: { q: words }, ssl_context: ctx).to_s
+        parse(body)
+      rescue Timeout::Error
+        []
       end
 
       private

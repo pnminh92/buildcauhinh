@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 # Sequel open connection to database
-DB = Sequel.connect(YAML.load(ERB.new(File.read("#{settings.root}/config/database.yml")).result)[ENV.fetch('RACK_ENV') { 'development' }])
+DB = Sequel.connect(YAML.safe_load(ERB.new(File.read("#{settings.root}/config/database.yml")).result, [], [], true)[ENV.fetch('RACK_ENV') { 'development' }])
 
 # Sequel load plugins
 Sequel::Model.raise_on_save_failure = false
@@ -19,19 +21,19 @@ class Sequel::Model
     when :exact_length
       { message: ->(exact) { I18n.t('errors.exact', exact: exact) } }
     when :format
-      { message: ->(with) { I18n.t('errors.format') } }
+      { message: ->(_with) { I18n.t('errors.format') } }
     when :includes
       { message: ->(set) { I18n.t('errors.includes', includes: set.inspect) } }
     when :integer
       { message: -> { I18n.t('errors.integer') } }
     when :length_range
-      { message: ->(range) { I18n.t('errors.length_range') } }
+      { message: ->(_range) { I18n.t('errors.length_range') } }
     when :max_length
       { message: ->(max) { I18n.t('errors.max_length', max: max) } }
     when :nil_message
       { message: -> { I18n.t('errors.nil_message') } }
     when :min_length
-      {message: ->(min) { I18n.t('errors.min_length', min: min) } }
+      { message: ->(min) { I18n.t('errors.min_length', min: min) } }
     when :not_null
       { message: -> { I18n.t('errors.not_null') } }
     when :numeric
@@ -54,12 +56,11 @@ end
 
 class Sequel::Model::Errors
   def full_messages_for(model, attr)
-    inject([]) do |m, kv|
+    each_with_object([]) do |kv, m|
       att, errors = *kv
       next m unless att == attr
-      att.is_a?(Array) ? Array(att).map!{|v| I18n.t("attributes.#{model}.#{v}")} : att = I18n.t("attributes.#{model}.#{att}")
-      errors.each {|e| m << (e.is_a?(::Sequel::LiteralString) ? e : "#{Array(att).join(I18n.t('errors.joiner'))} #{e}")}
-      m
+      att.is_a?(Array) ? Array(att).map! { |v| I18n.t("attributes.#{model}.#{v}") } : att = I18n.t("attributes.#{model}.#{att}")
+      errors.each { |e| m << (e.is_a?(::Sequel::LiteralString) ? e : "#{Array(att).join(I18n.t('errors.joiner'))} #{e}") }
     end
   end
 end

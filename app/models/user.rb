@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Table: users
 # Columns:
 #  id                      | integer                     | PRIMARY KEY DEFAULT nextval('users_id_seq'::regclass)
@@ -30,12 +32,12 @@ class User < Sequel::Model
   include AvatarUploader::Attachment.new(:avatar)
 
   def before_create
-    self.avatar = File.open(File.join(App.settings.root, 'app', 'assets', 'default_avatar.png').to_s) unless self.avatar_data
+    self.avatar = File.open(File.join(App.settings.root, 'app', 'assets', 'default_avatar.png').to_s) unless avatar_data
     super
   end
 
   def before_validation
-    self.username = "@#{self.username}" if self.username && self.username[0] != '@'
+    self.username = "@#{username}" if username && username[0] != '@'
     super
   end
 
@@ -64,11 +66,11 @@ class User < Sequel::Model
   def gen_reset_pwd_token
     token_retries = 0
     self.reset_pwd_token = loop do
-                             token_retries += 1
-                             token = SecureRandom.hex(15)
-                             raise 'Exhauted retries' if token_retries > 5
-                             break token unless User.where(reset_pwd_token: token).first
-                           end
+      token_retries += 1
+      token = SecureRandom.hex(15)
+      raise 'Exhauted retries' if token_retries > 5
+      break token unless User.where(reset_pwd_token: token).first
+    end
     self.reset_pwd_token_sent_at = Time.now
     save_changes
   end

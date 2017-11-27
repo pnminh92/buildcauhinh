@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class App
   post '/hardware_list/:hardware_id/remove' do
     part = JSON.parse(request.body.read)['part'].to_s
     hardwares = get_session_hardwares
-    deleted = if i = hardwares.find_index { |h| h[:id] == params[:hardware_id].to_i && h[:part] == part }
-                 hardwares.slice!(i)
-                 true
-               else
-                 false
-               end
+    deleted = if (i = hardwares.find_index { |h| h[:id] == params[:hardware_id].to_i && h[:part] == part })
+                hardwares.slice!(i)
+                true
+              else
+                false
+              end
     set_session_hardwares(hardwares)
     json(num: hardwares.size, deleted: deleted)
   end
@@ -17,22 +19,21 @@ class App
     part = JSON.parse(request.body.read)['part'].to_s
     hardwares = get_session_hardwares
     logger.info(hardwares)
-    replaced = if index = hardwares.find_index { |h| h[:part] == part }
+    replaced = if (index = hardwares.find_index { |h| h[:part] == part })
                  hardwares[index] = { id: id, part: part }
                  true
                else
-                 hardwares.push({ id: id, part: part })
+                 hardwares.push(id: id, part: part)
                  false
                end
     set_session_hardwares(hardwares)
     json(num: hardwares.size, replaced: replaced)
-
   end
 
   post '/search' do
     begin
       @q = JSON.parse(request.body.read)
-      @q['providers'] = @q['providers']&.size.to_i > 0 ? @q['providers'] : SETTINGS['hardware_providers']
+      @q['providers'] = @q['providers']&.size.to_i.positive? ? @q['providers'] : SETTINGS['hardware_providers']
       @hardwares = Hardware.search(@q).all
       @hardwares = Hardware.fetch_from_providers(@q) if @hardwares.size.zero?
       json(html: erb(:'shared/search', locals: { hardwares: @hardwares }))
