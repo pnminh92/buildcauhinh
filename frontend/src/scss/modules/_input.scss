@@ -46,16 +46,16 @@ input[type=file] {
     width: 100%;
   }
 
-  input[type=radio] + label {
-    margin-left: 5px;
-  }
-
-  label + input[type=radio] {
-    margin-left: 15px;
-  }
-
   label {
     font-size: $font-size-sm;
+
+    + input[type=radio] {
+      margin-left: 15px;
+    }
+
+    input[type=radio] + & {
+      margin-left: 5px;
+    }
   }
 }
 

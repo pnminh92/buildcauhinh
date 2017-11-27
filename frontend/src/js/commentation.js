@@ -33,7 +33,7 @@ export default class Commentation {
       .then(response => {
         commentItemBody.querySelector('.edit-comment-form').remove()
         commentItemBody.classList.remove('editor-opened')
-        commentItemBody.querySelector('.comment-content').innerHTML = escapeHTML(response.data.content)
+        commentItemBody.querySelector('.comment-content').innerHTML = Util.escapeHtml(response.data.content)
       })
       .catch(error => {
         if (error.response.data) {
@@ -45,12 +45,10 @@ export default class Commentation {
   }
 
   static delete (target, commentId, buildId) {
-    if (confirm('Bạn có chắc muốn xoá bình luận này ?')) {
+    if (window.confirm('Bạn có chắc muốn xoá bình luận này ?')) {
       axios.delete(`/builds/${buildId}/comments/${commentId}`)
         .then(response => target.parentNode.parentNode.parentNode.remove())
-        .catch(error => Util.alertServerError())
-    } else {
-      return
+        .catch(() => Util.alertServerError())
     }
   }
 }

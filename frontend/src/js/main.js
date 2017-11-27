@@ -12,8 +12,8 @@ Turbolinks.start()
 window.HardwareList = HardwareList
 window.Build = Build
 window.Commentation = Commentation
-window.selectr = null
-window.isFetching = false
+let selectr = null
+window.window.isFetching = false
 
 axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name=csrf-token]').getAttribute('content')
 
@@ -39,10 +39,10 @@ class Buildcauhinh {
   }
 
   static search () {
-    if (isFetching) return
+    if (window.isFetching) return
     const word = document.querySelector('.hardware-search-input .input-search').value
     if (!word) return
-    isFetching = true
+    window.isFetching = true
     Util.displaySpinner()
     const providers = selectr.getValue()
     axios.post('/search', { providers: providers, word: word })
@@ -50,10 +50,10 @@ class Buildcauhinh {
         Util.removeSpinner()
         if (!response.data.html) return
         document.querySelector('.main-content .box').innerHTML = response.data.html
-        isFetching = false
+        window.isFetching = false
       })
       .catch(() => {
-        isFetching = false
+        window.isFetching = false
         Util.removeSpinner()
         Util.alertServerError()
       })
@@ -64,8 +64,8 @@ class Buildcauhinh {
     if (flash) {
       setTimeout(() => {
         flash.classList.remove('flash-fade-out')
-        setTimeout(() => flash.remove(), 400);
-      }, 3000);
+        setTimeout(() => flash.remove(), 400)
+      }, 3000)
     }
   }
 

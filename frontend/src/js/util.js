@@ -22,15 +22,15 @@ export default class Util {
   }
 
   static alertServerError () {
-    alert('Ứng dụng bị lỗi, vui lòng thử lại. Nếu vẫn không được xin gửi thông báo lỗi đến email buildcauhinh@gmail.com. Cám ơn!')
+    window.alert('Ứng dụng bị lỗi, vui lòng thử lại. Nếu vẫn không được xin gửi thông báo lỗi đến email buildcauhinh@gmail.com. Cám ơn!')
   }
 
   static escapeHtml (unsafe) {
     return unsafe
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;')
   }
 }

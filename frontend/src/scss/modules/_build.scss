@@ -53,22 +53,22 @@
     + li {
       margin-top: 2px;
     }
+  }
 
-    .build-close-btn {
-      display: none;
-      line-height: 1;
-      position: absolute;
-      right: 10px;
-      top: 13px;
+  .build-close-btn {
+    display: none;
+    line-height: 1;
+    position: absolute;
+    right: 10px;
+    top: 13px;
 
-      &.open {
-        display: block;
-      }
+    &.open {
+      display: block;
+    }
 
-      svg {
-        width: 16px;
-        height: 16px;
-      }
+    svg {
+      width: 16px;
+      height: 16px;
     }
   }
 }
@@ -140,10 +140,11 @@
     .media-body {
       display: flex;
       align-items: center;
-      form {
-        display: inline-block;
-        line-height: 1;
-      }
+    }
+
+    form {
+      display: inline-block;
+      line-height: 1;
     }
   }
 
@@ -181,12 +182,14 @@
     background-color: $color-green;
     border-radius: 6px;
     transition: background-color .2s ease-in-out;
-    &:hover {
-      background-color: lighten($color-green, 5%);
-    }
+
     @include respond-to-sp() {
       width: 48px;
       height: 48px;
+    }
+
+    &:hover {
+      background-color: lighten($color-green, 5%);
     }
   }
   .builder-num {
