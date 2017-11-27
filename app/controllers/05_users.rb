@@ -1,4 +1,33 @@
 class App
+  get '/settings/change_pwd' do
+    halt 404 unless signed_in?
+    erb :'users/change_pwd', layout: :'layout/main'
+  end
+
+  post '/settings/change_pwd' do
+    halt 404 unless signed_in?
+    if !current_user.authenticate(params[:current_password])
+      @error = I18n.t('controllers.users.change_pwd_error')
+    elsif !current_user.set_fields(params, %i[password]).save
+      @errors = current_user.errors
+    else
+      flash.now[:success] = 'Đổi mật khẩu thành công'
+    end
+    erb :'users/change_pwd', layout: :'layout/main'
+  end
+
+  get '/settings' do
+    halt 404 unless signed_in?
+    erb :'users/settings', layout: :'layout/main'
+  end
+
+  post '/settings' do
+    halt 404 unless signed_in?
+    current_user.set_fields(params, %i[avatar email about]).save
+    @errors = current_user.errors if current_user.errors
+    erb :'users/settings', layout: :'layout/main'
+  end
+
   get '/sign_up' do
     redirect(to('/')) && return if signed_in?
     @user = User.new
@@ -6,8 +35,7 @@ class App
   end
 
   post '/sign_up' do
-    detect_spam!
-    redirect(to('/')) && return if signed_in?
+    detect_spam! redirect(to('/')) && return if signed_in?
 
     @user = User.new
     if @user.set_fields(params, %i[username password]).save
@@ -85,43 +113,14 @@ class App
     end
   end
 
-  get '/settings/change_pwd' do
-    halt 404 unless signed_in?
-    erb :'users/change_pwd', layout: :'layout/main'
-  end
-
-  post '/settings/change_pwd' do
-    halt 404 unless signed_in?
-    if !current_user.authenticate(params[:current_password])
-      @error = I18n.t('controllers.users.change_pwd_error')
-    elsif !current_user.set_fields(params, %i[password]).save
-      @errors = current_user.errors
-    else
-      flash.now[:success] = 'Đổi mật khẩu thành công'
-    end
-    erb :'users/change_pwd', layout: :'layout/main'
-  end
-
-  get '/settings' do
-    halt 404 unless signed_in?
-    erb :'users/settings', layout: :'layout/main'
-  end
-
   get '/:username' do
     @user = User.first(username: params[:username])
     halt 404 unless @user
     @builds = User.where(username: params[:username]).builds.cursor(params[:max_id], params[:per_page]).all
-    @next_info = Build.next_info(@builds.last.id)
+    @next_info = Build.next_info(@builds.last&.id)
     respond_to do |f|
       f.html { erb :'users/show', layout: :'layout/main' }
       f.json { json(html: erb(:'shared/builds', locals: { builds: @builds }), next_info: @next_info) }
     end
-  end
-
-  post '/settings' do
-    halt 404 unless signed_in?
-    current_user.set_fields(params, %i[avatar email about]).save
-    @errors = current_user.errors if current_user.errors
-    erb :'users/settings', layout: :'layout/main'
   end
 end

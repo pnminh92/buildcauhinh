@@ -73,4 +73,4 @@ Dir[File.join(settings.root, 'app', 'uploaders', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'app', 'models', 'concerns', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'app', 'models', '*.rb')].each { |f| require f }
 Dir[File.join(settings.root, 'app', 'workers', '*.rb')].each { |f| require f }
-Dir[File.join(settings.root, 'app', 'controllers', '*.rb')].each { |f| require f }
+Dir[File.join(settings.root, 'app', 'controllers', '*.rb')].sort.each { |f| require f }
