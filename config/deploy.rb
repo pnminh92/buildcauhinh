@@ -19,7 +19,7 @@ set :format, :airbrussh
 set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
 
 # Default value for :pty is false
-set :pty, true
+set :pty, false
 
 # Default value for :linked_files is []
 append :linked_files, 'config/database.yml', 'config/sidekiq.yml', 'config/rev-manifest.json'
@@ -68,45 +68,9 @@ namespace :deploy do
     on roles(:app) do
       within current_path do
         db_url = 'postgres://localhost/buildcauhinh_production?user=$BUILDCAUHINH_DATABASE_USERNAME&password=$BUILDCAUHINH_DATABASE_PASSWORD'
-        execute(:sequel, "-m #{current_path}/db/migrations \"#{db_url}\"")
+        execute(:bundle, :exec, :sequel, "-m #{current_path}/db/migrations \"#{db_url}\"")
       end
     end
   end
   after 'deploy:symlink:release', 'deploy:migrate'
-
-
-  desc 'Sidekiq quiet'
-  task :sidekiq_quiet do
-    on roles(:app) do
-      within current_path do
-        execute(:sidekiqctl, 'quiet', "#{shared_path}/tmp/pids/sidekiq.pid")
-      end
-    end
-  end
-  after 'deploy:starting', 'deploy:sidekiq_quiet'
-
-  desc 'Sidekiq start'
-  task :sidekiq_start do
-    on roles(:app) do
-      within current_path do
-        execute(:sidekiq, "--pidfile #{shared_path}/tmp/pids/sidekiq.pid
-                           --require #{current_path}/boot.rb
-                           --config #{shared_path}/config/sidekiq.yml
-                           --environment production
-                           --logfile #{shared_path}/log/sidekiq.log")
-      end
-    end
-  end
-  after 'deploy:published', 'deploy:sidekiq_start'
-
-  desc 'Sidekiq stop'
-  task :sidekiq_start do
-    on roles(:app) do
-      within current_path do
-        execute(:sidekiqctl, 'stop', "#{shared_path}/tmp/pids/sidekiq.pid")
-      end
-    end
-  end
-  after 'deploy:updated', 'deploy:sidekiq_stop'
-  after 'deploy:reverted', 'deploy:sidekiq_stop'
 end

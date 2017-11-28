@@ -5,6 +5,5 @@ class UploadImgToCloudinaryWorker
 
   sidekiq_options queue: :default
 
-  def perform(images_url)
-  end
+  def perform(images_url); end
 end

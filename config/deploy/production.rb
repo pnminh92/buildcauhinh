@@ -16,7 +16,7 @@ set :deploy_to, '/var/www/buildcauhinh.com/public_html'
 set :rbenv_type, :user
 set :rbenv_ruby, '2.4.2'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
-set :rbenv_map_bins, %w[rake gem bundle ruby rails puma pumactl sidekiq sidekiqctl sequel]
+set :rbenv_map_bins, %w[rake gem bundle ruby rails puma pumactl sidekiq sidekiqctl]
 set :rbenv_roles, :all # default value
 
 # capistrano/bundler
@@ -32,11 +32,11 @@ set :puma_conf, -> { "#{shared_path}/config/puma/buildcauhinh.com.rb" }
 set :puma_role, :web
 
 # capistrano/sidekiq
-#set :sidekiq_pid, File.join(shared_path, 'tmp', 'pids', 'sidekiq.pid')
-#set :sidekiq_env, fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
-#set :sidekiq_log, File.join(shared_path, 'log', 'sidekiq.log')
-#set :sidekiq_config, File.join(shared_path, 'config', 'sidekiq.yml')
-#set :sidekiq_require, File.join(current_path, 'boot.rb')
+ set :sidekiq_pid, File.join(shared_path, 'tmp', 'pids', 'sidekiq.pid')
+ set :sidekiq_env, fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
+ set :sidekiq_log, File.join(shared_path, 'log', 'sidekiq.log')
+ set :sidekiq_config, File.join(shared_path, 'config', 'sidekiq.yml')
+ set :sidekiq_require, File.join(current_path, 'boot.rb')
 
 # Global options
 # --------------
