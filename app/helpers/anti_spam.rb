@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module BuildCasePc
+module Buildcauhinh
   module AntiSpam
     TIMESTAMP_THRESHOLD = 4
     def detect_spam!

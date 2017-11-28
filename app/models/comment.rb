@@ -1,3 +1,17 @@
+# Table: comments
+# Columns:
+#  id         | integer                     | PRIMARY KEY DEFAULT nextval('comments_id_seq'::regclass)
+#  user_id    | integer                     | NOT NULL
+#  build_id   | integer                     | NOT NULL
+#  content    | character varying(500)      | NOT NULL
+#  created_at | timestamp without time zone |
+#  updated_at | timestamp without time zone |
+# Indexes:
+#  comments_pkey | PRIMARY KEY btree (id)
+# Foreign key constraints:
+#  comments_build_id_fkey | (build_id) REFERENCES builds(id)
+#  comments_user_id_fkey  | (user_id) REFERENCES users(id)
+
 # frozen_string_literal: true
 
 # Table: comments

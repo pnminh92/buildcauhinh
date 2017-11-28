@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module BuildCasePc
+module Buildcauhinh
   module UserSession
     def current_user
       @current_user ||= User[session[:id]]

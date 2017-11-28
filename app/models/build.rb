@@ -1,3 +1,25 @@
+# Table: builds
+# Columns:
+#  id              | integer                     | PRIMARY KEY DEFAULT nextval('builds_id_seq'::regclass)
+#  user_id         | integer                     | NOT NULL
+#  slug            | character varying(255)      | NOT NULL
+#  title           | character varying(255)      | NOT NULL
+#  description     | character varying(500)      |
+#  total_price     | integer                     | NOT NULL
+#  cpu_type        | cpu_type                    |
+#  price_showed    | boolean                     | NOT NULL DEFAULT true
+#  provider_showed | boolean                     | NOT NULL DEFAULT false
+#  created_at      | timestamp without time zone |
+#  updated_at      | timestamp without time zone |
+# Indexes:
+#  builds_pkey       | PRIMARY KEY btree (id)
+#  builds_slug_index | UNIQUE btree (slug)
+# Foreign key constraints:
+#  builds_user_id_fkey | (user_id) REFERENCES users(id)
+# Referenced By:
+#  comments         | comments_build_id_fkey         | (build_id) REFERENCES builds(id)
+#  builds_hardwares | builds_hardwares_build_id_fkey | (build_id) REFERENCES builds(id)
+
 # frozen_string_literal: true
 
 # Table: builds

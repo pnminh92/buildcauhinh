@@ -1,3 +1,22 @@
+# Table: users
+# Columns:
+#  id                      | integer                     | PRIMARY KEY DEFAULT nextval('users_id_seq'::regclass)
+#  username                | character varying(32)       | NOT NULL
+#  password_digest         | character varying(255)      | NOT NULL
+#  email                   | character varying(64)       |
+#  about                   | character varying(500)      |
+#  avatar_data             | text                        |
+#  reset_pwd_token         | character varying(255)      |
+#  reset_pwd_token_sent_at | timestamp without time zone |
+#  created_at              | timestamp without time zone |
+#  updated_at              | timestamp without time zone |
+# Indexes:
+#  users_pkey         | PRIMARY KEY btree (id)
+#  users_username_key | UNIQUE btree (username)
+# Referenced By:
+#  builds   | builds_user_id_fkey   | (user_id) REFERENCES users(id)
+#  comments | comments_user_id_fkey | (user_id) REFERENCES users(id)
+
 # frozen_string_literal: true
 
 # Table: users

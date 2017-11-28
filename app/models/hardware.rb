@@ -2,16 +2,19 @@
 
 # Table: hardwares
 # Columns:
-#  id         | integer                     | PRIMARY KEY DEFAULT nextval('hardwares_id_seq'::regclass)
-#  part       | part_type                   | NOT NULL
-#  provider   | provider_type               | NOT NULL
-#  code       | character varying(255)      | NOT NULL
-#  name       | character varying(255)      | NOT NULL
-#  url        | character varying(255)      | NOT NULL
-#  image_url  | character varying(255)      | NOT NULL
-#  price      | integer                     | NOT NULL
-#  created_at | timestamp without time zone |
-#  updated_at | timestamp without time zone |
+#  id                 | integer                     | PRIMARY KEY DEFAULT nextval('hardwares_id_seq'::regclass)
+#  part               | part_type                   | NOT NULL
+#  provider           | provider_type               | NOT NULL
+#  code               | character varying(255)      | NOT NULL
+#  name               | character varying(255)      | NOT NULL
+#  url                | character varying(255)      | NOT NULL
+#  image_url          | character varying(255)      | NOT NULL
+#  price              | integer                     | NOT NULL
+#  created_at         | timestamp without time zone |
+#  updated_at         | timestamp without time zone |
+#  cloudinary_id      | character varying(127)      |
+#  cloudinary_version | character varying(31)       |
+#  cloudinary_format  | character varying(15)       |
 # Indexes:
 #  hardwares_pkey       | PRIMARY KEY btree (id)
 #  hardwares_code_index | UNIQUE btree (code)
@@ -32,7 +35,7 @@ class Hardware < Sequel::Model
   end
 
   def display_price
-    BuildCasePc::Util.to_vnd(price)
+    Buildcauhinh::Util.to_vnd(price)
   end
 
   dataset_module do

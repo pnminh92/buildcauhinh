@@ -35,7 +35,6 @@
                   <th><%= I18n.t('views.hardware_part') %></th>
                   <th><%= I18n.t('views.hardware_name') %></th>
                   <%= @build.price_showed ? "<th class=\"th-price\">#{I18n.t('views.hardware_price')}</th>" : ''  %>
-                  <th></th>
                 </tr>
               <% @hardwares.each_with_index do |hardware, k| %>
                 <tr>
@@ -44,7 +43,6 @@
                   <td><%= hardware.part %></td>
                   <td><a href="<%= escape_html hardware.url %>" target="_blank"><%= escape_html hardware.name %></a></td>
                   <%= @build.price_showed ? "<td class=\"text-red\">#{escape_html(hardware.display_price)}</td>" : ''  %>
-                  <td><button type="button" class="btn btn-gray" data-json="<%= escape_html({ id: hardware.id, price: hardware.price, part: hardware.part }.to_json) %>" onclick="HardwareList.removeItem(this)"><%= I18n.t('views.remove_btn') %></button></td>
                 </tr>
               <% end %>
               </table>
@@ -55,7 +53,7 @@
               <% if @build.cpu_type %>
               <span class="build-label"><%= I18n.t("views.cpu_#{@build.cpu_type}") %></span>
               <% end %>
-              <span class="build-label"><%= BuildCasePc::Util.to_vnd(@build.total_price) %></span>
+              <span class="build-label"><%= Buildcauhinh::Util.to_vnd(@build.total_price) %></span>
             </div> </div>
 
           <div class="comment">

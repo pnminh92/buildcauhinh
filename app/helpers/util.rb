@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module BuildCasePc
+module Buildcauhinh
   module Util
     def username(u)
       "@#{u}"

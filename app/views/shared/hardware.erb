@@ -1,5 +1,5 @@
 <div class="hardware-item">
-  <a href="<%= escape_html hardware.url %>" target="_blank"><img class="hardware-img" src="<%= escape_html hardware.image_url %>" alt="<%= escape_html hardware.name %>"></a>
+  <a href="<%= escape_html hardware.url %>" target="_blank"><img class="hardware-img" src="<%= escape_html(cl_hardware_url(hardware) || hardware.image_url) %>" alt="<%= escape_html hardware.name %>"></a>
   <div class="hardware-body">
     <a href="<%= escape_html hardware.url %>" target="_blank">
       <h3 class="hardware-name"><%= escape_html hardware.name %></h3>

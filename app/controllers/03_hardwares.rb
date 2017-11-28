@@ -18,16 +18,13 @@ class App
     id = params[:hardware_id].to_i
     part = JSON.parse(request.body.read)['part'].to_s
     hardwares = get_session_hardwares
-    logger.info(hardwares)
-    replaced = if (index = hardwares.find_index { |h| h[:part] == part })
-                 hardwares[index] = { id: id, part: part }
-                 true
-               else
-                 hardwares.push(id: id, part: part)
-                 false
-               end
+    if (index = hardwares.find_index { |h| h[:part] == part })
+      hardwares[index] = { id: id, part: part }
+    else
+      hardwares.push(id: id, part: part)
+    end
     set_session_hardwares(hardwares)
-    json(num: hardwares.size, replaced: replaced)
+    json(num: hardwares.size)
   end
 
   post '/search' do
@@ -35,7 +32,10 @@ class App
       @q = JSON.parse(request.body.read)
       @q['providers'] = @q['providers']&.size.to_i.positive? ? @q['providers'] : SETTINGS['hardware_providers']
       @hardwares = Hardware.search(@q).all
-      @hardwares = Hardware.fetch_from_providers(@q) if @hardwares.size.zero?
+      if @hardwares.size.zero?
+        @hardwares = Hardware.fetch_from_providers(@q)
+        UploadImgToCloudinaryWorker.perform_async(@hardwares.map(&:id)) if @hardwares.size.positive?
+      end
       json(html: erb(:'shared/search', locals: { hardwares: @hardwares }))
     rescue NameError => e
       logger.info(e.message)

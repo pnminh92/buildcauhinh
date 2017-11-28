@@ -56,3 +56,9 @@
 <% content_for(:og_image) do %>
 <%= @user.avatar_url %>
 <% end %>
+
+<% if flash[:success] %>
+  <% content_for(:success) do %>
+    <%= flash[:success] %>
+  <% end %>
+<% end %>
