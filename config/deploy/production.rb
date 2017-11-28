@@ -32,8 +32,11 @@ set :puma_conf, -> { "#{shared_path}/config/puma/buildcauhinh.com.rb" }
 set :puma_role, :web
 
 # capistrano/sidekiq
-set :sidekiq_config, "#{shared_path}/config/sidekiq.yml"
-set :sidekiq_require, "#{current_path}/boot.rb"
+set :sidekiq_pid, File.join(shared_path, 'tmp', 'pids', 'sidekiq.pid')
+set :sidekiq_env, fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
+set :sidekiq_log, File.join(shared_path, 'log', 'sidekiq.log')
+set :sidekiq_config, File.join(shared_path, 'config', 'sidekiq.yml')
+set :sidekiq_require, File.join(current_path, 'boot.rb')
 
 # Global options
 # --------------
