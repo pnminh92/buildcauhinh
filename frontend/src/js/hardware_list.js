@@ -42,7 +42,7 @@ export default class HardwareList {
         .then(response => {
           window.isFetching = false
           if (!response.data.deleted) return
-          target.remove()
+          target.classList.remove('open')
           ele.querySelector('p').remove()
           this._updateBuilderNum(response.data.num)
         })
@@ -62,13 +62,16 @@ export default class HardwareList {
       return
     }
 
-    axios.post(`/hardware_list/${hardware.id}`, { part: currentPartType })
+    const part = currentPartType || hardware.part
+
+    axios.post(`/hardware_list/${hardware.id}`, { part: part })
         .then(response => {
           window.isFetching = false
-          const ele = document.querySelector(`li#${currentPartType}`)
-          ele.setAttribute('data-json', JSON.stringify({ id: hardware.id, part: currentPartType }))
-          if (response.data.replaced) {
-            ele.querySelector('p').innerText = hardware.name
+          const ele = document.querySelector(`li#${part}`)
+          ele.setAttribute('data-json', JSON.stringify({ id: hardware.id, part: part }))
+          const para = ele.querySelector('p')
+          if (para) {
+            para.innerText = hardware.name
           } else {
             ele.querySelector('.build-close-btn').classList.add('open')
             ele.insertAdjacentHTML('beforeend', `<p>${hardware.name}</p>`)
