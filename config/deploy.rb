@@ -73,4 +73,18 @@ namespace :deploy do
     end
   end
   after 'deploy:symlink:release', 'deploy:migrate'
+
+  desc 'Drop database'
+  task :db_drop do
+    on roles(:app) do
+      execute("PGPASSWORD=$BUILDCAUHINH_DATABASE_PASSWORD dropdb buildcauhinh_production --username=$BUILDCAUHINH_DATABASE_USERNAME")
+    end
+  end
+
+  desc 'Create database'
+  task :db_create do
+    on roles(:app) do
+      execute("PGPASSWORD=$BUILDCAUHINH_DATABASE_PASSWORD createdb buildcauhinh_production --username=$BUILDCAUHINH_DATABASE_USERNAME --encoding=utf8")
+    end
+  end
 end
