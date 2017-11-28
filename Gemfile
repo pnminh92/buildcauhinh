@@ -31,6 +31,8 @@ gem 'mail'
 gem 'http'
 gem 'nokogiri'
 
+gem 'cloudinary'
+
 group :production do
   gem 'redis-namespace'
 end
