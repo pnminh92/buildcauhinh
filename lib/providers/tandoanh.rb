@@ -31,7 +31,7 @@ module Providers
             part: part,
             price:  html_product.css('.pro-price').first.content.gsub(/[^\d]/, '').to_i,
             url: DOMAIN + ele.first['href'],
-            image_url: html_product.css('.product-img a img')[1]['src'],
+            image_url: 'http:' + html_product.css('.product-img a img')[1]['src'],
             provider: SLUG
           }
         end.compact

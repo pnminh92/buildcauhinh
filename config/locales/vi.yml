@@ -1,7 +1,7 @@
 vi:
   attributes:
     user:
-      username: 'Tên đăng nhập1'
+      username: 'Tên đăng nhập'
       password: 'Mật khẩu'
       email: 'Địa chỉ email'
       about: 'Giới thiệu'

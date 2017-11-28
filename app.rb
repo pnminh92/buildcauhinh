@@ -6,9 +6,10 @@ class App < Sinatra::Base
   helpers Sinatra::ContentFor
   helpers Sinatra::JSON
 
-  helpers BuildCasePc::UserSession
-  helpers BuildCasePc::Util
-  helpers BuildCasePc::AntiSpam
+  helpers Buildcauhinh::UserSession
+  helpers Buildcauhinh::Util
+  helpers Buildcauhinh::AntiSpam
+  helpers Buildcauhinh::Cloudinary
 
   register Sinatra::RespondWith
   register Sinatra::MultiRoute
