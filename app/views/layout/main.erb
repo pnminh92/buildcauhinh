@@ -33,7 +33,7 @@
     <link rel="icon" sizes="192x192" href="<%= ASSETS['touch_icon_192x192.png'] %>">
 
     <meta name="csrf-token" content="<%= session[:csrf] %>">
-    <link rel="stylesheet" href="<%= ASSETS['main.css'] %>">
+    <%= erb :'shared/css_inline' %>
     <script src="<%= ASSETS['main.js'] %>" defer></script>
 
     <script>
