@@ -31,6 +31,10 @@ gem 'mail'
 gem 'http'
 gem 'nokogiri'
 
+group :production do
+  gem 'redis-namespace'
+end
+
 group :development do
   gem 'shotgun'
   gem 'letter_opener'

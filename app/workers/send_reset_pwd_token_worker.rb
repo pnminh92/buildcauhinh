@@ -3,6 +3,8 @@
 class SendResetPwdTokenWorker
   include Sidekiq::Worker
 
+  sidekiq_options queue: :mailers
+
   def perform(user_id)
     @user = User[user_id]
     mail(@user)
