@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Table: builds_hardwares
 # Primary Key: (build_id, hardware_id)
 # Columns:

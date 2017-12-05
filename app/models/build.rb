@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Table: builds
 # Columns:
 #  id              | integer                     | PRIMARY KEY DEFAULT nextval('builds_id_seq'::regclass)

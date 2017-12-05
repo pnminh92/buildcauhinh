@@ -2,10 +2,6 @@
 
 module Buildcauhinh
   module Util
-    def username(u)
-      "@#{u}"
-    end
-
     def model_text_error(errors, model, attr)
       "<p class=\"model-text-error\">#{errors.full_messages_for(model, attr).first}</p>" if errors && errors[attr]
     end

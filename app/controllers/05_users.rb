@@ -58,7 +58,7 @@ class App
   post '/sign_in' do
     redirect(to('/')) && return if signed_in?
 
-    @user = User.where(username: username(params[:username])).first
+    @user = User.where(username: params[:username]).first
     if @user&.authenticate(params[:password])
       session[:id] = @user.id
       redirect to('/')
@@ -115,7 +115,7 @@ class App
     end
   end
 
-  get '/:username' do
+  get '/@:username' do
     @user = User.first(username: params[:username])
     halt 404 unless @user
     @builds = User.where(username: params[:username]).builds.cursor(params[:max_id], params[:per_page]).all

@@ -1,22 +1,3 @@
-# Table: users
-# Columns:
-#  id                      | integer                     | PRIMARY KEY DEFAULT nextval('users_id_seq'::regclass)
-#  username                | character varying(32)       | NOT NULL
-#  password_digest         | character varying(255)      | NOT NULL
-#  email                   | character varying(64)       |
-#  about                   | character varying(500)      |
-#  avatar_data             | text                        |
-#  reset_pwd_token         | character varying(255)      |
-#  reset_pwd_token_sent_at | timestamp without time zone |
-#  created_at              | timestamp without time zone |
-#  updated_at              | timestamp without time zone |
-# Indexes:
-#  users_pkey         | PRIMARY KEY btree (id)
-#  users_username_key | UNIQUE btree (username)
-# Referenced By:
-#  builds   | builds_user_id_fkey   | (user_id) REFERENCES users(id)
-#  comments | comments_user_id_fkey | (user_id) REFERENCES users(id)
-
 # frozen_string_literal: true
 
 # Table: users
@@ -42,7 +23,7 @@ class User < Sequel::Model
   plugin :secure_password, include_validations: false
 
   RESET_PWD_TOKEN_EXPIRE = 3600
-  REGEX_VALID_USERNAME = /\A@{1}[a-z0-9_\-\.]{1,30}[a-z0-9]{1}\z/i
+  REGEX_VALID_USERNAME = /\A[a-z][a-z0-9_\-\.]{2,31}\z/i
   REGEX_VALID_EMAIL = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
   one_to_many :comments
@@ -52,11 +33,6 @@ class User < Sequel::Model
 
   def before_create
     self.avatar = File.open(File.join(App.settings.root, 'app', 'assets', 'default_avatar.png').to_s) unless avatar_data
-    super
-  end
-
-  def before_validation
-    self.username = "@#{username}" if username && username[0] != '@'
     super
   end
 
@@ -78,8 +54,8 @@ class User < Sequel::Model
     validates_format REGEX_VALID_EMAIL, :email, allow_blank: true
   end
 
-  def short_username
-    username[1..-1] if username && username[0] == '@'
+  def eco_img_url
+    avatar_url(quality: 'auto:eco')
   end
 
   def gen_reset_pwd_token
