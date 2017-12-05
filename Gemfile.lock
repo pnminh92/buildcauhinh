@@ -165,7 +165,6 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.0)
   capistrano-sidekiq
   capistrano3-puma
-  cloudinary
   http
   i18n
   letter_opener
