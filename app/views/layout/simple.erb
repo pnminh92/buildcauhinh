@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="E5Oy0kgIZ3RFlBThplk1vr765X3yJbQY3PX8UxpwLo8">
 
-    <title><%= yield_content(:title) { 'Build cấu hình máy tính - buildcauhinh' } %></title>
-    <meta name="description" content="<%= yield_content(:description) { 'Cộng đồng build, chia sẻ cấu hình máy tính' } %>">
+    <title><%= yield_content(:og_title) { "Build cấu hình máy tính - #{SETTINGS['site_title']}" } %></title>
+    <meta name="description" content="<%= yield_content(:og_description) { 'Nhanh chóng build thử cấu hình máy tính và check giá linh kiện tại các cửa hàng' } %>">
 
     <link rel="canonical" href="<%= yield_content(:canonical) { to('/') } %>">
 
-    <meta property="og:title" content="<%= yield_content(:og_title) { 'Build cấu hình máy tính - buildcauhinh' } %>">
-    <meta property="og:site_name" content="<%= yield_content(:og_site_name) { 'Build cấu hình máy tính - buildcauhinh' } %>">
-    <meta property="og:description" content="<%= yield_content(:og_description) { 'Cộng đồng build, chia sẻ cấu hình máy tính' } %>">
+    <meta property="og:title" content="<%= yield_content(:og_title) { "Build cấu hình máy tính - #{SETTINGS['site_title']}" } %>">
+    <meta property="og:site_name" content="<%= yield_content(:og_site_name) { "Build cấu hình máy tính - #{SETTINGS['site_title']}" } %>">
+    <meta property="og:description" content="<%= yield_content(:og_description) { 'Nhanh chóng build thử cấu hình máy tính và check giá linh kiện tại các cửa hàng' } %>">
     <meta property="og:url" content="<%= yield_content(:og_url) { to('/') } %>">
     <meta property="og:image" content="<%= yield_content(:og_image) { to(ASSETS['og.png']) } %>">
     <meta property="og:type" content="website">

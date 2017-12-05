@@ -15,7 +15,7 @@
 </main>
 
 <% content_for(:title) do %>
-<%= 'Quên mật khẩu - buildcauhinh' %>
+<%= "Quên mật khẩu #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:description) do %>
 <%= 'Tìm lại mật khẩu đã mất hay đã quên của bạn' %>
@@ -24,10 +24,10 @@
 <%= to('/forgot_pwd') %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= 'Quên mật khẩu - buildcauhinh' %>
+<%= "Quên mật khẩu #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= 'Quên mật khẩu - buildcauhinh' %>
+<%= "Quên mật khẩu #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_description) do %>
 <%= 'Tìm lại mật khẩu đã mất hay đã quên của bạn' %>

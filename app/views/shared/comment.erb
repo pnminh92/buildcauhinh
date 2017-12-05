@@ -1,10 +1,10 @@
 <div class="media comment-item">
   <div class="media-left">
-    <img src="<%= comment.user.avatar_url %>" alt="<%= comment.user.short_username %>">
+    <img src="<%= comment.user.eco_img_url %>" alt="<%= comment.user.username %>">
   </div>
   <div class="media-body">
     <div class="comment-info">
-      <a href="/<%= comment.user.username %>" class="media-username"><%= comment.user.short_username %></a>
+      <a href="/<%= comment.user.username %>" class="media-username"><%= comment.user.username %></a>
       <time class="media-date"><%= comment.display_date %></time>
       <% if signed_in? && current_user.id == comment.user_id %>
       <span class="icon-action" onclick="Commentation.openEditor(this, <%= comment.id %>, <%= comment.build_id %>)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></span>

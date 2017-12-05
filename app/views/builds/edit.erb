@@ -87,22 +87,22 @@
 </main>
 
 <% content_for(:title) do %>
-<%= "#{@build.title} - buildcauhinh" %>
+<%= "#{@build.title} - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:description) do %>
-<%= @build.description ? @build.description : "#{@build.title} được build bởi thành viên #{@build.user.short_username}" %>
+<%= @build.description || "#{@build.title} được build bởi thành viên #{@build.user.username}" %>
 <% end %>
 <% content_for(:canonical) do %>
 <%= to("/builds/#{@build.id}/edit") %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= "#{@build.title} - buildcauhinh" %>
+<%= "#{@build.title} - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= "#{@build.title} - buildcauhinh" %>
+<%= "#{@build.title} - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_description) do %>
-<%= @build.description ? @build.description : "#{@build.title} được build bởi thành viên #{@build.user.short_username}" %>
+<%= @build.description || "#{@build.title} được build bởi thành viên #{@build.user.username}" %>
 <% end %>
 <% content_for(:og_url) do %>
 <%= to("/builds/#{@build.id}/edit") %>

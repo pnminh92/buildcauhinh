@@ -21,7 +21,7 @@
 </main>
 
 <% content_for(:title) do %>
-<%= 'Đăng nhập - buildcauhinh' %>
+<%= "Đăng nhập - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:description) do %>
 <%= 'Tham gia cộng đồng buildcauhinh để build và chia sẻ cấu hình máy tính' %>
@@ -30,10 +30,10 @@
 <%= to('/sign_in') %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= 'Đăng nhập - buildcauhinh' %>
+<%= "Đăng nhập - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= 'Đăng nhập - buildcauhinh' %>
+<%= "Đăng nhập - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_description) do %>
 <%= 'Tham gia cộng đồng buildcauhinh để build và chia sẻ cấu hình máy tính' %>

@@ -21,8 +21,8 @@
 
       <aside class="sidebar">
         <div class="user-profile">
-          <img class="user-avatar" src="<%= @user.avatar_url %>" alt="<%= @user.short_username %>">
-          <h1 class="user-name sub-title"><%= @user.short_username %></h1>
+          <img class="user-avatar" src="<%= @user.eco_img_url %>" alt="<%= @user.username %>">
+          <h1 class="user-name sub-title"><%= @user.username %></h1>
           <% if @user.about %>
           <p class="user-about"><%= @user.about %></p>
           <% end %>
@@ -33,28 +33,28 @@
 </main>
 
 <% content_for(:title) do %>
-<%= "#{@user.short_username} - buildcauhinh" %>
+<%= "#{@user.username} - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:description) do %>
-<%= "Những cấu hình máy tính mà #{@user.short_username} đã build" %>
+<%= "Những cấu hình máy tính được build bởi #{@user.username}" %>
 <% end %>
 <% content_for(:canonical) do %>
-<%= to("/#{@user.username}") %>
+<%= to("/@#{@user.username}") %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= "#{@user.short_username} - buildcauhinh" %>
+<%= "#{@user.username} - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= "#{@user.short_username} - buildcauhinh" %>
+<%= "#{@user.username} - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_description) do %>
-<%= "Những cấu hình máy tính mà #{@user.short_username} đã ráp" %>
+<%= "Những cấu hình máy tính được build bởi #{@user.username}" %>
 <% end %>
 <% content_for(:og_url) do %>
-<%= to("/#{@user.username}") %>
+<%= to("/@#{@user.username}") %>
 <% end %>
 <% content_for(:og_image) do %>
-<%= @user.avatar_url %>
+<%= @user.eco_img_url %>
 <% end %>
 
 <% if flash[:success] %>

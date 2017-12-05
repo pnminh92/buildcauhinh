@@ -65,7 +65,7 @@
 </main>
 
 <% content_for(:title) do %>
-<%= 'Cấu hình máy tính - buildcauhinh' %>
+<%= "Cấu hình máy tính - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:description) do %>
 <%= 'Những cấu hình máy tính được build bởi cộng đồng' %>
@@ -74,10 +74,10 @@
 <%= to('/builds') %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= 'Cấu hình máy tính - buildcauhinh' %>
+<%= "Cấu hình máy tính - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= 'Cấu hình máy tính - buildcauhinh' %>
+<%= "Cấu hình máy tính - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_description) do %>
 <%= 'Những cấu hình máy tính được build bởi cộng đồng' %>

@@ -5,7 +5,7 @@
       <input type="hidden" name="authenticity_token" value="<%= session[:csrf] %>">
       <div class="form-group">
         <div class="form-input">
-          <input name="username" class="input" type="text" value="<%= @user.short_username %>" placeholder="<%= I18n.t('views.username') %>">
+          <input name="username" class="input" type="text" value="<%= @user.username %>" placeholder="<%= I18n.t('views.username') %>">
           <%= model_text_error(@errors, :user, :username) %>
         </div>
       </div>
@@ -23,7 +23,7 @@
 </main>
 
 <% content_for(:title) do %>
-<%= 'Đăng kí thành viên - buildcauhinh' %>
+<%= "Đăng kí thành viên - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:description) do %>
 <%= 'Tham gia cộng đồng buildcauhinh để build và chia sẻ cấu hình máy tính' %>
@@ -32,10 +32,10 @@
 <%= to('/sign_up') %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= 'Đăng kí thành viên - buildcauhinh' %>
+<%= "Đăng kí thành viên - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= 'Đăng kí thành viên - buildcauhinh' %>
+<%= "Đăng kí thành viên - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_description) do %>
 <%= 'Tham gia cộng đồng buildcauhinh để build và chia sẻ cấu hình máy tính' %>
