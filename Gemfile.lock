@@ -122,6 +122,10 @@ GEM
       rack (>= 1.0)
     shrine (2.8.0)
       down (~> 4.1)
+    shrine-cloudinary (0.5.1)
+      cloudinary (< 2)
+      down (>= 2.3.3)
+      shrine (~> 2.2)
     sidekiq (5.0.5)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -179,6 +183,7 @@ DEPENDENCIES
   sequel_secure_password
   shotgun
   shrine
+  shrine-cloudinary
   sidekiq
   sinatra
   sinatra-contrib

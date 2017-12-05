@@ -3,7 +3,6 @@
 source 'https://rubygems.org'
 
 require 'logger'
-require 'json'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
@@ -18,6 +17,7 @@ gem 'i18n'
 
 # File attachment
 gem 'shrine'
+gem 'shrine-cloudinary'
 
 # postgresql and sequel ORM
 gem 'pg'
@@ -30,8 +30,6 @@ gem 'mail'
 
 gem 'http'
 gem 'nokogiri'
-
-gem 'cloudinary'
 
 group :production do
   gem 'redis-namespace'
