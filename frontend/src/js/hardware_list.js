@@ -21,7 +21,7 @@ export default class HardwareList {
           window.isFetching = false
           Util.removeSpinner()
           if (!response.data.html) return
-          document.querySelector('.main-content .box').innerHTML = response.data.html
+          document.querySelector('.main-content').innerHTML = response.data.html
         })
         .catch(() => {
           window.isFetching = false

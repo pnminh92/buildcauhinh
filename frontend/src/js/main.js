@@ -49,7 +49,7 @@ class Buildcauhinh {
       .then(response => {
         Util.removeSpinner()
         if (!response.data.html) return
-        document.querySelector('.main-content .box').innerHTML = response.data.html
+        document.querySelector('.main-content').innerHTML = response.data.html
         window.isFetching = false
       })
       .catch(() => {

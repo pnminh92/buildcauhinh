@@ -1,6 +1,6 @@
 export default class Util {
   static displaySpinner () {
-    document.querySelector('.main-content .box').innerHTML = `<div class="spinner"></div>`
+    document.querySelector('.main-content').innerHTML = `<div class="spinner"></div>`
   }
 
   static displayLoadMoreSpinner () {
@@ -11,7 +11,7 @@ export default class Util {
   }
 
   static removeSpinner () {
-    document.querySelector('.main-content .box .spinner').remove()
+    document.querySelector('.main-content .spinner').remove()
   }
 
   static removeLoadMoreSpinner () {
