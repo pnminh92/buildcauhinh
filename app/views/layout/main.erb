@@ -24,6 +24,7 @@
     <link rel="dns-prefetch" href="//phongvu.vn">
     <link rel="dns-prefetch" href="//tandoanh.vn">
     <link rel="dns-prefetch" href="//vitinhnaman.com">
+    <link rel="dns-prefetch" href="//res.cloudinary.com">
 
     <link rel="shortcut icon" type="image/x-icon" href="<%= ASSETS['favicon.ico'] %>">
     <link rel="apple-touch-icon" sizes="180x180" href="<%= ASSETS['touch_icon_180x180.png'] %>">
@@ -33,7 +34,7 @@
     <link rel="icon" sizes="192x192" href="<%= ASSETS['touch_icon_192x192.png'] %>">
 
     <meta name="csrf-token" content="<%= session[:csrf] %>">
-    <%= erb :'shared/css_inline' %>
+    <link rel="stylesheet" href="<%= ASSETS['main.css']%>">
     <script src="<%= ASSETS['main.js'] %>" defer></script>
 
     <script>

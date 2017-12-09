@@ -2,7 +2,7 @@
 
 module Concerns
   module CursorPagination
-    PER_PAGE = 10
+    PER_PAGE = 12
 
     def self.included(base)
       base.class_eval do

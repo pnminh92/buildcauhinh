@@ -1,15 +1,21 @@
 <div class="hardware-item">
-  <a href="<%= escape_html hardware.url %>" target="_blank"><img class="hardware-img" src="<%= escape_html(cl_hardware_url(hardware) || hardware.image_url) %>" alt="<%= escape_html hardware.name %>"></a>
-  <div class="hardware-body">
+  <div class="box">
     <a href="<%= escape_html hardware.url %>" target="_blank">
-      <h3 class="hardware-name"><%= escape_html hardware.name %></h3>
+      <div class="hardware-img">
+        <img src="<%= escape_html(cl_hardware_url(hardware) || hardware.image_url) %>" alt="<%= escape_html hardware.name %>">
+      </div>
     </a>
-    <p>
-      <span class="hardware-provider"><%= I18n.t("views.#{hardware.provider}") %></span> -
-      <span class="hardware-price"><%= escape_html hardware.display_price %></span>
-    </p>
-  </div>
-  <div class="hardware-btn">
-    <button type="button" class="btn btn-gray" data-json="<%= escape_html({ name: hardware.name, id: hardware.id, part: hardware.part }.to_json) %>" onclick="HardwareList.addItem(this)"><%= I18n.t('views.build_btn') %></button>
+    <div class="hardware-body">
+      <a href="<%= escape_html hardware.url %>" target="_blank">
+        <h3 class="hardware-name">
+          <span class="hardware-provider">[<%= I18n.t("views.#{hardware.provider}") %>]</span>
+          <%= escape_html hardware.name %>
+        </h3>
+      </a>
+      <p class="hardware-price"><%= escape_html hardware.display_price %></p>
+    </div>
+    <div class="hardware-btn">
+      <button type="button" class="btn btn-gray" data-json="<%= escape_html({ name: hardware.name, id: hardware.id, part: hardware.part }.to_json) %>" onclick="HardwareList.addItem(this)"><%= I18n.t('views.build_btn') %></button>
+    </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 <h2 class="title"><%= I18n.t('views.result_search', count: hardwares.length) %></h2>
-<div class="hardware-list">
+<div class="hardwares">
 <% hardwares.each do |hardware| %>
 <%= erb :'shared/hardware', locals: { hardware: hardware } %>
 <% end %>
