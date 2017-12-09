@@ -14,7 +14,6 @@ input[type=file] {
     }
 
     .btn {
-      font-size: $font-size-sm;
       min-width: 50px;
     }
 
@@ -25,7 +24,6 @@ input[type=file] {
 
   .form-label {
     display: block;
-    font-size: $font-size-sm;
     font-weight: 500;
     line-height: 1;
     margin-bottom: 10px;
@@ -47,8 +45,6 @@ input[type=file] {
   }
 
   label {
-    font-size: $font-size-sm;
-
     + input[type=radio] {
       margin-left: 15px;
     }
@@ -76,15 +72,14 @@ input[type=file] {
 
   a {
     line-height: 1;
-    font-size: $font-size-sm;
   }
 }
 
 .textarea,
 .input {
   appearance: none;
-  background-color: $color-white;
   font-size: $font-size-sm;
+  background-color: $color-white;
   padding: 8px 14px;
   border: 1px solid $color-lighter-gray;
   border-radius: 4px;

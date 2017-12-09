@@ -1,6 +1,5 @@
 .footer {
   margin-top: 40px;
-  background-color: $color-black;
   padding: 30px 0;
 
   @include respond-to-sp() {
@@ -9,8 +8,9 @@
 
   ul {
     font-size: 0;
-    margin-bottom: 5px;
+    float: left;
     @include respond-to-sp() {
+      float: none;
       padding-bottom: 10px;
       border-bottom: 1px solid $color-lighter-gray;
     }
@@ -20,7 +20,7 @@
       font-size: $font-size-sm;
       display: inline-block;
       padding: 0 10px;
-      border-right: 1px solid $color-white;
+      border-right: 1px solid $color-black;
 
       @include respond-to-sp() {
         display: block;
@@ -41,11 +41,18 @@
       }
     }
     a {
-      color: $color-white;
+      color: $color-black;
     }
   }
   p {
-    color: $color-white;
-    font-size: $font-size-sm;
+    width: 250px;
+    float: right;
+    line-height: 1;
+    text-align: right;
+    @include respond-to-sp() {
+      text-align: left;
+      margin-top: 15px;
+      float: none;
+    }
   }
 }

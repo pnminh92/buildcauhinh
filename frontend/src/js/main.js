@@ -86,7 +86,7 @@ class Buildcauhinh {
     axios.get('/', { params: { max_id: nextInfo.max_id } })
       .then(response => {
         Util.removeLoadMoreSpinner()
-        document.querySelector('.hardware-list').insertAdjacentHTML('beforeend', response.data.html)
+        document.querySelector('.hardwares').insertAdjacentHTML('beforeend', response.data.html)
         if (response.data.next_info.has_next) {
           target.setAttribute('data-json', JSON.stringify(response.data.next_info))
         } else {

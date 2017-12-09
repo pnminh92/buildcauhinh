@@ -94,7 +94,7 @@ export default class HardwareList {
           window.isFetching = false
           if (!response.data.deleted) return
           const totalPriceDOM = document.querySelector(`form [type="hidden"][name="total_price"]`)
-          const hardwareListDOM = document.querySelector('.hardware-list')
+          const hardwareListDOM = document.querySelector('.table-hardwares')
           totalPriceDOM.value -= hardware.price
           document.querySelector('#total-price').innerText = this._intToCurrency(totalPriceDOM.value)
           document.querySelector(`form [type="hidden"][value="${hardware.id}"]`).remove()

@@ -1,6 +1,5 @@
 .title {
   font-size: 20px;
-  font-weight: 500;
   margin-bottom: 20px;
   @include respond-to-sp() {
     font-size: 18px;
@@ -10,7 +9,6 @@
 
 .sub-title {
   font-size: 18px;
-  font-weight: 500;
   margin-bottom: 10px;
   @include respond-to-sp() {
     font-size: 16px;

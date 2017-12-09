@@ -56,6 +56,7 @@ body {
 
   .nav-control-item {
     display: block;
+    font-size: $font-size-base;
 
     @include respond-to-not-pc() {
       display: none;
@@ -148,13 +149,13 @@ body {
     display: block;
     padding: 8px 0;
     color: $color-black;
-    font-size: $font-size-sm;
   }
 
   .link-sign-out {
     background-color: $color-white;
     appearance: none;
     border: 0;
+    font-size: $font-size-sm;
     line-height: 1;
     outline: none;
     cursor: pointer;

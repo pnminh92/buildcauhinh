@@ -42,8 +42,8 @@
 
     h3 {
       font-weight: 500;
-      font-size: $font-size-sm;
     }
+
     p {
       margin-top: 5px;
       font-size: $font-size-xs;
@@ -80,6 +80,12 @@
   &:last-child {
     border-bottom: 0;
   }
+
+  .build-title {
+    @include respond-to-tablet() {
+      font-size: $font-size-base;
+    }
+  }
 }
 
 .build-status {
@@ -91,7 +97,7 @@
   padding: 5px;
   background-color: $color-lighter-gray;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: $font-size-xs;
   line-height: 1;
   margin-right: 5px;
   &:last-child {
@@ -115,7 +121,6 @@
   li {
     label {
       margin-left: 8px;
-      font-size: $font-size-sm;
       @include respond-to-sp() {
         font-size: $font-size-xs;
       }
@@ -149,7 +154,6 @@
   }
 
   .build-description {
-    font-size: $font-size-sm;
     margin-bottom: 15px;
   }
 }
@@ -174,32 +178,38 @@
   bottom: 20px;
   cursor: pointer;
   line-height: 1;
+  background-color: $color-green;
+  border-radius: 50%;
+  padding: 20px;
+  transition: background-color .2s ease-in-out;
+
+  &:hover {
+    background-color: lighten($color-green, 5%);
+  }
+
+  @include respond-to-sp() {
+    right: 10px;
+    bottom: 10px;
+    padding: 16px;
+  }
+
   svg {
     color: $color-white;
-    padding: 8px;
-    width: 54px;
-    height: 54px;
-    background-color: $color-green;
-    border-radius: 6px;
-    transition: background-color .2s ease-in-out;
+    width: 40px;
+    height: 40px;
 
     @include respond-to-sp() {
-      width: 48px;
-      height: 48px;
-    }
-
-    &:hover {
-      background-color: lighten($color-green, 5%);
+      width: 30px;
+      height: 30px;
     }
   }
   .builder-num {
-    top: -10px;
-    left: -10px;
+    top: 0;
+    left: -5px;
     position: absolute;
     text-align: center;
     display: inline-block;
     background-color: $color-red;
-    font-size: $font-size-sm;
     line-height: 25px;
     color: $color-white;
     width: 24px;

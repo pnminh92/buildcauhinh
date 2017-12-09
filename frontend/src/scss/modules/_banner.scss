@@ -3,20 +3,14 @@
   background-color: $color-lightest-gray;
 
   .banner-img {
-    margin: 0 auto;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     width: 100%;
-    height: 240px;
+    height: 320px;
 
-    @include respond-to-tablet() {
-      height: 360px;
-    }
-
-    @include respond-to-pc() {
-      width: 978px;
-      height: 360px;
+    @include respond-to-sp() {
+      height: 240px;
     }
   }
 
@@ -26,7 +20,7 @@
     text-align: center;
     color: $color-white;
     font-size: 36px;
-    font-weight: 700;
+    font-weight: 500;
     top: 50%;
     transform: translateY(-50%);
     -webkit-font-smoothing: antialiased;
