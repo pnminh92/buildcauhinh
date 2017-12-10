@@ -43,14 +43,33 @@ class App
     end
   end
 
+  get '/parts/:part' do
+    ds = Hardware.where(part: params['part'])
+    @total = ds.count(:id)
+    halt(404) if @total.zero?
+    @hardwares = ds.cursor(params[:max_id], params[:per_page]).all
+    @next_info = ds.next_info(@hardwares.last&.id)
+    respond_to do |f|
+      f.html { halt 404 }
+      f.json do
+        json(html: erb(:'shared/hardware_part', locals: {
+          total: @total,
+          part: params['part'],
+          hardwares: @hardwares,
+          next_info: @next_info.merge(part: params['part'])
+        }))
+      end
+    end
+  end
+
   get '/' do
-    @hardwares = Hardware.cursor(params[:max_id], params[:per_page]).all
-    hardwares = get_session_hardwares
-    @building_hardwares = Hardware.where_all(id: hardwares.map { |h| h[:id] })
-    @next_info = Hardware.next_info(@hardwares.last&.id)
+    ds = Hardware.search(params).cursor(params[:max_id], params[:per_page])
+    @hardwares = ds.all
+    @building_hardwares = Hardware.where_all(id: get_session_hardwares.map { |h| h[:id] }) unless request.xhr?
+    @next_info = ds.next_info(@hardwares.last&.id)
     respond_to do |f|
       f.html { erb :index, layout: :'layout/main' }
-      f.json { json(html: erb(:'shared/hardwares', locals: { hardwares: @hardwares }), next_info: @next_info) }
+      f.json { json(html: erb(:'shared/hardwares', locals: { hardwares: @hardwares }), next_info: @next_info.merge(part: params['part'])) }
     end
   end
 end

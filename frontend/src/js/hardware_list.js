@@ -16,7 +16,7 @@ export default class HardwareList {
       document.querySelectorAll('.hardware-list li').forEach((ele) => ele.classList.remove('selected'))
       target.classList.add('selected')
       currentPartType = hardware.part
-      axios.post('/search', { part: hardware.part })
+      axios.get(`/parts/${hardware.part}`)
         .then(response => {
           window.isFetching = false
           Util.removeSpinner()

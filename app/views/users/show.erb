@@ -24,7 +24,7 @@
           <img class="user-avatar" src="<%= @user.eco_img_url %>" alt="<%= @user.username %>">
           <h1 class="user-name sub-title"><%= @user.username %></h1>
           <% if @user.about %>
-          <p class="user-about"><%= @user.about %></p>
+          <p class="user-about"><%= escape_html @user.about %></p>
           <% end %>
         </div>
       </aside>

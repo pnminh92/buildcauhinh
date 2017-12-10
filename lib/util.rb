@@ -26,7 +26,7 @@ module Providers
     end
 
     def self.slugify(str, num)
-      pattern = vi_to_latin(str.strip.gsub(/\s/, '-')).downcase
+      pattern = vi_to_latin(str.strip.gsub(/\s/, '-').gsub(/\//, '')).downcase
       num.positive? ? "#{pattern}-#{num}" : pattern
     end
   end

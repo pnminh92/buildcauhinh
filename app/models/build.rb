@@ -1,27 +1,4 @@
 # frozen_string_literal: true
-# Table: builds
-# Columns:
-#  id              | integer                     | PRIMARY KEY DEFAULT nextval('builds_id_seq'::regclass)
-#  user_id         | integer                     | NOT NULL
-#  slug            | character varying(255)      | NOT NULL
-#  title           | character varying(255)      | NOT NULL
-#  description     | character varying(500)      |
-#  total_price     | integer                     | NOT NULL
-#  cpu_type        | cpu_type                    |
-#  price_showed    | boolean                     | NOT NULL DEFAULT true
-#  provider_showed | boolean                     | NOT NULL DEFAULT false
-#  created_at      | timestamp without time zone |
-#  updated_at      | timestamp without time zone |
-# Indexes:
-#  builds_pkey       | PRIMARY KEY btree (id)
-#  builds_slug_index | UNIQUE btree (slug)
-# Foreign key constraints:
-#  builds_user_id_fkey | (user_id) REFERENCES users(id)
-# Referenced By:
-#  comments         | comments_build_id_fkey         | (build_id) REFERENCES builds(id)
-#  builds_hardwares | builds_hardwares_build_id_fkey | (build_id) REFERENCES builds(id)
-
-# frozen_string_literal: true
 
 # Table: builds
 # Columns:
@@ -73,7 +50,7 @@ class Build < Sequel::Model
     validates_max_length 255, :title
     validates_includes SETTINGS['cpu_type'], :cpu_type, allow_nil: true
     errors.add(:hardwares, I18n.t('errors.max_elements', num: hardware_ids.size)) if hardware_ids&.size.to_i > SETTINGS['part_type'].size
-    errors.add(:hardwares, I18n.t('errors.min_elements', num: hardware_ids.size)) if hardware_ids&.size.to_i < 2
+    errors.add(:hardwares, I18n.t('errors.min_elements', num: 1)) if hardware_ids&.size.to_i.zero?
     errors.add(:hardwares, I18n.t('errors.format')) unless hardware_ids.is_a?(Array)
   end
 

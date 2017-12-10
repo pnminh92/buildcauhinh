@@ -41,7 +41,10 @@ class App < Sinatra::Base
     end
 
     not_found do
-      erb :'errors/404', layout: :'layout/simple'
+      respond_to do |f|
+        f.html { erb :'errors/404', layout: :'layout/simple' }
+        f.json { json(html: false) }
+      end
     end
   end
 

@@ -88,8 +88,8 @@ class App
           BuildsHardware.build(@build.id, params[:hardware_ids])
         end
         session[:hardwares] = nil
-        flash[:success] = I18n.t('views.create_build_success')
-        redirect to("/#{current_user.username}")
+        flash[:success] = I18n.t('controllers.create_build_success')
+        redirect to("/@#{current_user.username}")
       rescue StandardError => e
         logger.info(e.message)
         @hardwares = Hardware.where_all(id: session[:hardwares].map { |h| h[:id] }) || []

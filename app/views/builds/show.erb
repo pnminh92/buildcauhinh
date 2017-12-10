@@ -4,7 +4,7 @@
       <section class="main-content">
         <div class="box">
           <div class="build-detail">
-            <h1 class="title"><%= @build.title %></h1>
+            <h1 class="title"><%= escape_html @build.title %></h1>
             <div class="media media-center build-info">
               <div class="media-left">
               <img src="<%= @build.user.eco_img_url %>" alt="<%= @build.user.username %>">
@@ -23,7 +23,7 @@
             </div>
 
             <% if @build.description %>
-            <p class="build-description"><%= @build.description %></p>
+            <p class="build-description"><%= escape_html @build.description %></p>
             <% end %>
 
             <% if @hardwares.size > 0 %>
@@ -76,22 +76,22 @@
 </main>
 
 <% content_for(:title) do %>
-<%= "#{@build.title} - #{SETTINGS['site_title']}" %>
+<%= "#{escape_html @build.title} - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:description) do %>
-<%= @build.description ? @build.description : "#{@build.title} được build bởi thành viên #{@build.user.username}" %>
+<%= @build.description ? escape_html(@build.description) : "#{escape_html @build.title} được build bởi thành viên #{@build.user.username}" %>
 <% end %>
 <% content_for(:canonical) do %>
 <%= to("/builds/#{@build.slug}") %>
 <% end %>
 <% content_for(:og_title) do %>
-<%= "#{@build.title} - #{SETTINGS['site_title']}" %>
+<%= "#{escape_html @build.title} - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_site_name) do %>
-<%= "#{@build.title} - #{SETTINGS['site_title']}" %>
+<%= "#{escape_html @build.title} - #{SETTINGS['site_title']}" %>
 <% end %>
 <% content_for(:og_description) do %>
-<%= @build.description ? @build.description : "#{@build.title} được build bởi thành viên #{@build.user.username}" %>
+<%= @build.description ? escape_html(@build.description) : "#{escape_html @build.title} được build bởi thành viên #{@build.user.username}" %>
 <% end %>
 <% content_for(:og_url) do %>
 <%= to("/builds/#{@build.slug}") %>

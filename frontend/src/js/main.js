@@ -83,7 +83,7 @@ class Buildcauhinh {
   static loadMoreHardwares (target) {
     Util.displayLoadMoreSpinner()
     const nextInfo = JSON.parse(target.getAttribute('data-json'))
-    axios.get('/', { params: { max_id: nextInfo.max_id } })
+    axios.get('/', { params: { max_id: nextInfo.max_id, part: nextInfo.part || null } })
       .then(response => {
         Util.removeLoadMoreSpinner()
         document.querySelector('.hardwares').insertAdjacentHTML('beforeend', response.data.html)

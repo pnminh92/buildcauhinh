@@ -108,6 +108,7 @@ vi:
     phong_vu: 'Phong Vũ'
     nam_an: 'Nam An'
     result_search: "%{count} linh kiện để ráp máy"
+    result_part_search: "%{count} %{part} để ráp máy"
     build_edit_title: 'Xác nhận sửa cấu hình máy'
     change_parts_title: 'Trở về trang chủ để thêm những linh kiện mới'
     remove_title: 'Dừng không sửa cấu hình này nữa'

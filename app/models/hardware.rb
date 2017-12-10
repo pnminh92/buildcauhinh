@@ -41,7 +41,7 @@ class Hardware < Sequel::Model
   dataset_module do
     def search(params)
       q = self
-      q = q.where(provider: params['providers'])
+      q = q.where(provider: params['providers']) if params['providers']
       q = q.where(part: params['part']) if params['part']
       q = q.grep(:name, params['word'].strip.split(' ').map { |w| "%#{w}%" }, all_patterns: true, case_insensitive: true) if params['word'] && params['word'] != ''
       q

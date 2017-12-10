@@ -46,6 +46,7 @@
             </div>
           </form>
 
+          <%= model_text_error(@build.errors, :build, :hardwares) %>
           <% if @hardwares.size > 0 %>
           <div class="table-responsive">
             <table class="table table-hardwares">
