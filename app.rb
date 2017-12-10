@@ -15,7 +15,6 @@ class App < Sinatra::Base
   register Sinatra::MultiRoute
   register Sinatra::Namespace
   register Sinatra::Flash
-  register Sinatra::Logentries
 
   configure do
     enable :sessions
@@ -24,7 +23,7 @@ class App < Sinatra::Base
     use Rack::ETag
     use Rack::Protection::AuthenticityToken
 
-    Sinatra::Logentries.token = '7c196a61-dfe1-490b-bd45-5a83bb22ffb9'
+    logger = ::Logglier.new('https://logs-01.loggly.com/inputs/068c093e-b540-41aa-8e88-410301994dca/tag/ruby/', threaded: true)
     use Rack::CommonLogger, logger
 
     set :root, File.dirname(__FILE__)
@@ -41,6 +40,7 @@ class App < Sinatra::Base
     before do
       session[:anti_spam_timestamp] ||= Time.now
       session[:hardwares] ||= []
+      env['rack.logger'] = logger
     end
 
     not_found do

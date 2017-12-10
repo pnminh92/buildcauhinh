@@ -31,7 +31,7 @@ gem 'mail'
 gem 'http'
 gem 'nokogiri'
 
-gem 'sinatra-logentries', git: 'git@github.com:tsantef/sinatra-logentries.git', branch: 'master'
+gem 'logglier'
 
 group :production do
   gem 'redis-namespace'
