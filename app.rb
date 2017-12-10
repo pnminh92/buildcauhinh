@@ -15,6 +15,7 @@ class App < Sinatra::Base
   register Sinatra::MultiRoute
   register Sinatra::Namespace
   register Sinatra::Flash
+  register Sinatra::Logentries
 
   configure do
     enable :sessions
@@ -22,6 +23,9 @@ class App < Sinatra::Base
     use Rack::ConditionalGet
     use Rack::ETag
     use Rack::Protection::AuthenticityToken
+
+    Sinatra::Logentries.token = '7c196a61-dfe1-490b-bd45-5a83bb22ffb9'
+    use Rack::CommonLogger, logger
 
     set :root, File.dirname(__FILE__)
     set :public_folder, File.join(settings.root, 'public')
@@ -37,7 +41,6 @@ class App < Sinatra::Base
     before do
       session[:anti_spam_timestamp] ||= Time.now
       session[:hardwares] ||= []
-      env['rack.logger'] = ::Logger.new("#{settings.root}/log/#{settings.environment}_debug.log")
     end
 
     not_found do
@@ -46,23 +49,19 @@ class App < Sinatra::Base
         f.json { json(html: false) }
       end
     end
+
+    error do
+      logger.error(env['sinatra.error'].message)
+    end
   end
 
   configure :development do
     set :session_secret, 'so_so_secret'
-    logger = ::Logger.new("#{settings.root}/log/#{settings.environment}_access.log")
-    use Rack::CommonLogger, logger
   end
 
   configure :production do
     set :session_secret, ENV['BUILDCAUHINH_SESSION_SECRET']
     set :show_exceptions, false
-
-    error_log_file = File.new("#{root}/log/#{settings.environment}_error.log", 'a+')
-    error_log_file.sync = true
-    before do
-      env['rack.errors'] = error_log_file
-    end
   end
 end
 

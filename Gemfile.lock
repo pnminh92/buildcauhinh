@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:tsantef/sinatra-logentries.git
+  revision: 628863065f6a619814d7304f4f2f7daa4e5134b6
+  branch: master
+  specs:
+    sinatra-logentries (0.0.2)
+      le (>= 2.1.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -53,6 +61,7 @@ GEM
       concurrent-ruby (~> 1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    le (2.7.6)
     letter_opener (1.4.1)
       launchy (~> 2.2)
     mail (2.7.0)
@@ -187,6 +196,7 @@ DEPENDENCIES
   sinatra
   sinatra-contrib
   sinatra-flash
+  sinatra-logentries!
 
 BUNDLED WITH
    1.15.4
