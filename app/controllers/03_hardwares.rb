@@ -37,8 +37,8 @@ class App
         UploadImgToCloudinaryWorker.perform_async(@hardwares.map(&:id)) if @hardwares.size.positive?
       end
       json(html: erb(:'shared/search', locals: { hardwares: @hardwares }))
-    rescue NameError => e
-      logger.info(e.message)
+    rescue StandardError => e
+      logger.error(e.message)
       json(html: false)
     end
   end
@@ -64,7 +64,7 @@ class App
 
   get '/' do
     ds = Hardware.search(params).cursor(params[:max_id], params[:per_page])
-    @hardwares = ds.all
+    @hardwares = ds.al
     @building_hardwares = Hardware.where_all(id: get_session_hardwares.map { |h| h[:id] }) unless request.xhr?
     @next_info = ds.next_info(@hardwares.last&.id)
     respond_to do |f|

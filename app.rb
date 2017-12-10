@@ -50,7 +50,7 @@ class App < Sinatra::Base
       end
     end
 
-    error do
+    error 500 do
       logger.error(env['sinatra.error'].message)
     end
   end
