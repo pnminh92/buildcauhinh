@@ -8,12 +8,15 @@
     <div class="container">
       <div class="hardware-search">
         <div class="hardware-search-input">
-          <input type="hidden" name="authenticity_token" value="<%= session[:csrf] %>">
-          <input name="word" type="text" class="input input-search" placeholder="<%= I18n.t('views.plh_search_hardware') %>">
-          <select name="providers[]" class="hardware-provider-select">
+          <input type="text" class="input input-search" placeholder="<%= I18n.t('views.plh_search_hardware') %>">
+          <select class="hardware-provider-select choices" multiple>
           <% SETTINGS['hardware_providers'].each do |provider| %>
             <option value="<%= provider %>"><%= I18n.t("views.#{provider}") %></option>
           <% end %>
+          </select>
+          <select class="input hardware-search-type">
+            <option value="live" selected>Live</option>
+            <option value="cache">Cache</option>
           </select>
         </div>
         <button type="button" class="btn btn-gray" onclick="Buildcauhinh.search()">

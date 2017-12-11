@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Selectr from './vendor/selectr'
+import Choices from './vendor/choices'
 
 import HardwareList from './hardware_list'
 import Build from './build'
@@ -12,8 +12,8 @@ Turbolinks.start()
 window.HardwareList = HardwareList
 window.Build = Build
 window.Commentation = Commentation
-let selectr = null
-window.window.isFetching = false
+window.isFetching = false
+let choices = null
 
 axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name=csrf-token]').getAttribute('content')
 
@@ -44,7 +44,7 @@ class Buildcauhinh {
     if (!word) return
     window.isFetching = true
     Util.displaySpinner()
-    const providers = selectr.getValue()
+    const providers = choices.getValue()
     axios.post('/search', { providers: providers, word: word })
       .then(response => {
         Util.removeSpinner()
@@ -67,17 +67,6 @@ class Buildcauhinh {
         setTimeout(() => flash.remove(), 400)
       }, 3000)
     }
-  }
-
-  static initSelectr () {
-    const hardwareProvider = document.querySelector('.hardware-provider-select')
-    if (!hardwareProvider) return
-    return new Selectr(hardwareProvider, {
-      defaultSelected: false,
-      placeholder: 'Chọn cửa hàng',
-      multiple: true,
-      searchable: false
-    })
   }
 
   static loadMoreHardwares (target) {
@@ -144,6 +133,11 @@ window.Buildcauhinh = Buildcauhinh
 document.addEventListener('turbolinks:load', () => {
   Buildcauhinh.toggleDropdown()
   Buildcauhinh.fadeOutFlash()
-  if (document.querySelector('.hardware-provider-select') && !document.querySelector('.selectr-container')) selectr = Buildcauhinh.initSelectr()
-  if (selectr) selectr.selectedValues = []
+  choices = new Choices('.choices', {
+    removeItemButton: true,
+    searchEnabled: false,
+    placeholderValue: 'Chọn cửa hàng',
+    itemSelectText: '',
+    noChoicesText: 'Hết cửa hàng để chọn'
+  })
 })

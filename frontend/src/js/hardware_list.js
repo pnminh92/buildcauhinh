@@ -23,10 +23,14 @@ export default class HardwareList {
           if (!response.data.html) return
           document.querySelector('.main-content').innerHTML = response.data.html
         })
-        .catch(() => {
-          window.isFetching = false
-          Util.removeSpinner()
-          Util.alertServerError()
+        .catch((error) => {
+          if (error.response.status == 404) {
+            document.querySelector('.main-content').innerHTML = `<h1 class="title">Không tìm thấy linh kiện</h1>`
+          } else {
+            window.isFetching = false
+            Util.removeSpinner()
+            Util.alertServerError()
+          }
         })
     }
   }

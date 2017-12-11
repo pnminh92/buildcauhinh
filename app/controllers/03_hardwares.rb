@@ -64,7 +64,7 @@ class App
 
   get '/' do
     ds = Hardware.search(params).cursor(params[:max_id], params[:per_page])
-    @hardwares = ds.al
+    @hardwares = ds.all
     @building_hardwares = Hardware.where_all(id: get_session_hardwares.map { |h| h[:id] }) unless request.xhr?
     @next_info = ds.next_info(@hardwares.last&.id)
     respond_to do |f|

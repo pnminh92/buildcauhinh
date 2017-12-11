@@ -98,7 +98,7 @@ gulp.task('serve', function () {
 });
 
 gulp.task('rev', function () {
-  gulp.src([`${config.appPath}/*.{jpg,jpeg,png,gif,ico,js,css,map}`])
+  gulp.src([`${config.appPath}/*.{svg,jpg,jpeg,png,gif,ico,js,css,map}`])
       .pipe(rev())
       .pipe(override())
       .pipe(gulp.dest('../public/assets'))
