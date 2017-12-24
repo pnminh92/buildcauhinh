@@ -13,7 +13,7 @@
 
           <% if @next_info[:has_next] %>
           <div class="block-view-more">
-            <button class="btn btn-gray btn-block" data-json="<%= escape_html(@next_info.to_json) %>" onclick="Buildcauhinh.loadMoreBuilds(this)"><%= I18n.t('views.view_more_btn') %></button>
+            <button class="btn btn-gray btn-block" data-json="<%= @next_info.to_json %>" onclick="Buildcauhinh.loadMoreBuilds(this)"><%= I18n.t('views.view_more_btn') %></button>
           </div>
           <% end %>
         </div>

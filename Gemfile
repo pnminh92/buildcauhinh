@@ -4,36 +4,26 @@ source 'https://rubygems.org'
 
 require 'logger'
 
+gem 'erubis'
+gem 'http'
+gem 'i18n'
+gem 'mail'
+gem 'nokogiri'
+gem 'pg'
+gem 'puma'
+gem 'rake'
+gem 'sequel'
+gem 'sequel_pg', require: 'sequel'
+gem 'sequel_secure_password'
+gem 'shrine'
+gem 'shrine-cloudinary'
+gem 'sidekiq'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'sinatra-flash'
 
-gem 'puma'
-gem 'sidekiq'
-gem 'rake'
-
-# Internationalize
-gem 'i18n'
-
-# File attachment
-gem 'shrine'
-gem 'shrine-cloudinary'
-
-# postgresql and sequel ORM
-gem 'pg'
-gem 'sequel'
-gem 'sequel_secure_password'
-gem 'sequel_pg', require: 'sequel'
-
-# Mailer
-gem 'mail'
-
-gem 'http'
-gem 'nokogiri'
-
-gem 'logglier'
-
 group :production do
+  gem 'logglier'
   gem 'redis-namespace'
 end
 

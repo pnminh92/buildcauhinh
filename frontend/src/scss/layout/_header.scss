@@ -35,7 +35,7 @@ body {
   align-items: center;
 
   @include respond-to-pc() {
-    height: 80px;
+    height: 50px;
   }
 
   .nav-logo {

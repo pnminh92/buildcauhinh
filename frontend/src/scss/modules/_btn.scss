@@ -10,7 +10,7 @@
   border: 0;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color .2s ease-in-out;
+  transition: all .2s ease-in-out;
 
   @include respond-to-sp() {
     font-size: $font-size-xs;
@@ -23,6 +23,16 @@
   &:hover {
     background-color: lighten($color-green, 5%);
     text-decoration: none;
+  }
+
+  &.btn-inversed {
+    border: 1px solid $color-green;
+    background-color: $color-white;
+    color: $color-green;
+    &:hover {
+      background-color: $color-green;
+      color: $color-white;
+    }
   }
 
   &.btn-gray {

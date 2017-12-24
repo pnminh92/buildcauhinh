@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 Mail.defaults do
-  case App.settings.environment
+  case Buildcauhinh::App.settings.environment
   when :development
-    delivery_method LetterOpener::DeliveryMethod, location: File.join(App.settings.root, 'tmp', 'letter_opener')
+    delivery_method LetterOpener::DeliveryMethod, location: File.join(Buildcauhinh::App.settings.root, 'tmp', 'letter_opener')
   when :test
     delivery_method :test
   when :production

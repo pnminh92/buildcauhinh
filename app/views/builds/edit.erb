@@ -61,11 +61,11 @@
             <% @hardwares.each_with_index do |hardware, k| %>
               <tr>
                 <td><%= k + 1 %></td>
-                <td><%= escape_html I18n.t("views.#{hardware.provider}") %></td>
-                <th><%= escape_html hardware.part %></th>
-                <td><a href="<%= escape_html hardware.url %>" target="_blank"><%= escape_html hardware.name %></a></td>
-                <td class="text-red"><%= escape_html hardware.display_price %></td>
-                <td><button type="button" class="btn btn-gray" data-json="<%= escape_html({ id: hardware.id, price: hardware.price, part: hardware.part }.to_json) %>" onclick="HardwareList.removeItem(this)"><%= I18n.t('views.remove_btn') %></button></td>
+                <td><%= I18n.t("views.#{hardware.provider}") %></td>
+                <th><%= hardware.part %></th>
+                <td><a href="<%= hardware.url %>" target="_blank"><%= escape_html hardware.name %></a></td>
+                <td class="text-red"><%= hardware.display_price %></td>
+                <td><button type="button" class="btn btn-gray" data-json="<%= { id: hardware.id, price: hardware.price, part: hardware.part }.to_json %>" onclick="HardwareList.removeItem(this)"><%= I18n.t('views.remove_btn') %></button></td>
               </tr>
             <% end %>
               <tr>

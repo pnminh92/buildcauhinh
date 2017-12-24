@@ -29,14 +29,16 @@
 #  builds_hardwares_build_id_fkey    | (build_id) REFERENCES builds(id)
 #  builds_hardwares_hardware_id_fkey | (hardware_id) REFERENCES hardwares(id)
 
-class BuildsHardware < Sequel::Model
-  many_to_one :build
-  many_to_one :hardware
+module Buildcauhinh
+  class BuildsHardware < Sequel::Model
+    many_to_one :build
+    many_to_one :hardware
 
-  dataset_module do
-    def build(build_id, hardware_ids)
-      data = hardware_ids.map { |id| [build_id, id] }
-      import(%i[build_id hardware_id], data)
+    dataset_module do
+      def build(build_id, hardware_ids)
+        data = hardware_ids.map { |id| [build_id, id] }
+        import(%i[build_id hardware_id], data)
+      end
     end
   end
 end

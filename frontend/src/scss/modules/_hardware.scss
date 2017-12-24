@@ -51,33 +51,3 @@
     margin-top: 10px;
   }
 }
-
-.hardware-search {
-  margin-bottom: 40px;
-  display: flex;
-
-  @include respond-to-sp() {
-    margin-bottom: 20px;
-  }
-
-  .hardware-search-input {
-    flex-grow: 1;
-  }
-  .input {
-    width: 100%;
-    border-right: 0;
-    border-radius: 4px 0 0;
-    &::placeholder {
-      color: $color-gray;
-    }
-  }
-  .btn {
-    width: 80px;
-    border: 1px solid darken($color-lighter-gray, 10%);
-    border-left: 0;
-    border-radius: 0 4px 4px 0;
-    @include respond-to-sp() {
-      width: 60px;
-    }
-  }
-}

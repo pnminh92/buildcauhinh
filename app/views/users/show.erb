@@ -13,7 +13,7 @@
 
           <% if @next_info[:has_next] %>
           <div class="block-view-more">
-            <button class="btn btn-gray btn-block" data-username="<%= @user.username %>" data-json="<%= escape_html(@next_info.to_json) %>" onclick="Buildcauhinh.loadMoreUserBuilds(this)"><%= I18n.t('views.view_more_btn') %></button>
+            <button class="btn btn-gray btn-block" data-username="<%= @user.username %>" data-json="<%= @next_info.to_json %>" onclick="Buildcauhinh.loadMoreUserBuilds(this)"><%= I18n.t('views.view_more_btn') %></button>
           </div>
           <% end %>
         </div>
@@ -24,7 +24,7 @@
           <img class="user-avatar" src="<%= @user.eco_img_url %>" alt="<%= @user.username %>">
           <h1 class="user-name sub-title"><%= @user.username %></h1>
           <% if @user.about %>
-          <p class="user-about"><%= escape_html @user.about %></p>
+          <p class="user-about"><%= @user.about %></p>
           <% end %>
         </div>
       </aside>
